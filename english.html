@@ -1,0 +1,2874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofi Teaches — English Trainer</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #58cc02;
+  --green-dark: #46a302;
+  --green-light: #d7ffb8;
+  --blue: #1cb0f6;
+  --blue-dark: #0a95d4;
+  --blue-light: #ddf4ff;
+  --red: #ff4b4b;
+  --red-light: #ffdfe0;
+  --yellow: #ffc800;
+  --yellow-light: #fff3c4;
+  --purple: #ce82ff;
+  --purple-light: #f0d9ff;
+  --orange: #ff9600;
+  --orange-light: #ffecd2;
+  --bg: #f7f7f7;
+  --white: #ffffff;
+  --card: #ffffff;
+  --border: #e5e5e5;
+  --border2: #afafaf;
+  --text: #3c3c3c;
+  --text2: #777777;
+  --text3: #afafaf;
+  --shadow: 0 4px 0 rgba(0,0,0,0.1);
+  --shadow-sm: 0 2px 0 rgba(0,0,0,0.08);
+  --radius: 16px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--white);
+  border-bottom: 2px solid var(--border);
+  padding: 0 16px;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  overflow: hidden;
+  gap: 8px;
+}
+.logo {
+  font-size: 1.25rem; font-weight: 900; color: var(--green);
+  letter-spacing: -0.5px;
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap;
+}
+.logo-owl { font-size: 1.4rem; }
+.header-stats { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.stat-pill {
+  display: flex; align-items: center; gap: 4px;
+  font-weight: 700; font-size: 0.88rem;
+  white-space: nowrap;
+}
+.stat-pill .icon { font-size: 1rem; }
+.stat-pill.streak { color: var(--orange); }
+.stat-pill.hearts { color: var(--red); font-size: 0.8rem; }
+.stat-pill.xp { color: var(--yellow); }
+.xp-bar-outer {
+  width: 60px; height: 10px;
+  background: var(--border);
+  border-radius: 5px; overflow: hidden;
+  border: 2px solid var(--border2);
+}
+.xp-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--yellow), var(--orange));
+  border-radius: 3px;
+  transition: width 0.6s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ── LAYOUT ── */
+.app-layout {
+  display: flex;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  gap: 24px;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 220px; flex-shrink: 0;
+}
+.sidebar-section { margin-bottom: 8px; }
+.nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 16px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 700; font-size: 0.92rem;
+  color: var(--text2);
+  border: 2px solid transparent;
+  transition: all 0.15s;
+  text-decoration: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.nav-item:hover { background: var(--border); color: var(--text); }
+.nav-item.active {
+  background: var(--blue-light);
+  color: var(--blue-dark);
+  border-color: var(--blue);
+}
+.nav-item .nav-icon { font-size: 1.3rem; width: 28px; text-align: center; }
+.nav-item .nav-badge {
+  margin-left: auto;
+  background: var(--red);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+/* ── MAIN CONTENT ── */
+.main-content { flex: 1; min-width: 0; }
+
+/* ── SCREEN ── */
+.screen { display: none; animation: fadeUp 0.3s ease; }
+.screen.active { display: block; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTION HEADER ── */
+.section-header { margin-bottom: 24px; }
+.section-title {
+  font-size: 1.6rem; font-weight: 900;
+  color: var(--text); margin-bottom: 4px;
+}
+.section-sub { color: var(--text2); font-size: 0.9rem; font-weight: 600; }
+
+/* ── CARDS ── */
+.duo-card {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.duo-card:hover { transform: translateY(-2px); box-shadow: 0 6px 0 rgba(0,0,0,0.1); }
+
+/* ── GRID ── */
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 20px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width: 680px) {
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .app-layout { flex-direction: column; padding: 12px 12px 80px; gap: 0; }
+  .sidebar { display: none; }
+  .main-content { width: 100%; }
+  /* Mobile bottom nav */
+  .mobile-nav {
+    display: flex !important;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--white);
+    border-top: 2px solid var(--border);
+    z-index: 100;
+    padding: 6px 0 8px;
+  }
+  .home-hero { padding: 18px 16px; }
+  .hero-mascot svg { width: 80px; height: 96px; }
+  .hero-text h2 { font-size: 1.2rem; }
+  .options-grid { grid-template-columns: 1fr; }
+  .quiz-progress-row { flex-wrap: wrap; gap: 8px; }
+  .section-title { font-size: 1.3rem; }
+  .flashcard-scene { height: 220px; }
+}
+@media(min-width: 681px) {
+  .mobile-nav { display: none !important; }
+}
+
+/* ── HOME ── */
+.home-hero {
+  background: linear-gradient(135deg, #58cc02 0%, #46a302 100%);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  color: white;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 4px 0 #3a8a00;
+}
+.hero-text h2 { font-size: 1.6rem; font-weight: 900; margin-bottom: 6px; }
+.hero-text p { font-size: 0.9rem; opacity: 0.9; font-weight: 600; }
+.hero-mascot { font-size: 4rem; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2)); }
+.stat-val { font-size: 2rem; font-weight: 900; color: var(--text); }
+.stat-lbl { font-size: 0.78rem; font-weight: 700; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px; }
+.progress-track {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+.progress-track h3 { font-weight: 800; font-size: 0.95rem; margin-bottom: 14px; color: var(--text); }
+.level-bar-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.level-label { font-size: 0.8rem; font-weight: 700; color: var(--text2); width: 28px; }
+.level-bar { flex: 1; height: 14px; background: var(--border); border-radius: 7px; overflow: hidden; border: 2px solid var(--border2); }
+.level-fill { height: 100%; border-radius: 5px; transition: width 0.8s cubic-bezier(.34,1.56,.64,1); }
+.streak-row { display: flex; gap: 6px; }
+.day-chip {
+  flex: 1; padding: 8px 4px; border-radius: var(--radius-xs);
+  border: 2px solid var(--border); text-align: center;
+  font-size: 0.7rem; font-weight: 800; color: var(--text3);
+}
+.day-chip.done { background: var(--orange-light); border-color: var(--orange); color: var(--orange); }
+.day-chip.today { background: var(--blue-light); border-color: var(--blue); color: var(--blue-dark); }
+.day-chip .day-icon { font-size: 1rem; display: block; }
+
+/* ── LESSON GRID (home) ── */
+.lessons-grid { display: flex; flex-direction: column; gap: 8px; }
+.lesson-row {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  display: flex; align-items: center; gap: 14px;
+  cursor: pointer; transition: all 0.15s;
+  box-shadow: var(--shadow-sm);
+}
+.lesson-row:hover { border-color: var(--green); transform: translateX(4px); }
+.lesson-icon { font-size: 1.6rem; width: 40px; text-align: center; }
+.lesson-info { flex: 1; }
+.lesson-name { font-weight: 800; font-size: 0.95rem; }
+.lesson-desc { font-size: 0.78rem; color: var(--text2); font-weight: 600; margin-top: 2px; }
+.lesson-arrow { color: var(--text3); font-size: 1.2rem; font-weight: 900; }
+.lesson-row.completed .lesson-icon-wrap {
+  background: var(--green-light);
+  border: 2px solid var(--green);
+  border-radius: 50%;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── FLASHCARDS ── */
+.fc-wrap { max-width: 540px; margin: 0 auto; }
+.fc-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.fc-prog-bar { flex: 1; height: 14px; background: var(--border); border-radius: 7px; overflow: hidden; border: 2px solid var(--border2); margin: 0 14px; }
+.fc-prog-fill { height: 100%; background: linear-gradient(90deg, var(--green), #78e000); border-radius: 5px; transition: width 0.4s ease; }
+.fc-count { font-weight: 800; font-size: 0.85rem; color: var(--text2); white-space: nowrap; }
+
+.flashcard-scene { perspective: 1200px; height: 260px; margin-bottom: 16px; cursor: pointer; }
+.flashcard-3d {
+  width: 100%; height: 100%;
+  position: relative; transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(.4,0,.2,1);
+}
+.flashcard-3d.flipped { transform: rotateY(180deg); }
+.card-side {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 28px; text-align: center;
+  box-shadow: var(--shadow);
+}
+.card-front { background: var(--white); }
+.card-back { background: linear-gradient(135deg, #f0fff4, #e6ffee); border-color: var(--green); transform: rotateY(180deg); }
+.card-tag {
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 4px 12px; border-radius: 20px; margin-bottom: 12px;
+}
+.tag-coursera { background: var(--purple-light); color: #8b5cf6; }
+.tag-ai { background: var(--blue-light); color: var(--blue-dark); }
+.tag-business { background: var(--orange-light); color: var(--orange); }
+.tag-fluency { background: var(--green-light); color: var(--green-dark); }
+.card-word { font-size: 1.9rem; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.card-pron { font-size: 0.85rem; color: var(--text2); font-weight: 600; margin-bottom: 12px; }
+.card-hint-text { font-size: 0.8rem; color: var(--text3); font-weight: 600; }
+.card-translation { font-size: 1.2rem; font-weight: 800; color: var(--green-dark); margin-bottom: 10px; }
+.card-example { font-size: 0.83rem; color: var(--text2); font-style: italic; font-weight: 600; line-height: 1.5; border-left: 3px solid var(--green); padding-left: 10px; text-align: left; }
+.speak-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 14px; border-radius: 20px;
+  border: 2px solid var(--green); background: var(--green-light);
+  color: var(--green-dark); font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem; font-weight: 800; cursor: pointer;
+  transition: all 0.15s; margin-top: 10px;
+}
+.speak-btn:hover { background: var(--green); color: white; }
+.speak-btn.speaking { background: var(--green); color: white; animation: speakPulse 0.7s infinite; }
+@keyframes speakPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+.tap-hint { text-align: center; color: var(--text3); font-size: 0.78rem; font-weight: 700; margin-bottom: 14px; }
+
+.rating-row { display: flex; gap: 10px; justify-content: center; }
+.rate-btn {
+  flex: 1; max-width: 140px; padding: 14px 10px;
+  border-radius: var(--radius-sm);
+  border: 2px solid; font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem; font-weight: 800; cursor: pointer;
+  transition: all 0.15s; box-shadow: var(--shadow-sm);
+}
+.rate-btn:active { transform: translateY(2px); box-shadow: none; }
+.rate-hard { border-color: var(--red); color: var(--red); background: var(--red-light); }
+.rate-ok { border-color: var(--yellow); color: #b37c00; background: var(--yellow-light); }
+.rate-easy { border-color: var(--green); color: var(--green-dark); background: var(--green-light); }
+.rate-hard:hover { background: var(--red); color: white; }
+.rate-ok:hover { background: var(--yellow); color: white; }
+.rate-easy:hover { background: var(--green); color: white; }
+
+.nav-row { display: flex; gap: 10px; justify-content: center; }
+.nav-btn-fc {
+  padding: 12px 24px; border-radius: var(--radius-sm);
+  border: 2px solid var(--border); background: var(--white);
+  font-family: 'Nunito', sans-serif; font-size: 0.88rem;
+  font-weight: 700; cursor: pointer; color: var(--text2);
+  box-shadow: var(--shadow-sm); transition: all 0.15s;
+}
+.nav-btn-fc:hover { border-color: var(--blue); color: var(--blue-dark); }
+
+.cat-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.cat-pill {
+  padding: 7px 16px; border-radius: 20px;
+  border: 2px solid var(--border); background: var(--white);
+  font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 700;
+  cursor: pointer; color: var(--text2); transition: all 0.15s;
+}
+.cat-pill:hover { border-color: var(--blue); color: var(--blue-dark); }
+.cat-pill.active { background: var(--blue); border-color: var(--blue); color: white; }
+
+/* ── QUIZ ── */
+.quiz-wrap { max-width: 620px; margin: 0 auto; }
+.quiz-hearts { display: flex; gap: 4px; margin-bottom: 4px; }
+.quiz-progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.quiz-prog-bar { flex: 1; height: 16px; background: var(--border); border-radius: 8px; overflow: hidden; border: 2px solid var(--border2); }
+.quiz-prog-fill { height: 100%; background: linear-gradient(90deg, var(--green), #78e000); border-radius: 6px; transition: width 0.5s cubic-bezier(.34,1.56,.64,1); }
+
+.question-card {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+}
+.q-type-badge {
+  display: inline-block;
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.08em; padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 14px;
+}
+.badge-vocab { background: var(--blue-light); color: var(--blue-dark); }
+.badge-grammar { background: var(--purple-light); color: #7c3aed; }
+.badge-idiom { background: var(--orange-light); color: var(--orange); }
+.badge-coursera { background: #f0d9ff; color: #7c3aed; }
+.badge-fill { background: var(--green-light); color: var(--green-dark); }
+.badge-listen { background: var(--yellow-light); color: #b37c00; }
+
+.question-text {
+  font-size: 1.25rem; font-weight: 800; color: var(--text);
+  line-height: 1.4; margin-bottom: 6px;
+}
+.question-text em { color: var(--blue-dark); font-style: normal; background: var(--blue-light); padding: 0 4px; border-radius: 4px; }
+.question-sub { font-size: 0.85rem; color: var(--text2); font-weight: 600; margin-bottom: 20px; }
+
+.options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.option-btn {
+  padding: 16px 14px;
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 700;
+  cursor: pointer; text-align: left; transition: all 0.15s;
+  box-shadow: var(--shadow-sm); color: var(--text);
+}
+.option-btn:hover:not(:disabled) { border-color: var(--blue); background: var(--blue-light); color: var(--blue-dark); }
+.option-btn.correct { border-color: var(--green); background: var(--green-light); color: var(--green-dark); animation: correctPop 0.4s ease; }
+.option-btn.wrong { border-color: var(--red); background: var(--red-light); color: var(--red); animation: shake 0.4s ease; }
+@keyframes correctPop { 0%{transform:scale(1)} 50%{transform:scale(1.04)} 100%{transform:scale(1)} }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+.feedback-box {
+  border-radius: var(--radius-sm); padding: 16px 20px;
+  font-size: 0.88rem; font-weight: 700; line-height: 1.6;
+  display: none; margin-top: 10px;
+}
+.feedback-box.show { display: flex; align-items: flex-start; gap: 10px; }
+.feedback-box.correct { background: var(--green-light); border: 2px solid var(--green); color: var(--green-dark); }
+.feedback-box.wrong { background: var(--red-light); border: 2px solid var(--red); color: var(--red); }
+.fb-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+
+.quiz-score-bar {
+  display: flex; gap: 16px; margin-bottom: 16px;
+  font-weight: 700; font-size: 0.85rem; color: var(--text2);
+}
+.quiz-score-bar span { color: var(--text); font-weight: 900; }
+
+/* ── BUTTONS ── */
+.btn-primary {
+  background: var(--green);
+  color: white; border: none;
+  padding: 14px 32px; border-radius: var(--radius-sm);
+  font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
+  cursor: pointer; box-shadow: 0 4px 0 var(--green-dark);
+  transition: all 0.15s; display: inline-block;
+}
+.btn-primary:hover { background: #66d603; transform: translateY(-1px); box-shadow: 0 5px 0 var(--green-dark); }
+.btn-primary:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--green-dark); }
+.btn-secondary {
+  background: var(--white); color: var(--blue-dark);
+  border: 2px solid var(--blue); padding: 12px 28px;
+  border-radius: var(--radius-sm); font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem; font-weight: 800; cursor: pointer;
+  box-shadow: 0 4px 0 var(--blue-dark); transition: all 0.15s;
+}
+.btn-secondary:hover { background: var(--blue-light); }
+.btn-secondary:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--blue-dark); }
+.btn-ghost {
+  background: none; border: 2px solid var(--border);
+  color: var(--text2); padding: 12px 24px;
+  border-radius: var(--radius-sm); font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
+}
+.btn-ghost:hover { border-color: var(--text2); color: var(--text); }
+
+/* ── TEST ── */
+.test-intro {
+  max-width: 500px; margin: 40px auto;
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 40px; text-align: center;
+  box-shadow: var(--shadow);
+}
+.test-mascot { font-size: 4rem; margin-bottom: 16px; }
+.test-intro h2 { font-size: 1.6rem; font-weight: 900; margin-bottom: 10px; }
+.test-intro p { color: var(--text2); font-weight: 600; line-height: 1.6; margin-bottom: 24px; font-size: 0.92rem; }
+.test-chips { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.test-chip {
+  padding: 6px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;
+  background: var(--blue-light); color: var(--blue-dark);
+}
+.test-progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.test-prog-label { font-size: 0.8rem; font-weight: 800; color: var(--text2); white-space: nowrap; }
+.test-prog-bar { flex: 1; height: 14px; background: var(--border); border-radius: 7px; overflow: hidden; border: 2px solid var(--border2); }
+.test-prog-fill { height: 100%; background: linear-gradient(90deg, var(--purple), #a855f7); border-radius: 5px; transition: width 0.4s ease; }
+
+.result-box {
+  max-width: 480px; margin: 40px auto;
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); padding: 40px; text-align: center;
+  box-shadow: var(--shadow);
+}
+.result-level-badge {
+  display: inline-block;
+  font-size: 3rem; font-weight: 900;
+  color: var(--green-dark); margin: 10px 0;
+  background: var(--green-light); border: 3px solid var(--green);
+  border-radius: var(--radius); padding: 12px 32px;
+}
+.result-stars { font-size: 1.8rem; margin-bottom: 8px; }
+
+/* ── DIALOGUE ── */
+.dialogue-wrap { max-width: 680px; }
+.scenario-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.scenario-pill {
+  padding: 8px 16px; border-radius: 20px;
+  border: 2px solid var(--border); background: var(--white);
+  font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 700;
+  cursor: pointer; color: var(--text2); transition: all 0.15s;
+  box-shadow: var(--shadow-sm);
+}
+.scenario-pill:hover { border-color: var(--blue); color: var(--blue-dark); }
+.scenario-pill.active { background: var(--blue); border-color: var(--blue); color: white; box-shadow: 0 4px 0 var(--blue-dark); }
+.chat-box {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.chat-header {
+  background: var(--green); color: white;
+  padding: 14px 20px; display: flex; align-items: center; gap: 10px;
+}
+.chat-avatar { font-size: 1.6rem; background: rgba(255,255,255,0.2); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.chat-name { font-weight: 800; font-size: 0.95rem; }
+.chat-status { font-size: 0.75rem; opacity: 0.85; font-weight: 600; }
+.chat-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; min-height: 240px; max-height: 360px; overflow-y: auto; }
+.msg { max-width: 78%; }
+.msg.ai { align-self: flex-start; }
+.msg.user { align-self: flex-end; }
+.msg-label { font-size: 0.7rem; font-weight: 800; color: var(--text3); margin-bottom: 4px; }
+.msg.user .msg-label { text-align: right; }
+.msg-bubble { padding: 12px 16px; border-radius: 16px; font-size: 0.88rem; font-weight: 600; line-height: 1.6; }
+.msg.ai .msg-bubble { background: var(--bg); border: 2px solid var(--border); border-bottom-left-radius: 4px; }
+.msg.user .msg-bubble { background: var(--blue); color: white; border-bottom-right-radius: 4px; }
+.msg-bubble .feedback { color: var(--orange); font-weight: 700; font-size: 0.83rem; margin-top: 6px; display: block; }
+.chat-input-row { padding: 14px 16px; border-top: 2px solid var(--border); display: flex; gap: 8px; align-items: center; background: var(--bg); }
+.mic-btn {
+  width: 44px; height: 44px; border-radius: var(--radius-xs);
+  border: 2px solid var(--border); background: var(--white);
+  font-size: 1.1rem; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; transition: all 0.15s;
+  flex-shrink: 0; box-shadow: var(--shadow-sm);
+}
+.mic-btn:hover { border-color: var(--red); }
+.mic-btn.recording { border-color: var(--red); background: var(--red-light); animation: speakPulse 0.6s infinite; }
+.chat-input {
+  flex: 1; padding: 11px 14px; border-radius: var(--radius-xs);
+  border: 2px solid var(--border); background: var(--white);
+  font-family: 'Nunito', sans-serif; font-size: 0.88rem; font-weight: 600;
+  outline: none; transition: border-color 0.15s;
+}
+.chat-input:focus { border-color: var(--blue); }
+.send-btn {
+  background: var(--green); color: white; border: none;
+  padding: 11px 18px; border-radius: var(--radius-xs);
+  font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 800;
+  cursor: pointer; box-shadow: 0 3px 0 var(--green-dark); transition: all 0.15s;
+}
+.send-btn:hover { background: #66d603; }
+.send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.mic-status { font-size: 0.75rem; font-weight: 700; color: var(--text3); text-align: center; padding: 4px; }
+.mic-status.active { color: var(--red); }
+
+/* ── IDIOMS ── */
+.idiom-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
+.idiom-card {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius-sm); padding: 18px;
+  box-shadow: var(--shadow-sm); transition: all 0.15s;
+}
+.idiom-card:hover { border-color: var(--orange); transform: translateY(-2px); box-shadow: var(--shadow); }
+.idiom-phrase { font-size: 1rem; font-weight: 900; color: var(--orange); margin-bottom: 6px; }
+.idiom-meaning { font-size: 0.82rem; font-weight: 700; color: var(--text2); margin-bottom: 8px; }
+.idiom-ex { font-size: 0.8rem; font-weight: 600; color: var(--text); font-style: italic; border-left: 3px solid var(--orange-light); padding-left: 10px; line-height: 1.5; }
+.idiom-speak { margin-top: 8px; }
+
+/* ── COMPLETE SCREEN ── */
+.complete-screen {
+  text-align: center; padding: 40px 20px;
+  max-width: 480px; margin: 0 auto;
+}
+.complete-screen .big-emoji { font-size: 5rem; margin-bottom: 16px; animation: bounce 0.6s ease; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+.complete-screen h2 { font-size: 2rem; font-weight: 900; margin-bottom: 8px; }
+.complete-screen p { color: var(--text2); font-weight: 600; margin-bottom: 24px; }
+.xp-earned { display: inline-flex; align-items: center; gap: 8px; background: var(--yellow-light); border: 2px solid var(--yellow); border-radius: var(--radius-sm); padding: 10px 20px; font-size: 1.1rem; font-weight: 900; color: #b37c00; margin-bottom: 20px; }
+
+/* ── NOTIFICATION TOAST ── */
+.toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--green); color: white; padding: 14px 24px;
+  border-radius: var(--radius); font-weight: 800; font-size: 0.95rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15); transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  z-index: 999; white-space: nowrap;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ── WORD SELECT POPUP ── */
+#wordPopup {
+  position: fixed;
+  background: var(--white);
+  border: 2px solid var(--green);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  padding: 10px 14px;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  animation: popIn 0.2s cubic-bezier(.34,1.56,.64,1);
+  min-width: 220px;
+}
+#wordPopup.show { display: flex; }
+@keyframes popIn {
+  from { opacity:0; transform:scale(0.85) translateY(6px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+#wordPopup .pw-word {
+  font-weight: 900; font-size: 1rem; color: var(--text);
+  flex: 1;
+}
+#wordPopup .pw-add {
+  background: var(--green); color: white;
+  border: none; border-radius: var(--radius-xs);
+  padding: 7px 14px; font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem; font-weight: 800; cursor: pointer;
+  box-shadow: 0 3px 0 var(--green-dark); transition: all 0.15s;
+  white-space: nowrap;
+}
+#wordPopup .pw-add:hover { background: #66d603; }
+#wordPopup .pw-speak {
+  background: var(--green-light); color: var(--green-dark);
+  border: 2px solid var(--green); border-radius: var(--radius-xs);
+  padding: 6px 10px; font-size: 0.85rem; cursor: pointer;
+  transition: all 0.15s;
+}
+#wordPopup .pw-speak:hover { background: var(--green); color: white; }
+#wordPopup .pw-close {
+  background: none; border: none; color: var(--text3);
+  font-size: 1rem; cursor: pointer; padding: 4px;
+}
+.popup-arrow {
+  position: fixed; z-index: 9998;
+  width: 0; height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid var(--green);
+  display: none;
+}
+
+/* ── MY WORDS SCREEN ── */
+.mywords-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 12px; }
+.myword-card {
+  background: var(--white); border: 2px solid var(--border);
+  border-radius: var(--radius-sm); padding: 14px 16px;
+  box-shadow: var(--shadow-sm); position: relative;
+  transition: all 0.15s;
+}
+.myword-card:hover { border-color: var(--purple); transform: translateY(-1px); box-shadow: var(--shadow); }
+.myword-word { font-weight: 900; font-size: 1rem; color: var(--text); margin-bottom: 4px; }
+.myword-translation { font-size: 0.82rem; font-weight: 700; color: var(--green-dark); margin-bottom: 6px; min-height: 18px; }
+.myword-source { font-size: 0.72rem; color: var(--text3); font-weight: 600; }
+.myword-del {
+  position: absolute; top: 10px; right: 10px;
+  background: none; border: none; color: var(--text3);
+  font-size: 0.9rem; cursor: pointer; padding: 2px 6px;
+  border-radius: 4px; transition: all 0.15s;
+}
+.myword-del:hover { background: var(--red-light); color: var(--red); }
+.mywords-empty {
+  text-align: center; padding: 48px 20px; color: var(--text2);
+}
+.mywords-empty .big { font-size: 3rem; margin-bottom: 12px; }
+.mywords-count {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--purple-light); border: 2px solid var(--purple);
+  color: #7c3aed; border-radius: 20px; padding: 4px 14px;
+  font-size: 0.8rem; font-weight: 800; margin-bottom: 16px;
+}
+
+/* loading */
+.typing-dots span { animation: dotPulse 1.2s infinite; display: inline-block; }
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="mobile-nav" style="display:none">
+  <style>
+  .mobile-nav { justify-content: space-around; }
+  .mob-btn {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 2px; padding: 4px 2px;
+    background: none; border: none; cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    color: var(--text3); font-size: 0.6rem; font-weight: 800;
+    transition: color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mob-btn .mob-icon { font-size: 1.35rem; line-height: 1; }
+  .mob-btn.active { color: var(--blue-dark); }
+  .mob-btn.active .mob-icon { transform: scale(1.15); }
+  .mob-badge {
+    position: absolute; top: -2px; right: -4px;
+    background: var(--red); color: white;
+    font-size: 0.55rem; font-weight: 900;
+    padding: 1px 5px; border-radius: 8px;
+  }
+  </style>
+  <button class="mob-btn active" onclick="showScreen('home')" id="mob-home">
+    <span class="mob-icon">🏠</span>Home
+  </button>
+  <button class="mob-btn" onclick="showScreen('flashcards')" id="mob-flashcards">
+    <span class="mob-icon">🃏</span>Cards
+  </button>
+  <button class="mob-btn" onclick="showScreen('quiz')" id="mob-quiz">
+    <span class="mob-icon">⚡</span>Quiz
+  </button>
+  <button class="mob-btn" onclick="showScreen('dialogue')" id="mob-dialogue">
+    <span class="mob-icon">💬</span>Chat
+  </button>
+  <button class="mob-btn" onclick="showScreen('mywords')" id="mob-mywords">
+    <span class="mob-icon" style="position:relative">⭐<span class="mob-badge" id="mobWordsBadge" style="display:none">0</span></span>Words
+  </button>
+  <button class="mob-btn" onclick="showScreen('verbs')" id="mob-verbs">
+    <span class="mob-icon">📝</span>Verbs
+  </button>
+  <button class="mob-btn" onclick="showScreen('history')" id="mob-history">
+    <span class="mob-icon">📈</span>Progress
+  </button>
+</nav>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- WORD SELECT POPUP -->
+<div id="wordPopup">
+  <button class="pw-speak" onclick="speakText(document.getElementById('pwWord').textContent)" title="Listen">🔊</button>
+  <span class="pw-word" id="pwWord"></span>
+  <button class="pw-add" onclick="addSelectedWord()">+ Add to Sofi</button>
+  <button class="pw-close" onclick="closePopup()">✕</button>
+</div>
+<div class="popup-arrow" id="popupArrow"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <svg width="36" height="36" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
+      <!-- hair -->
+      <ellipse cx="40" cy="28" rx="26" ry="27" fill="#1a1a1a"/>
+      <!-- face -->
+      <ellipse cx="40" cy="30" rx="20" ry="22" fill="#ffe0c8"/>
+      <!-- hair sides -->
+      <rect x="16" y="22" width="8" height="36" rx="4" fill="#1a1a1a"/>
+      <!-- eyes -->
+      <ellipse cx="32" cy="26" rx="5" ry="5.5" fill="#e63030"/>
+      <ellipse cx="49" cy="26" rx="5" ry="5.5" fill="#e63030"/>
+      <!-- smile -->
+      <path d="M30 37 Q40 45 51 37" stroke="#e63030" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <!-- neck -->
+      <rect x="35" y="50" width="10" height="8" rx="3" fill="#c8a090"/>
+      <!-- body -->
+      <rect x="26" y="56" width="28" height="26" rx="6" fill="#e040a0"/>
+      <!-- left arm -->
+      <rect x="4" y="58" width="22" height="9" rx="4.5" fill="#9966cc" transform="rotate(-10 4 62)"/>
+      <!-- right arm -->
+      <rect x="54" y="58" width="22" height="9" rx="4.5" fill="#3355dd" transform="rotate(10 54 62)"/>
+      <!-- left leg -->
+      <rect x="27" y="80" width="11" height="22" rx="5.5" fill="#e8c800"/>
+      <!-- right leg -->
+      <rect x="42" y="80" width="11" height="22" rx="5.5" fill="#2244cc"/>
+    </svg>
+    Sofi Teaches
+  </div>
+
+  <div class="header-stats">
+    <div class="stat-pill streak">
+      <span class="icon">🔥</span>
+      <span id="streakCount">1</span>
+    </div>
+    <div class="stat-pill hearts">
+      <span id="heartsDisplay">❤️❤️❤️❤️❤️</span>
+    </div>
+    <div class="stat-pill xp">
+      <span class="icon">⚡</span>
+      <span id="xpCount">0</span>
+      <div class="xp-bar-outer">
+        <div class="xp-bar-inner" id="xpBarFill" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- APP LAYOUT -->
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <button class="nav-item active" onclick="showScreen('home')">
+        <span class="nav-icon">🏠</span> Home
+      </button>
+      <button class="nav-item" onclick="showScreen('test')">
+        <span class="nav-icon">📊</span> Level Test
+      </button>
+      <button class="nav-item" onclick="showScreen('flashcards')">
+        <span class="nav-icon">🃏</span> Flashcards
+      </button>
+      <button class="nav-item" onclick="showScreen('quiz')">
+        <span class="nav-icon">⚡</span> Quiz
+        <span class="nav-badge" id="quizBadge">NEW</span>
+      </button>
+      <button class="nav-item" onclick="showScreen('dialogue')">
+        <span class="nav-icon">💬</span> Dialogue
+      </button>
+      <button class="nav-item" onclick="showScreen('idioms')">
+        <span class="nav-icon">🔥</span> Idioms
+      </button>
+      <button class="nav-item" onclick="showScreen('verbs')">
+        <span class="nav-icon">📝</span> Irregular Verbs
+      </button>
+      <button class="nav-item" onclick="showScreen('mywords')">
+        <span class="nav-icon">⭐</span> My Words
+        <span class="nav-badge" id="myWordsBadge" style="display:none">0</span>
+      </button>
+      <button class="nav-item" onclick="showScreen('history')">
+        <span class="nav-icon">📈</span> My Progress
+      </button>
+    </div>
+    <!-- Sofi sidebar widget -->
+    <div style="margin-top:24px;background:var(--green-light);border:2px solid var(--green);border-radius:var(--radius-sm);padding:14px 12px;text-align:center;">
+      <svg width="56" height="68" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="animation:sofiBounce 2s ease-in-out infinite">
+        <style>@keyframes sofiBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}</style>
+        <ellipse cx="40" cy="28" rx="27" ry="28" fill="#1a1a1a"/>
+        <ellipse cx="40" cy="30" rx="20" ry="22" fill="#ffe0c8"/>
+        <rect x="15" y="20" width="9" height="40" rx="4.5" fill="#1a1a1a"/>
+        <ellipse cx="32" cy="26" rx="5.5" ry="6" fill="#e63030"/>
+        <ellipse cx="49" cy="26" rx="5.5" ry="6" fill="#e63030"/>
+        <path d="M29 37 Q40 47 52 37" stroke="#e63030" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <rect x="35" y="50" width="10" height="8" rx="3" fill="#c8a090"/>
+        <rect x="25" y="56" width="30" height="27" rx="7" fill="#e040a0"/>
+        <rect x="3" y="57" width="23" height="10" rx="5" fill="#9966cc" transform="rotate(-8 3 62)"/>
+        <rect x="54" y="57" width="23" height="10" rx="5" fill="#3355dd" transform="rotate(10 54 62)"/>
+        <rect x="27" y="81" width="12" height="20" rx="6" fill="#e8c800"/>
+        <rect x="41" y="81" width="12" height="20" rx="6" fill="#2244cc"/>
+      </svg>
+      <div style="font-weight:800;font-size:0.85rem;color:var(--green-dark);margin-top:6px">Sofi</div>
+      <div style="font-size:0.72rem;font-weight:600;color:var(--text2);margin-top:2px">Your coach 🌟</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- ═══ HOME ═══ -->
+    <div id="screen-home" class="screen active">
+      <div class="home-hero">
+        <div class="hero-text">
+          <h2>Hi! I'm Sofi 👋</h2>
+          <p>Your AI English coach · A2 → B2 · Let's learn together!</p>
+        </div>
+        <div class="hero-mascot">
+          <svg width="110" height="130" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(2px 6px 10px rgba(0,0,0,0.18));animation:sofiWave 2.4s ease-in-out infinite">
+            <style>
+              @keyframes sofiWave {
+                0%,100%{transform:rotate(-3deg) translateY(0)}
+                50%{transform:rotate(3deg) translateY(-6px)}
+              }
+              @keyframes armWave {
+                0%,100%{transform-origin:54px 62px;transform:rotate(0deg)}
+                40%{transform-origin:54px 62px;transform:rotate(-22deg)}
+              }
+            </style>
+            <!-- hair back -->
+            <ellipse cx="40" cy="28" rx="27" ry="28" fill="#1a1a1a"/>
+            <!-- face -->
+            <ellipse cx="40" cy="30" rx="20" ry="22" fill="#ffe0c8"/>
+            <!-- hair side -->
+            <rect x="15" y="20" width="9" height="40" rx="4.5" fill="#1a1a1a"/>
+            <!-- eyes -->
+            <ellipse cx="32" cy="26" rx="5.5" ry="6" fill="#e63030"/>
+            <ellipse cx="49" cy="26" rx="5.5" ry="6" fill="#e63030"/>
+            <!-- smile -->
+            <path d="M29 37 Q40 47 52 37" stroke="#e63030" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <!-- neck -->
+            <rect x="35" y="50" width="10" height="8" rx="3" fill="#c8a090"/>
+            <!-- body (pink) -->
+            <rect x="25" y="56" width="30" height="27" rx="7" fill="#e040a0"/>
+            <!-- left arm (purple) -->
+            <rect x="3" y="57" width="23" height="10" rx="5" fill="#9966cc" transform="rotate(-8 3 62)"/>
+            <!-- right arm (blue) — waving -->
+            <rect x="54" y="57" width="23" height="10" rx="5" fill="#3355dd" transform="rotate(10 54 62)" style="animation:armWave 2.4s ease-in-out infinite"/>
+            <!-- left leg (yellow) -->
+            <rect x="27" y="81" width="12" height="20" rx="6" fill="#e8c800"/>
+            <!-- right leg (blue) -->
+            <rect x="41" y="81" width="12" height="20" rx="6" fill="#2244cc"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:20px">
+        <div class="duo-card" style="text-align:center">
+          <div class="stat-val" id="homeWords">0</div>
+          <div class="stat-lbl">Words Learned</div>
+        </div>
+        <div class="duo-card" style="text-align:center">
+          <div class="stat-val" style="color:var(--orange)">1 🔥</div>
+          <div class="stat-lbl">Day Streak</div>
+        </div>
+        <div class="duo-card" style="text-align:center">
+          <div class="stat-val" id="homeAccuracy" style="color:var(--blue-dark)">—</div>
+          <div class="stat-lbl">Quiz Accuracy</div>
+        </div>
+      </div>
+
+      <div class="progress-track" style="margin-bottom:20px">
+        <h3>📈 Your Progress to B2</h3>
+        <div class="level-bar-wrap">
+          <span class="level-label" style="color:var(--text2)">A2</span>
+          <div class="level-bar"><div class="level-fill" style="width:20%;background:linear-gradient(90deg,var(--red),var(--orange))"></div></div>
+          <span style="font-size:0.8rem;font-weight:700;color:var(--orange)">20%</span>
+        </div>
+        <div class="streak-row" id="streakRow"></div>
+      </div>
+
+      <div class="duo-card" style="margin-bottom:16px">
+        <h3 style="font-weight:800;font-size:0.95rem;margin-bottom:14px;color:var(--text)">🎯 Today's lessons</h3>
+        <div class="lessons-grid">
+          <div class="lesson-row" onclick="showScreen('test')">
+            <div class="lesson-icon">📊</div>
+            <div class="lesson-info">
+              <div class="lesson-name">Placement Test</div>
+              <div class="lesson-desc">Find your real level · 20 questions</div>
+            </div>
+            <div class="lesson-arrow">›</div>
+          </div>
+          <div class="lesson-row" onclick="showScreen('flashcards')">
+            <div class="lesson-icon">🃏</div>
+            <div class="lesson-info">
+              <div class="lesson-name">Flashcards</div>
+              <div class="lesson-desc">AI, Business & Coursera vocab</div>
+            </div>
+            <div class="lesson-arrow">›</div>
+          </div>
+          <div class="lesson-row" onclick="showScreen('quiz')">
+            <div class="lesson-icon">⚡</div>
+            <div class="lesson-info">
+              <div class="lesson-name">Vocabulary Quiz</div>
+              <div class="lesson-desc">Multiple choice + fill-in-the-blank</div>
+            </div>
+            <div class="lesson-arrow">›</div>
+          </div>
+          <div class="lesson-row" onclick="showScreen('dialogue')">
+            <div class="lesson-icon">💬</div>
+            <div class="lesson-info">
+              <div class="lesson-name">AI Dialogue</div>
+              <div class="lesson-desc">Speak & get instant feedback</div>
+            </div>
+            <div class="lesson-arrow">›</div>
+          </div>
+          <div class="lesson-row" onclick="showScreen('idioms')">
+            <div class="lesson-icon">🔥</div>
+            <div class="lesson-info">
+              <div class="lesson-name">Idioms & Phrases</div>
+              <div class="lesson-desc">Sound like a native speaker</div>
+            </div>
+            <div class="lesson-arrow">›</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ TEST ═══ -->
+    <div id="screen-test" class="screen">
+      <div class="section-header">
+        <div class="section-title">📊 Placement Test</div>
+        <div class="section-sub">20 questions · Grammar, Vocabulary, AI terms, Idioms</div>
+      </div>
+      <div id="testIntro" class="test-intro">
+        <div class="test-mascot">
+          <svg width="80" height="96" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="40" cy="28" rx="27" ry="28" fill="#1a1a1a"/>
+            <ellipse cx="40" cy="30" rx="20" ry="22" fill="#ffe0c8"/>
+            <rect x="15" y="20" width="9" height="40" rx="4.5" fill="#1a1a1a"/>
+            <ellipse cx="32" cy="26" rx="5.5" ry="6" fill="#e63030"/>
+            <ellipse cx="49" cy="26" rx="5.5" ry="6" fill="#e63030"/>
+            <path d="M29 37 Q40 47 52 37" stroke="#e63030" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <rect x="35" y="50" width="10" height="8" rx="3" fill="#c8a090"/>
+            <rect x="25" y="56" width="30" height="27" rx="7" fill="#e040a0"/>
+            <rect x="3" y="57" width="23" height="10" rx="5" fill="#9966cc" transform="rotate(-8 3 62)"/>
+            <rect x="54" y="57" width="23" height="10" rx="5" fill="#3355dd" transform="rotate(10 54 62)"/>
+            <rect x="27" y="81" width="12" height="20" rx="6" fill="#e8c800"/>
+            <rect x="41" y="81" width="12" height="20" rx="6" fill="#2244cc"/>
+          </svg>
+        </div>
+        <h2>What's your level?</h2>
+        <p>Answer 20 questions honestly. We'll find your exact level and build your learning path from A2 to B2.</p>
+        <div class="test-chips">
+          <span class="test-chip">Grammar</span>
+          <span class="test-chip">Vocabulary</span>
+          <span class="test-chip">AI Terms</span>
+          <span class="test-chip">Idioms</span>
+          <span class="test-chip">Collocations</span>
+        </div>
+        <button class="btn-primary" onclick="startTest()">Start test →</button>
+      </div>
+      <div id="testQuiz" style="display:none; max-width:600px; margin:0 auto;">
+        <div class="test-progress-row">
+          <button class="btn-ghost" style="padding:8px 14px;font-size:0.8rem;" onclick="cancelTest()">✕</button>
+          <div class="test-prog-bar"><div class="test-prog-fill" id="testProgFill" style="width:5%"></div></div>
+          <span class="test-prog-label" id="testProgLabel">1/20</span>
+        </div>
+        <div class="question-card">
+          <div class="q-type-badge badge-grammar" id="testBadge">Grammar</div>
+          <div class="question-text" id="testQText"></div>
+          <div class="question-sub" id="testQSub"></div>
+          <div class="options-grid" id="testOptions"></div>
+          <div class="feedback-box" id="testFeedback"></div>
+        </div>
+        <button class="btn-primary" id="testNextBtn" onclick="nextTestQ()" style="display:none">Continue →</button>
+      </div>
+      <div id="testResult" class="result-box" style="display:none">
+        <div class="result-stars" id="resultStars">⭐⭐⭐</div>
+        <div style="font-size:1rem;font-weight:700;color:var(--text2)">Your level</div>
+        <div class="result-level-badge" id="resultLevel">B1</div>
+        <p style="color:var(--text2);font-weight:600;line-height:1.6;margin:12px 0 20px;" id="resultDesc"></p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-primary" onclick="showScreen('flashcards')">Start learning →</button>
+          <button class="btn-ghost" onclick="retakeTest()">Retake</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ FLASHCARDS ═══ -->
+    <div id="screen-flashcards" class="screen">
+      <div class="section-header">
+        <div class="section-title">🃏 Flashcards</div>
+        <div class="section-sub">Click a card to flip it · rate yourself to track progress</div>
+      </div>
+      <div class="cat-pills" id="fcCatPills"></div>
+      <div class="fc-wrap">
+        <div class="fc-top">
+          <span class="fc-count" id="fcCount">1/10</span>
+          <div class="fc-prog-bar"><div class="fc-prog-fill" id="fcProgFill" style="width:10%"></div></div>
+          <button class="speak-btn" id="fcSpeakBtn" onclick="speakCurrentCard()">🔊 Listen</button>
+        </div>
+        <div class="flashcard-scene" onclick="flipCard()">
+          <div class="flashcard-3d" id="flashcard3d">
+            <div class="card-side card-front" id="cardFront"></div>
+            <div class="card-side card-back" id="cardBack"></div>
+          </div>
+        </div>
+        <div class="tap-hint" id="tapHint">👆 Tap card to see translation</div>
+        <div class="rating-row" id="ratingRow" style="display:none">
+          <button class="rate-btn rate-hard" onclick="rateCard('hard')">😓 Hard</button>
+          <button class="rate-btn rate-ok" onclick="rateCard('ok')">🤔 OK</button>
+          <button class="rate-btn rate-easy" onclick="rateCard('easy')">✅ Easy</button>
+        </div>
+        <div class="nav-row" id="fcNavRow">
+          <button class="nav-btn-fc" onclick="prevCard()">← Back</button>
+          <button class="nav-btn-fc" onclick="flipCard()">Flip 🔄</button>
+          <button class="nav-btn-fc" onclick="nextCard()">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ QUIZ ═══ -->
+    <div id="screen-quiz" class="screen">
+      <div class="section-header">
+        <div class="section-title">⚡ Vocabulary Quiz</div>
+        <div class="section-sub">Multiple choice · Fill in the blank · Idiom matching</div>
+      </div>
+      <div class="quiz-wrap">
+        <div class="quiz-progress-row">
+          <div class="quiz-prog-bar"><div class="quiz-prog-fill" id="quizProgFill" style="width:0%"></div></div>
+          <div id="heartsQuiz">❤️❤️❤️❤️❤️</div>
+        </div>
+        <div class="quiz-score-bar">
+          Score: <span id="qScore">0</span> &nbsp;·&nbsp; ✅ <span id="qCorrect">0</span> &nbsp;·&nbsp; ❌ <span id="qWrong">0</span>
+        </div>
+        <div class="question-card">
+          <div class="q-type-badge" id="quizBadgeType">Vocabulary</div>
+          <div class="question-text" id="quizQText"></div>
+          <div class="question-sub" id="quizQSub"></div>
+          <div class="options-grid" id="quizOptions"></div>
+          <div class="feedback-box" id="quizFeedback"></div>
+        </div>
+        <button class="btn-primary" id="quizNextBtn" onclick="nextQuizQ()" style="display:none;margin-top:4px">Continue →</button>
+      </div>
+    </div>
+
+    <!-- ═══ DIALOGUE ═══ -->
+    <div id="screen-dialogue" class="screen">
+      <div class="section-header">
+        <div class="section-title">💬 AI Dialogue Practice</div>
+        <div class="section-sub">Speak or type · get real-time feedback on your English</div>
+      </div>
+      <div class="dialogue-wrap">
+        <div class="scenario-pills" id="scenarioPills"></div>
+        <div class="chat-box">
+          <div class="chat-header">
+            <div class="chat-avatar">
+            <svg width="32" height="38" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="40" cy="28" rx="27" ry="28" fill="#1a1a1a"/>
+              <ellipse cx="40" cy="30" rx="20" ry="22" fill="#ffe0c8"/>
+              <rect x="15" y="20" width="9" height="40" rx="4.5" fill="#1a1a1a"/>
+              <ellipse cx="32" cy="26" rx="5.5" ry="6" fill="#e63030"/>
+              <ellipse cx="49" cy="26" rx="5.5" ry="6" fill="#e63030"/>
+              <path d="M29 37 Q40 47 52 37" stroke="#e63030" stroke-width="4" stroke-linecap="round" fill="none"/>
+              <rect x="35" y="50" width="10" height="8" rx="3" fill="#c8a090"/>
+              <rect x="25" y="56" width="30" height="27" rx="7" fill="#e040a0"/>
+              <rect x="3" y="57" width="23" height="10" rx="5" fill="#9966cc" transform="rotate(-8 3 62)"/>
+              <rect x="54" y="57" width="23" height="10" rx="5" fill="#3355dd" transform="rotate(10 54 62)"/>
+              <rect x="27" y="81" width="12" height="20" rx="6" fill="#e8c800"/>
+              <rect x="41" y="81" width="12" height="20" rx="6" fill="#2244cc"/>
+            </svg>
+          </div>
+            <div>
+              <div class="chat-name" id="chatName">Sofi · Business Partner</div>
+              <div class="chat-status">● Online · AI-powered feedback</div>
+            </div>
+          </div>
+          <div class="chat-body" id="chatBody"></div>
+          <div style="padding:8px 16px 0;background:var(--bg)">
+            <div class="mic-status" id="micStatus">🎤 tap mic to speak</div>
+          </div>
+          <div class="chat-input-row">
+            <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Speak">🎤</button>
+            <input class="chat-input" id="chatInput" placeholder="Type in English or tap 🎤..." onkeydown="if(event.key==='Enter')sendMsg()">
+            <button class="send-btn" id="sendBtn" onclick="sendMsg()">Send</button>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--text3);font-weight:600;margin-top:8px;padding-left:4px">💡 The AI will correct your English after each message</p>
+      </div>
+    </div>
+
+    <!-- ═══ IDIOMS ═══ -->
+    <div id="screen-idioms" class="screen">
+      <div class="section-header">
+        <div class="section-title">🔥 Idioms & Phrases</div>
+        <div class="section-sub">Sound like a native speaker · tap 🔊 to hear pronunciation</div>
+      </div>
+      <div class="cat-pills" id="idiomCatPills"></div>
+      <div class="idiom-grid" id="idiomGrid"></div>
+    </div>
+
+    <!-- ═══ MY WORDS ═══ -->
+    <div id="screen-mywords" class="screen">
+      <div class="section-header">
+        <div class="section-title">⭐ My Words</div>
+        <div class="section-sub">Type a word · or paste a Claude card directly</div>
+      </div>
+
+      <!-- TWO-TAB INPUT -->
+      <div style="background:var(--white);border:2px solid var(--green);border-radius:var(--radius);margin-bottom:20px;box-shadow:var(--shadow);overflow:hidden;">
+        <!-- Tab switcher -->
+        <div style="display:flex;border-bottom:2px solid var(--border);">
+          <button id="tabTypeBtn" onclick="switchTab('type')"
+            style="flex:1;padding:13px 8px;border:none;background:var(--green);color:white;font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:800;cursor:pointer;transition:all 0.15s;">
+            ✍️ Type a word
+          </button>
+          <button id="tabPasteBtn" onclick="switchTab('paste')"
+            style="flex:1;padding:13px 8px;border:none;background:var(--white);color:var(--text2);font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:800;cursor:pointer;transition:all 0.15s;border-left:2px solid var(--border);">
+            📋 Paste from Claude
+          </button>
+        </div>
+
+        <!-- Tab: Type -->
+        <div id="tabType" style="padding:16px 18px;">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <input id="manualWordInput" type="text" placeholder="Type an English word..."
+              style="flex:1;min-width:160px;padding:12px 14px;border:2px solid var(--border);border-radius:var(--radius-xs);font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:700;outline:none;transition:border-color 0.15s;-webkit-appearance:none;"
+              onfocus="this.style.borderColor='var(--green)'"
+              onblur="this.style.borderColor='var(--border)'"
+              onkeydown="if(event.key==='Enter')addManualWord()">
+            <button class="btn-primary" onclick="addManualWord()" style="white-space:nowrap">
+              + Add ⭐
+            </button>
+          </div>
+          <div style="font-size:0.75rem;color:var(--text3);font-weight:600;margin-top:10px;">
+            🤖 Sofi will auto-translate it for you
+          </div>
+        </div>
+
+        <!-- Tab: Paste from Claude -->
+        <div id="tabPaste" style="padding:16px 18px;display:none;">
+          <div style="font-size:0.82rem;font-weight:700;color:var(--text2);margin-bottom:10px;line-height:1.5;">
+            1. Ask Claude: <span style="background:var(--blue-light);color:var(--blue-dark);padding:2px 8px;border-radius:6px;font-weight:800;">define: perpetuate</span><br>
+            2. Copy Claude's reply<br>
+            3. Paste it here 👇
+          </div>
+          <textarea id="claudePasteInput" placeholder="Paste Claude's reply here..."
+            rows="4"
+            style="width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:var(--radius-xs);font-family:'Nunito',sans-serif;font-size:0.85rem;font-weight:600;outline:none;resize:none;transition:border-color 0.15s;-webkit-appearance:none;color:var(--text);"
+            onfocus="this.style.borderColor='var(--blue)'"
+            onblur="this.style.borderColor='var(--border)'"></textarea>
+          <button class="btn-secondary" onclick="importFromClaude()" style="width:100%;margin-top:10px;padding:12px;">
+            📥 Import to My Words
+          </button>
+          <div style="font-size:0.72rem;color:var(--text3);font-weight:600;margin-top:8px;text-align:center;">
+            Works with any Claude word card format
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+        <div class="mywords-count">⭐ <span id="myWordsTotal">0</span> words saved</div>
+        <button class="btn-secondary" style="padding:8px 18px;font-size:0.82rem;" onclick="practiceMyWords()">🃏 Practice these words</button>
+        <button class="btn-ghost" style="padding:8px 18px;font-size:0.82rem;" onclick="clearMyWords()">🗑 Clear all</button>
+      </div>
+      <div id="myWordsGrid" class="mywords-grid"></div>
+    </div>
+
+    <!-- ═══ HISTORY ═══ -->
+    <div id="screen-history" class="screen">
+      <div class="section-header">
+        <div class="section-title">📈 My Progress</div>
+        <div class="section-sub">Your learning history — every session saved</div>
+      </div>
+
+      <!-- SUMMARY STATS -->
+      <div class="grid-3" style="margin-bottom:20px" id="histSummary"></div>
+
+      <!-- STREAK CALENDAR -->
+      <div class="duo-card" style="margin-bottom:16px">
+        <div style="font-weight:800;font-size:0.95rem;margin-bottom:14px;">📅 Last 4 weeks</div>
+        <div id="histCalendar" style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;"></div>
+        <div style="display:flex;gap:12px;margin-top:12px;font-size:0.72rem;font-weight:700;color:var(--text3);">
+          <span>⬜ No activity</span>
+          <span style="color:var(--green-dark)">🟩 Studied</span>
+          <span style="color:var(--orange)">🔥 Streak day</span>
+        </div>
+      </div>
+
+      <!-- ACCURACY CHART -->
+      <div class="duo-card" style="margin-bottom:16px">
+        <div style="font-weight:800;font-size:0.95rem;margin-bottom:14px;">⚡ Quiz accuracy over time</div>
+        <div id="histChart" style="display:flex;align-items:flex-end;gap:6px;height:80px;padding:0 4px;"></div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:0.7rem;color:var(--text3);font-weight:700;" id="histChartLabels"></div>
+      </div>
+
+      <!-- SESSION LOG -->
+      <div class="duo-card">
+        <div style="font-weight:800;font-size:0.95rem;margin-bottom:14px;">📋 Session log</div>
+        <div id="histLog"></div>
+      </div>
+    </div>
+
+    <!-- ═══ IRREGULAR VERBS ═══ -->
+    <div id="screen-verbs" class="screen">
+      <div class="section-header">
+        <div class="section-title">📝 Irregular Verbs</div>
+        <div class="section-sub">80 verbs · sorted by difficulty · 3 practice modes</div>
+      </div>
+
+      <!-- DIFFICULTY LEVEL SELECTOR -->
+      <div style="background:var(--white);border:2px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;box-shadow:var(--shadow-sm);">
+        <div style="font-size:0.75rem;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">📊 Choose your level:</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;" id="verbLevelBtns">
+          <button onclick="selectVerbLevel('A1')" id="vlA1" style="padding:10px 4px;border-radius:10px;border:2px solid var(--green);background:var(--green);color:white;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;cursor:pointer;">
+            🟢 A1<div style="font-size:0.62rem;font-weight:600;opacity:.85">20 verbs</div>
+          </button>
+          <button onclick="selectVerbLevel('A2')" id="vlA2" style="padding:10px 4px;border-radius:10px;border:2px solid var(--border);background:var(--white);color:var(--text2);font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;cursor:pointer;">
+            🔵 A2<div style="font-size:0.62rem;font-weight:600;opacity:.85">20 verbs</div>
+          </button>
+          <button onclick="selectVerbLevel('B1')" id="vlB1" style="padding:10px 4px;border-radius:10px;border:2px solid var(--border);background:var(--white);color:var(--text2);font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;cursor:pointer;">
+            🟡 B1<div style="font-size:0.62rem;font-weight:600;opacity:.85">20 verbs</div>
+          </button>
+          <button onclick="selectVerbLevel('B2')" id="vlB2" style="padding:10px 4px;border-radius:10px;border:2px solid var(--border);background:var(--white);color:var(--text2);font-family:'Nunito',sans-serif;font-weight:800;font-size:0.8rem;cursor:pointer;">
+            🔴 B2<div style="font-size:0.62rem;font-weight:600;opacity:.85">15 verbs</div>
+          </button>
+        </div>
+        <div id="verbLevelDesc" style="margin-top:10px;font-size:0.8rem;font-weight:700;color:var(--text2);padding:8px 12px;background:var(--green-light);border-radius:8px;border-left:3px solid var(--green)">
+          🟢 A1 — The most common verbs. You use these every day.
+        </div>
+      </div>
+
+      <!-- MODE SWITCHER -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+        <button class="cat-pill active" id="vModeCards" onclick="setVerbMode('cards')">🃏 Flashcards</button>
+        <button class="cat-pill" id="vModeQuiz" onclick="setVerbMode('quiz')">⚡ Quiz</button>
+        <button class="cat-pill" id="vModeTable" onclick="setVerbMode('table')">📋 Full table</button>
+      </div>
+
+      <!-- CARDS MODE -->
+      <div id="verbModeCards">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <span style="font-weight:800;font-size:0.85rem;color:var(--text2)" id="verbCardCount">1/20</span>
+          <div style="flex:1;height:12px;background:var(--border);border-radius:6px;overflow:hidden;margin:0 12px;border:2px solid var(--border2);">
+            <div id="verbCardProg" style="height:100%;background:linear-gradient(90deg,var(--green),#78e000);border-radius:4px;transition:width 0.4s;width:5%"></div>
+          </div>
+          <button onclick="speakVerb()" style="background:var(--green-light);border:2px solid var(--green);border-radius:20px;padding:5px 12px;font-size:0.75rem;font-weight:800;color:var(--green-dark);cursor:pointer;">🔊</button>
+        </div>
+
+        <!-- VERB FLASHCARD -->
+        <div style="perspective:1200px;height:210px;margin-bottom:14px;cursor:pointer;" onclick="flipVerbCard()">
+          <div id="verbCard3d" style="width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.5s cubic-bezier(.4,0,.2,1);">
+            <div id="verbCardFront" style="position:absolute;inset:0;backface-visibility:hidden;background:var(--white);border:2px solid var(--border);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;box-shadow:var(--shadow);">
+            </div>
+            <div id="verbCardBack" style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);background:linear-gradient(135deg,#f0fff4,#e6ffee);border:2px solid var(--green);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;box-shadow:var(--shadow);">
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;font-size:0.78rem;font-weight:700;color:var(--text3);margin-bottom:12px" id="verbCardHint">👆 Tap to see all forms</div>
+
+        <div id="verbRatingRow" style="display:none;display:flex;gap:10px;justify-content:center;">
+          <button class="rate-btn rate-hard" onclick="rateVerb('hard')">😓 Hard</button>
+          <button class="rate-btn rate-ok" onclick="rateVerb('ok')">🤔 OK</button>
+          <button class="rate-btn rate-easy" onclick="rateVerb('easy')">✅ Easy</button>
+        </div>
+        <div id="verbNavRow" style="display:flex;gap:10px;justify-content:center;margin-top:10px;">
+          <button class="nav-btn-fc" onclick="prevVerb()">← Back</button>
+          <button class="nav-btn-fc" onclick="flipVerbCard()">Flip 🔄</button>
+          <button class="nav-btn-fc" onclick="nextVerb()">Next →</button>
+        </div>
+      </div>
+
+      <!-- QUIZ MODE -->
+      <div id="verbModeQuiz" style="display:none;">
+        <div class="question-card" id="verbQuizCard">
+          <div class="q-type-badge badge-grammar" id="verbQuizBadge">Irregular Verb</div>
+          <div class="question-text" id="verbQuizQ"></div>
+          <div class="question-sub" id="verbQuizSub" style="margin-bottom:16px;"></div>
+          <div id="verbQuizOptions" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+          <div class="feedback-box" id="verbQuizFeedback"></div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center;margin-top:12px;flex-wrap:wrap;">
+          <button class="btn-primary" id="verbQuizNext" onclick="nextVerbQuiz()" style="display:none">Continue →</button>
+          <div style="font-size:0.82rem;font-weight:700;color:var(--text2)">✅ <span id="vqCorrect">0</span> · ❌ <span id="vqWrong">0</span></div>
+        </div>
+      </div>
+
+      <!-- TABLE MODE -->
+      <div id="verbModeTable" style="display:none;">
+        <input id="verbSearch" type="text" placeholder="🔍 Search verb..."
+          style="width:100%;padding:11px 14px;border:2px solid var(--border);border-radius:var(--radius-xs);font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:600;outline:none;margin-bottom:14px;-webkit-appearance:none;"
+          oninput="filterVerbTable()" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'">
+        <div style="overflow-x:auto;">
+          <table id="verbTable" style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+            <thead>
+              <tr style="background:var(--green);color:white;">
+                <th style="padding:10px 12px;text-align:left;border-radius:8px 0 0 0;font-weight:800;">Base</th>
+                <th style="padding:10px 12px;text-align:left;font-weight:800;">Past Simple</th>
+                <th style="padding:10px 12px;text-align:left;font-weight:800;">Past Participle</th>
+                <th style="padding:10px 12px;text-align:left;border-radius:0 8px 0 0;font-weight:800;">Перевод</th>
+              </tr>
+            </thead>
+            <tbody id="verbTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════
+const vocabulary = {
+  "📹 Cowork Video": [
+    { word: "agentic", pron: "/eɪˈdʒentɪk/", tag: "📹 Cowork Video", ru: "агентный (способный действовать автономно)", ex: "Claude Cowork is an agentic desktop tool that completes tasks autonomously." },
+    { word: "task delegation", pron: "/tɑːsk ˌdelɪˈɡeɪʃən/", tag: "📹 Cowork Video", ru: "делегирование задач", ex: "Cowork is strictly task delegation — you step away and come back to finished work." },
+    { word: "autonomously", pron: "/ɔːˈtɒnəməsli/", tag: "📹 Cowork Video", ru: "автономно / самостоятельно", ex: "The tool executes multi-step tasks autonomously without your input." },
+    { word: "spin up", pron: "/spɪn ʌp/", tag: "📹 Cowork Video", ru: "запускать / разворачивать", ex: "Claude can spin up parallel sub-agents for complex work." },
+    { word: "sub-agent", pron: "/sʌb ˈeɪdʒənt/", tag: "📹 Cowork Video", ru: "суб-агент (вспомогательный ИИ-агент)", ex: "It has the capacity to spin up parallel sub-agents for complex work." },
+    { word: "virtual machine", pron: "/ˈvɜːtʃuəl məˈʃiːn/", tag: "📹 Cowork Video", ru: "виртуальная машина", ex: "Claude executes subtasks in a virtual machine on your computer." },
+    { word: "reusable skill", pron: "/riːˈjuːzəbəl skɪl/", tag: "📹 Cowork Video", ru: "многоразовый навык / скрипт", ex: "Turn any process into a reusable skill to avoid repeating the same steps." },
+    { word: "workflow", pron: "/ˈwɜːkfləʊ/", tag: "📹 Cowork Video", ru: "рабочий процесс", ex: "A skill is a way to build a repeatable AI workflow." },
+    { word: "in parallel", pron: "/ɪn ˈpærəlel/", tag: "📹 Cowork Video", ru: "параллельно", ex: "Claude Cowork can spin off multiple tasks in parallel." },
+    { word: "parse", pron: "/pɑːz/", tag: "📹 Cowork Video", ru: "разбирать / обрабатывать данные", ex: "We can write a script to parse each invoice and add it to a spreadsheet." },
+    { word: "token", pron: "/ˈtəʊkən/", tag: "📹 Cowork Video", ru: "токен (единица обработки текста ИИ)", ex: "Processing 100 invoices could consume your entire session limit of tokens." },
+    { word: "usage limit", pron: "/ˈjuːsɪdʒ ˈlɪmɪt/", tag: "📹 Cowork Video", ru: "лимит использования", ex: "If you run into usage limits, you can build a business case for the max plan." },
+    { word: "connector", pron: "/kəˈnektər/", tag: "📹 Cowork Video", ru: "коннектор (интеграция с внешним сервисом)", ex: "A connector lets Claude operate within apps like Gmail, Slack, or Drive." },
+    { word: "plugin", pron: "/ˈplʌɡɪn/", tag: "📹 Cowork Video", ru: "плагин / расширение", ex: "Plugins are collections of skills and connectors that automate an entire role." },
+    { word: "scheduled task", pron: "/ˈʃedjuːld tɑːsk/", tag: "📹 Cowork Video", ru: "запланированная задача", ex: "Create a scheduled task that runs every Monday at 9 a.m." },
+    { word: "deploy", pron: "/dɪˈplɔɪ/", tag: "📹 Cowork Video", ru: "развёртывать / запускать в работу", ex: "Optimize the skill before you deploy it into production." },
+    { word: "fine-grained", pron: "/faɪn ɡreɪnd/", tag: "📹 Cowork Video", ru: "детальный / точечный (о настройках)", ex: "You have fine-grained ability to set read and write permissions for each tool." },
+    { word: "persistent", pron: "/pəˈsɪstənt/", tag: "📹 Cowork Video", ru: "постоянный / сохраняющийся", ex: "We create persistent MD files that load context for every new task." },
+    { word: "playbook", pron: "/ˈpleɪbʊk/", tag: "📹 Cowork Video", ru: "руководство / набор стандартных процессов", ex: "When you hire someone, you give them a playbook of the most common processes." },
+    { word: "preload", pron: "/ˌpriːˈləʊd/", tag: "📹 Cowork Video", ru: "предварительно загружать", ex: "We preload important context so Claude needs less guidance on each task." },
+    { word: "execute", pron: "/ˈeksɪkjuːt/", tag: "📹 Cowork Video", ru: "выполнять / запускать (команду)", ex: "The autonomous employee can execute work without you asking it to." },
+    { word: "outreach", pron: "/ˈaʊtriːtʃ/", tag: "📹 Cowork Video", ru: "работа с клиентами / охват аудитории", ex: "When doing sales outreach, I use a tool called Apollo." },
+    { word: "lead enrichment", pron: "/liːd ɪnˈrɪtʃmənt/", tag: "📹 Cowork Video", ru: "обогащение данных о лидах", ex: "The plugin includes an instant lead enrichment skill for sales teams." },
+    { word: "brand voice", pron: "/brænd vɔɪs/", tag: "📹 Cowork Video", ru: "голос бренда / стиль коммуникации", ex: "A brand voice file explains how you communicate and what phrases you use." },
+    { word: "step away", pron: "/step əˈweɪ/", tag: "📹 Cowork Video", ru: "отойти / отвлечься", ex: "You can step away and come back to the completed work." },
+    { word: "in the loop", pron: "/ɪn ðə luːp/", tag: "📹 Cowork Video", ru: "в курсе / участвовать в процессе", ex: "When you use Claude Chat, you are always in the loop." },
+    { word: "game changer", pron: "/ˈɡeɪm tʃeɪndʒər/", tag: "📹 Cowork Video", ru: "меняющий правила игры", ex: "For most business owners, Claude Cowork is the game changer." },
+    { word: "repeatable", pron: "/rɪˈpiːtəbəl/", tag: "📹 Cowork Video", ru: "повторяемый / воспроизводимый", ex: "We can turn this into a repeatable process that runs every week." },
+  ],
+  "📚 Coursera": [
+    { word: "responsible AI", pron: "/rɪˈspɒnsɪbəl eɪ aɪ/", tag: "📚 Coursera", ru: "ответственный ИИ", ex: "At Google, we believe responsible AI equals successful AI." },
+    { word: "ML fairness", pron: "/em el ˈfeənəs/", tag: "📚 Coursera", ru: "справедливость МО", ex: "ML fairness ensures the model doesn't discriminate against any group." },
+    { word: "bias (in AI)", pron: "/ˈbaɪəs/", tag: "📚 Coursera", ru: "предвзятость / смещение данных", ex: "AI doesn't create bias — it exposes and amplifies existing societal bias." },
+    { word: "perpetuate bias", pron: "/pəˈpetʃueɪt ˈbaɪəs/", tag: "📚 Coursera", ru: "воспроизводить предвзятость", ex: "Without oversight, AI systems can perpetuate historical biases at scale." },
+    { word: "accountability", pron: "/əˌkaʊntəˈbɪlɪti/", tag: "📚 Coursera", ru: "подотчётность", ex: "Accountability means humans remain responsible for AI decisions." },
+    { word: "transparency", pron: "/trænsˈpærənsi/", tag: "📚 Coursera", ru: "прозрачность", ex: "Transparency allows users to understand how an AI system makes decisions." },
+    { word: "generative AI", pron: "/ˈdʒenərətɪv eɪ aɪ/", tag: "📚 Coursera", ru: "генеративный ИИ", ex: "Generative AI can produce text, images, audio, and synthetic data." },
+    { word: "foundation model", pron: "/faʊnˈdeɪʃən ˈmɒdəl/", tag: "📚 Coursera", ru: "базовая модель", ex: "A foundation model is pre-trained on massive data and then fine-tuned." },
+    { word: "discriminative model", pron: "/dɪˈskrɪmɪnətɪv ˈmɒdəl/", tag: "📚 Coursera", ru: "дискриминативная модель", ex: "A discriminative model classifies input — for example, cat vs. dog." },
+    { word: "transformer model", pron: "/trænsˈfɔːmər ˈmɒdəl/", tag: "📚 Coursera", ru: "трансформер", ex: "The transformer model uses an encoder and decoder to process sequences." },
+    { word: "large language model (LLM)", pron: "/lɑːdʒ ˈlæŋɡwɪdʒ ˈmɒdəl/", tag: "📚 Coursera", ru: "большая языковая модель", ex: "LLMs are trained on petabytes of data and can perform many language tasks." },
+    { word: "prompt design", pron: "/prɒmpt dɪˈzaɪn/", tag: "📚 Coursera", ru: "проектирование промптов", ex: "Prompt design is the process of crafting clear, concise inputs for an LLM." },
+    { word: "zero-shot / few-shot", pron: "/ˈzɪərəʊ ʃɒt / fjuː ʃɒt/", tag: "📚 Coursera", ru: "без примеров / с малым числом примеров", ex: "LLMs can handle zero-shot tasks without any task-specific training data." },
+    { word: "chain-of-thought reasoning", pron: "/tʃeɪn əv θɔːt ˈriːzənɪŋ/", tag: "📚 Coursera", ru: "рассуждение по цепочке мыслей", ex: "Chain-of-thought reasoning improves accuracy by walking through steps first." },
+    { word: "multimodal model", pron: "/ˌmʌltiˈməʊdəl ˈmɒdəl/", tag: "📚 Coursera", ru: "мультимодальная модель", ex: "A multimodal model like Gemini processes text, images, audio, and code." },
+    { word: "factuality", pron: "/ˌfæktʃuˈælɪti/", tag: "📚 Coursera", ru: "фактическая точность", ex: "Factuality is a key challenge — LLMs can generate plausible but false info." },
+    { word: "anthropomorphization", pron: "/ˌænθrəpəˌmɔːfɪˈzeɪʃən/", tag: "📚 Coursera", ru: "антропоморфизация", ex: "Anthropomorphization leads people to over-trust AI by treating it as human." },
+    { word: "AI governance", pron: "/eɪ aɪ ˈɡʌvənəns/", tag: "📚 Coursera", ru: "управление ИИ", ex: "AI governance defines the policies and processes for responsible deployment." },
+    { word: "ethical dilemma", pron: "/ˈeθɪkəl dɪˈlemə/", tag: "📚 Coursera", ru: "этическая дилемма", ex: "Choosing between user privacy and model accuracy is a classic ethical dilemma." },
+    { word: "deepfake", pron: "/ˈdiːpfeɪk/", tag: "📚 Coursera", ru: "дипфейк", ex: "Deepfakes can impersonate a person's voice or biometrics with AI." },
+    { word: "deskilling", pron: "/diːˈskɪlɪŋ/", tag: "📚 Coursera", ru: "деквалификация", ex: "There is concern that AI could lead to deskilling of the workforce over time." },
+    { word: "unintended consequences", pron: "/ˌʌnɪnˈtendɪd ˈkɒnsɪkwənsɪz/", tag: "📚 Coursera", ru: "непредвиденные последствия", ex: "Even well-intentioned AI can have unintended consequences at scale." },
+    { word: "mitigate harm", pron: "/ˈmɪtɪɡeɪt hɑːm/", tag: "📚 Coursera", ru: "снижать ущерб", ex: "Responsible AI practices help organizations mitigate harm before deployment." },
+    { word: "sentiment analysis", pron: "/ˈsentɪmənt əˈnæləsɪs/", tag: "📚 Coursera", ru: "анализ тональности текста", ex: "Sentiment analysis classifies customer feedback as positive, negative, or neutral." },
+    { word: "natural language processing", pron: "/ˈnætʃərəl ˈlæŋɡwɪdʒ ˈprəʊsesɪŋ/", tag: "📚 Coursera", ru: "обработка естественного языка (NLP)", ex: "NLP enables machines to understand, interpret, and generate human language." },
+    { word: "semi-supervised learning", pron: "/ˌsemi ˈsuːpəvaɪzd ˈlɜːnɪŋ/", tag: "📚 Coursera", ru: "полуконтролируемое обучение", ex: "Semi-supervised learning uses a small labeled set with a large unlabeled dataset." },
+    { word: "parameter-efficient tuning", pron: "/pəˈræmɪtər ɪˈfɪʃənt ˈtjuːnɪŋ/", tag: "📚 Coursera", ru: "эффективная настройка параметров (PETM)", ex: "PETM adapts a model to new tasks without retraining every weight." },
+    { word: "encoder / decoder", pron: "/ɪnˈkəʊdər / dɪˈkəʊdər/", tag: "📚 Coursera", ru: "кодировщик / декодировщик", ex: "The encoder processes input; the decoder generates the output sequence." },
+    { word: "AI principles", pron: "/eɪ aɪ ˈprɪnsɪpəlz/", tag: "📚 Coursera", ru: "принципы ИИ", ex: "Google's AI principles guide every product decision across the organization." },
+    { word: "pre-trained model", pron: "/priː treɪnd ˈmɒdəl/", tag: "📚 Coursera", ru: "предобученная модель", ex: "Pre-trained models save time and compute by reusing learned representations." },
+  ],
+  "🤖 AI Core": [
+    { word: "algorithm", pron: "/ˈælɡərɪðəm/", tag: "🤖 AI Core", ru: "алгоритм", ex: "The recommendation algorithm learns from your behavior." },
+    { word: "neural network", pron: "/ˈnjʊərəl ˈnetwɜːk/", tag: "🤖 AI Core", ru: "нейронная сеть", ex: "Deep neural networks power modern image recognition." },
+    { word: "inference", pron: "/ˈɪnfərəns/", tag: "🤖 AI Core", ru: "инференс / вывод модели", ex: "The model runs inference in under 100 milliseconds." },
+    { word: "fine-tuning", pron: "/ˈfaɪn tjuːnɪŋ/", tag: "🤖 AI Core", ru: "дообучение модели", ex: "Fine-tuning on domain data improved accuracy by 40%." },
+    { word: "hallucination", pron: "/həˌluːsɪˈneɪʃən/", tag: "🤖 AI Core", ru: "галлюцинация (ИИ)", ex: "The LLM produced a hallucination about non-existent research." },
+    { word: "prompt engineering", pron: "/prɒmpt ˌendʒɪˈnɪərɪŋ/", tag: "🤖 AI Core", ru: "инжиниринг промптов", ex: "Good prompt engineering can dramatically improve outputs." },
+    { word: "token", pron: "/ˈtəʊkən/", tag: "🤖 AI Core", ru: "токен", ex: "GPT-4 can process up to 128k tokens in context." },
+    { word: "embedding", pron: "/ɪmˈbedɪŋ/", tag: "🤖 AI Core", ru: "эмбеддинг / векторное представление", ex: "Word embeddings capture semantic relationships between words." },
+    { word: "retrieval-augmented generation", pron: "/rɪˈtriːvəl ˈɔːɡməntɪd ˌdʒenəˈreɪʃən/", tag: "🤖 AI Core", ru: "RAG — генерация с поиском", ex: "RAG reduces hallucinations by grounding the model in documents." },
+    { word: "reinforcement learning", pron: "/ˌriːɪnˈfɔːsmənt ˈlɜːnɪŋ/", tag: "🤖 AI Core", ru: "обучение с подкреплением", ex: "RLHF aligns AI behavior with human preferences." },
+  ],
+  "💼 Business": [
+    { word: "leverage", pron: "/ˈlevərɪdʒ/", tag: "💼 Business", ru: "использовать как инструмент", ex: "We can leverage AI to scale our customer support." },
+    { word: "scalable", pron: "/ˈskeɪləbəl/", tag: "💼 Business", ru: "масштабируемый", ex: "We need a scalable solution for enterprise clients." },
+    { word: "stakeholder", pron: "/ˈsteɪkˌhəʊldər/", tag: "💼 Business", ru: "заинтересованная сторона", ex: "All stakeholders need to align before we proceed." },
+    { word: "bandwidth", pron: "/ˈbændwɪdθ/", tag: "💼 Business", ru: "возможности (разг.)", ex: "I don't have the bandwidth to take on a new project right now." },
+    { word: "pivot", pron: "/ˈpɪvət/", tag: "💼 Business", ru: "сменить направление", ex: "The startup decided to pivot toward enterprise clients." },
+    { word: "roadmap", pron: "/ˈrəʊdmæp/", tag: "💼 Business", ru: "дорожная карта", ex: "The product roadmap for Q3 includes three new AI features." },
+    { word: "deliverable", pron: "/dɪˈlɪvərəbəl/", tag: "💼 Business", ru: "результат / продукт работы", ex: "The main deliverable is a 20-page analysis report." },
+    { word: "bottleneck", pron: "/ˈbɒtəlnek/", tag: "💼 Business", ru: "узкое место", ex: "Data labeling has become the bottleneck in our pipeline." },
+    { word: "buy-in", pron: "/ˈbaɪ ɪn/", tag: "💼 Business", ru: "поддержка команды", ex: "We need executive buy-in before launching the AI initiative." },
+    { word: "synergy", pron: "/ˈsɪnədʒi/", tag: "💼 Business", ru: "синергия", ex: "The merger created synergies across both product lines." },
+  ],
+  "🗣️ Fluency": [
+    { word: "wrap one's head around", pron: "/ræp wʌnz hed əˈraʊnd/", tag: "🗣️ Fluency", ru: "осмыслить что-то сложное", ex: "I'm still trying to wrap my head around transformer architecture." },
+    { word: "get up to speed", pron: "/ɡet ʌp tə spiːd/", tag: "🗣️ Fluency", ru: "войти в курс дела", ex: "Let me get you up to speed on the latest AI developments." },
+    { word: "hit the ground running", pron: "/hɪt ðə ɡraʊnd ˈrʌnɪŋ/", tag: "🗣️ Fluency", ru: "начать активно с первого дня", ex: "We hired someone who could hit the ground running." },
+    { word: "ballpark figure", pron: "/ˈbɔːlpɑːk ˈfɪɡər/", tag: "🗣️ Fluency", ru: "приблизительная цифра", ex: "Can you give me a ballpark figure for the project cost?" },
+    { word: "moving the needle", pron: "/ˈmuːvɪŋ ðə ˈniːdəl/", tag: "🗣️ Fluency", ru: "делать ощутимый прогресс", ex: "This feature is really moving the needle on retention." },
+    { word: "circle back", pron: "/ˈsɜːkəl bæk/", tag: "🗣️ Fluency", ru: "вернуться к теме позже", ex: "Let's circle back to this after the demo." },
+    { word: "deep dive", pron: "/diːp daɪv/", tag: "🗣️ Fluency", ru: "детальный анализ", ex: "We need to do a deep dive into the data before deciding." },
+    { word: "on the same page", pron: "/ɒn ðə seɪm peɪdʒ/", tag: "🗣️ Fluency", ru: "иметь одинаковое понимание", ex: "Are we all on the same page about the launch date?" },
+  ]
+};
+
+const allCards = Object.values(vocabulary).flat();
+
+const idioms = {
+  "📚 Coursera": [
+    { phrase: "get it right", meaning: "Сделать правильно, не допустить ошибок", ex: "There is a deep responsibility for technology providers to get it right." },
+    { phrase: "at scale", meaning: "В масштабе, в больших объёмах", ex: "AI can perpetuate historical biases at scale across millions of users." },
+    { phrase: "grapple with", meaning: "Бороться с чем-то сложным, разбираться", ex: "Organizations must grapple with thorny ethical and practical problems." },
+    { phrase: "bogged down in semantics", meaning: "Зациклиться на определениях / потерять суть", ex: "Becoming bogged down in semantics can distract from the central goal." },
+    { phrase: "wade through", meaning: "С трудом разбираться в чём-то сложном", ex: "Ethical frameworks help us wade through new moral challenges in AI." },
+    { phrase: "deliver on its promise", meaning: "Оправдать ожидания", ex: "If generative AI delivers on its promised capabilities, the labor market will shift." },
+    { phrase: "first-mover advantage", meaning: "Преимущество первопроходца на рынке", ex: "Companies rush to deploy AI to gain a first-mover advantage." },
+    { phrase: "go a long way", meaning: "Иметь большое значение", ex: "Reflecting on your company values will go a long way in building AI responsibly." },
+    { phrase: "put in perspective", meaning: "Расставить по местам / понять масштаб", ex: "To put this in perspective, compute has been doubling every 3.5 months since 2012." },
+    { phrase: "pull off the market", meaning: "Снять с рынка", ex: "Ignoring responsible AI can force companies to pull products off the market." },
+    { phrase: "make one thing clear", meaning: "Дать понять что-то важное", ex: "Before we go further, let me make one thing clear about our AI principles." },
+    { phrase: "thread throughout", meaning: "Пронизывать насквозь", ex: "Human decisions are threaded throughout every AI product we build." },
+  ],
+  "💼 Business": [
+    { phrase: "think outside the box", meaning: "Думать нестандартно", ex: "We need to think outside the box to compete with Big Tech." },
+    { phrase: "boil the ocean", meaning: "Браться за слишком многое сразу", ex: "Don't try to boil the ocean — focus on one use case first." },
+    { phrase: "low-hanging fruit", meaning: "Простые задачи с быстрым результатом", ex: "Automating invoices is the low-hanging fruit of this project." },
+    { phrase: "punch above your weight", meaning: "Выступать выше своего уровня", ex: "As a startup, we're punching above our weight in this market." },
+    { phrase: "in the weeds", meaning: "Погрязнуть в деталях", ex: "Stop getting in the weeds — focus on the big picture." },
+    { phrase: "move the goalpost", meaning: "Менять требования в процессе", ex: "The client keeps moving the goalposts on this project." },
+  ],
+  "🤖 AI & Tech": [
+    { phrase: "garbage in, garbage out", meaning: "Плохие данные → плохой результат", ex: "Garbage in, garbage out — our training data needs cleaning." },
+    { phrase: "under the hood", meaning: "Внутри системы / как всё работает", ex: "Let me explain what's happening under the hood of this model." },
+    { phrase: "bleeding edge", meaning: "Самые передовые технологии", ex: "We're working with bleeding-edge diffusion models." },
+    { phrase: "tech debt", meaning: "Технический долг", ex: "Rushing this feature will create serious tech debt later." },
+    { phrase: "in the pipeline", meaning: "В процессе / запланировано", ex: "We have three new AI features in the pipeline for Q4." },
+  ],
+  "🗣️ Everyday": [
+    { phrase: "touch base", meaning: "Связаться / синхронизироваться", ex: "Let's touch base tomorrow to align on the strategy." },
+    { phrase: "heads up", meaning: "Предупреждение заранее", ex: "Just a heads up — the meeting has been moved to 3pm." },
+    { phrase: "at the end of the day", meaning: "В конечном счёте", ex: "At the end of the day, results matter more than process." },
+    { phrase: "take it offline", meaning: "Обсудить вне общей встречи", ex: "That's a great question — let's take it offline." },
+    { phrase: "ahead of the curve", meaning: "Опережать тенденции", ex: "Investing in AI skills now puts you ahead of the curve." },
+    { phrase: "run it up the flagpole", meaning: "Проверить идею у руководства", ex: "Interesting idea — let's run it up the flagpole with leadership." },
+  ]
+};
+
+// ── EXTENDED TEST QUESTIONS ──
+const testQuestions = [
+  // GRAMMAR
+  { type:"grammar", badge:"badge-grammar", q:"Choose the most natural sentence:", sub:"", opts:["I am agree with your proposal.","I agree to your proposal.","I agree with your proposal.","I am agreeing your proposal."], ans:2, exp:"'Agree WITH something/someone' is always correct in English. B1–B2 grammar point." },
+  { type:"grammar", badge:"badge-grammar", q:"She ___ a 30-minute presentation on large language models.", sub:"Choose the most natural option:", opts:["delivered","made a","did a","All of the above are natural"], ans:3, exp:"'Delivered a presentation' (formal), 'gave a presentation', and 'did a presentation' (informal) are all natural. Know all registers!" },
+  { type:"grammar", badge:"badge-grammar", q:"The model ___ on a medical dataset for six months before deployment.", sub:"", opts:["has been trained","was been trained","had been training","has been training on"], ans:0, exp:"'Has been trained on' — past passive for a completed action relevant to now. 'Trained on' is the key collocation in ML." },
+  { type:"grammar", badge:"badge-grammar", q:"If we ___ more training data, the accuracy would improve significantly.", sub:"", opts:["have","had","would have","will have"], ans:1, exp:"Second conditional: 'If + past simple, would + infinitive'. Used for hypothetical/unlikely present situations." },
+  { type:"grammar", badge:"badge-grammar", q:"Which preposition: 'The model was fine-tuned ___ a medical dataset'?", sub:"", opts:["with","on","by","from"], ans:1, exp:"In AI/ML, models are always 'fine-tuned ON a dataset'. This is a fixed technical collocation — memorize it." },
+  { type:"grammar", badge:"badge-grammar", q:"I'm looking forward to ___ the new Gemini features next week.", sub:"", opts:["test","to test","testing","have tested"], ans:2, exp:"'Look forward to + gerund (verb-ing)'. This is a very common error — 'to' here is a preposition, not part of an infinitive." },
+  { type:"grammar", badge:"badge-grammar", q:"The data ___ collected from over 50 million users before training began.", sub:"", opts:["was","were","has","have"], ans:0, exp:"'Data' is technically plural, but in modern English it's commonly used with singular verbs in tech contexts. 'The data was' is widely accepted." },
+
+  // VOCABULARY
+  { type:"vocab", badge:"badge-vocab", q:"What does 'hallucination' mean in AI?", sub:"", opts:["When a model crashes","When a model generates false but plausible-sounding information","When training data is corrupted","When a model runs too slowly"], ans:1, exp:"In AI, hallucination = уверенно выдуманный ответ. Example: 'The model hallucinated a fake research paper with realistic-sounding citations.'" },
+  { type:"vocab", badge:"badge-vocab", q:"What does 'bandwidth' mean in a business context?", sub:"", opts:["Internet connection speed","Available time and capacity to take on work","The size of a dataset","A type of neural network"], ans:1, exp:"'I don't have the bandwidth for this' = у меня нет ресурсов/времени на это. Very common in tech business English." },
+  { type:"vocab", badge:"badge-vocab", q:"'Stakeholder' means:", sub:"", opts:["A shareholder who owns company stock","Anyone who has an interest in or is affected by a project","The project manager","A technical team member"], ans:1, exp:"Stakeholder = заинтересованная сторона. Much broader than 'shareholder' — includes customers, employees, communities." },
+  { type:"vocab", badge:"badge-vocab", q:"What does 'scalable' describe?", sub:"", opts:["Something that is heavy and complex","A solution that can grow and handle more load without breaking","A small startup","A model that is accurate"], ans:1, exp:"'Scalable' = масштабируемый. 'We need a scalable architecture that handles 10x traffic growth.' Core tech/business word." },
+  { type:"vocab", badge:"badge-vocab", q:"What is a 'foundation model'?", sub:"", opts:["A very old AI model","A model pre-trained on massive data that can be fine-tuned for many tasks","A model used only for image recognition","The first model ever created"], ans:1, exp:"From your Coursera course! Foundation models like GPT-4 or Gemini are trained on huge datasets and serve as a base for specialization." },
+  { type:"vocab", badge:"badge-vocab", q:"'Deskilling' refers to:", sub:"", opts:["Learning new technical skills","The loss of human skills due to over-reliance on technology","The process of simplifying a job","Training a model from scratch"], ans:1, exp:"Deskilling = деквалификация. A key ethical concern discussed in your Coursera course on responsible AI." },
+
+  // AI TERMS
+  { type:"coursera", badge:"badge-coursera", q:"What is the key difference between 'prompt design' and 'prompt engineering'?", sub:"Based on your Coursera course", opts:["They are the same thing","Prompt design is general; prompt engineering is specialized for high accuracy","Prompt engineering is easier","Prompt design requires coding skills"], ans:1, exp:"From your LLMs lecture: Prompt design = general crafting of inputs. Prompt engineering = specialized optimization using domain knowledge and techniques." },
+  { type:"coursera", badge:"badge-coursera", q:"A 'discriminative model' vs a 'generative model':", sub:"", opts:["Discriminative generates content; generative classifies it","Discriminative classifies data; generative creates new content","They are interchangeable terms","Discriminative is newer technology"], ans:1, exp:"Key concept from your Generative AI course! Discriminative = classifies (cat or dog?). Generative = creates (draw me a cat)." },
+  { type:"coursera", badge:"badge-coursera", q:"'Zero-shot' learning means:", sub:"", opts:["The model scored zero on a test","The model can perform a task without any specific training examples","The model requires zero compute","Training with exactly zero labels"], ans:1, exp:"Zero-shot = модель выполняет задачу без примеров. Few-shot = с несколькими примерами. Both are key LLM capabilities." },
+  { type:"coursera", badge:"badge-coursera", q:"What does 'responsible AI equals successful AI' imply?", sub:"Google Cloud course perspective", opts:["Ethics slows down AI development","Ethical practices are a business advantage, not just a moral duty","Only large companies need responsible AI","Responsible AI is only about privacy"], ans:1, exp:"Core message from your Coursera course! Responsible AI builds trust, reduces risk, attracts talent, and improves products — it's a business advantage." },
+  { type:"coursera", badge:"badge-coursera", q:"'Chain-of-thought reasoning' helps models by:", sub:"", opts:["Making the model run faster","Encouraging the model to explain reasoning steps before answering","Reducing the token count","Connecting multiple models together"], ans:1, exp:"Chain-of-thought = рассуждение по шагам. When the model shows its work, it gets more accurate answers on complex tasks." },
+
+  // FILL IN THE BLANK
+  { type:"fill", badge:"badge-fill", q:"'We should _____ the data before training the model.'", sub:"Choose the correct technical verb:", opts:["preprocess","pre-process","Both are correct","prepare up"], ans:2, exp:"Both 'preprocess' and 'pre-process' are accepted in technical English. Core ML workflow term." },
+  { type:"fill", badge:"badge-fill", q:"'The performance _____ occurred when we scaled beyond 1M users.'", sub:"", opts:["bottleneck","bottle neck","bottle stop","block"], ans:0, exp:"'Bottleneck' (one word) = узкое место. 'The data pipeline became a bottleneck at scale.'" },
+  { type:"fill", badge:"badge-fill", q:"'We can _____ AI to improve our customer support at scale.'", sub:"", opts:["leverage","use to","apply to","leverage to"], ans:0, exp:"'Leverage [something]' — use as a transitive verb without a preposition. 'Leverage AI for growth' ✓, 'Leverage to AI' ✗." },
+  { type:"fill", badge:"badge-fill", q:"'Without good practices, AI may _____ existing biases.'", sub:"Fill in with the correct word from your Coursera course:", opts:["perpetuate","continue","apply","increase to"], ans:0, exp:"'Perpetuate' = воспроизводить/увековечивать. Strong academic/professional word. 'Perpetuate biases/stereotypes/inequality.'" },
+
+  // IDIOMS
+  { type:"idiom", badge:"badge-idiom", q:"'Low-hanging fruit' means:", sub:"", opts:["Exotic tropical fruit","Easy tasks that give quick results with minimal effort","High-value but difficult goals","A failed project"], ans:1, exp:"'Low-hanging fruit' = простые задачи с быстрым результатом. 'Let's start with the low-hanging fruit before tackling the harder problems.'" },
+  { type:"idiom", badge:"badge-idiom", q:"'We're on the same page' means:", sub:"", opts:["We're reading the same book","We share the same understanding of the situation","We completely agree on everything","We work in the same office"], ans:1, exp:"'On the same page' = иметь одинаковое понимание. Very common in meetings: 'Before we proceed, let's make sure we're all on the same page.'" },
+  { type:"idiom", badge:"badge-idiom", q:"If someone says 'Let's circle back to this', they mean:", sub:"", opts:["Let's draw a diagram","Let's return to this topic later","Let's cancel this item","Let's vote on it"], ans:1, exp:"'Circle back' = вернуться к теме позже. 'Great point — let's circle back to that after the demo.' Super common in meetings." },
+  { type:"idiom", badge:"badge-idiom", q:"'Bogged down in semantics' means:", sub:"", opts:["Using technical language well","Wasting time arguing about word definitions instead of moving forward","Writing detailed documentation","Having a productive debate"], ans:1, exp:"From your Coursera lecture! 'Don't get bogged down in semantics' = не зависай на терминологии, смотри на суть." },
+  { type:"idiom", badge:"badge-idiom", q:"'Grapple with a problem' means:", sub:"", opts:["Ignore the problem","Struggle seriously to understand or deal with a difficult issue","Solve it quickly","Present it to your team"], ans:1, exp:"'Grapple with' = бороться/разбираться с чем-то сложным. 'Organizations must grapple with the ethical implications of AI.' Formal, academic tone." },
+
+  // COLLOCATIONS
+  { type:"fill", badge:"badge-fill", q:"Choose the correct collocation: 'The AI model failed to _____ the new task.'", sub:"", opts:["generalize to","generalize for","generalizes to","generalize at"], ans:0, exp:"'Generalize to [new data/task]' is the fixed collocation in ML. 'This model struggles to generalize to out-of-distribution examples.'" },
+  { type:"fill", badge:"badge-fill", q:"'We need to _____ our strategy before the investor meeting.'", sub:"", opts:["sharp up","sharpen up","sharp it","sharpening"], ans:1, exp:"'Sharpen up' = отточить/улучшить. Phrasal verb: 'We need to sharpen up our pitch deck and narrative before the meeting.'" },
+];
+
+const scenarios = {
+  "Business Meeting": {
+    icon: "👔",
+    system: `You are a native English-speaking business colleague in a meeting about an AI product launch. The user is learning English (A2-B1, targeting B2). After EVERY user message: 1. Continue the conversation naturally (1-2 sentences). 2. Add "💬 Feedback:" with brief, encouraging corrections. Use business vocabulary naturally.`,
+    opener: "Good morning! Let's discuss our Q3 AI roadmap — specifically the new recommendation engine. What are your thoughts on the timeline?"
+  },
+  "Job Interview": {
+    icon: "🤝",
+    system: `You are an interviewer at a tech company hiring for an AI product role. The user is learning English (A2-B1 → B2). After EVERY user message, ask a follow-up interview question, then add "💬 Feedback:" with 1-2 suggestions for more professional, fluent English.`,
+    opener: "Welcome! Could you start by telling me about yourself and why you're interested in AI product development?"
+  },
+  "Coursera Discussion": {
+    icon: "🎓",
+    system: `You are a Google Cloud AI instructor discussing responsible AI, LLMs, generative AI and AI ethics — topics from the Google Cloud Coursera courses. The user is learning English (A2-B1 → B2). Use course vocabulary: responsible AI, bias, transparency, hallucination, foundation model, generative AI, etc. After EVERY user message: respond as an instructor (2-3 sentences), then add "💬 Feedback:" with suggestions for more natural academic/tech English.`,
+    opener: "Welcome! Let's discuss your Coursera AI course. In your own words — what's the difference between a discriminative model and a generative model?"
+  },
+  "Startup Pitch": {
+    icon: "🚀",
+    system: `You are a VC investor listening to an AI startup pitch. The user is learning English (A2-B1 → B2). Ask tough but fair investor questions. After each response, react as an investor, then add "💬 Feedback:" with suggestions for more persuasive, professional English in pitch contexts.`,
+    opener: "You've got 5 minutes. I've seen a lot of AI pitches this week — make this count. What problem are you solving, and why is your team the right one to solve it?"
+  },
+  "Casual Tech Chat": {
+    icon: "☕",
+    system: `You are a friendly colleague having a casual chat about AI trends. The user is learning English (A2-B1 → B2). Be conversational and use natural idioms. After each message, chat naturally, then add "💬 Feedback:" on how to sound more like a native speaker.`,
+    opener: "Hey! Have you been following all the crazy AI news lately? It feels like there's a new breakthrough every week. What do you think will actually change the way we work?"
+  }
+};
+
+// ══════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════
+let xp = 0, streak = 1, hearts = 5, wordsLearned = 0;
+let quizCorrect = 0, quizWrong = 0, quizScore = 0;
+let currentFCCat = "📚 Coursera", currentFCCards = [], fcIdx = 0, fcFlipped = false;
+let quizQList = [], quizIdx = 0, quizAnswered = false;
+let testIdx = 0, testScore = 0, testAnswered = false;
+let activeScenario = "Business Meeting", dialogHistory = [], isRecording = false;
+let recognition = null, ttsVoice = null;
+
+// ══════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.mob-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  const ids = ['home','test','flashcards','quiz','dialogue','idioms','verbs','mywords','history'];
+  const btns = document.querySelectorAll('.nav-item');
+  const idx = ids.indexOf(id);
+  if (idx >= 0) btns[idx].classList.add('active');
+  // sync mobile nav
+  const mobBtn = document.getElementById('mob-' + id);
+  if (mobBtn) mobBtn.classList.add('active');
+  if (id === 'flashcards') initFC();
+  if (id === 'quiz') initQuiz();
+  if (id === 'idioms') renderIdioms();
+  if (id === 'dialogue') initDialogue();
+  if (id === 'mywords') renderMyWords();
+  if (id === 'history') renderHistory();
+  if (id === 'verbs') initVerbs();
+  // scroll to top on mobile
+  window.scrollTo(0, 0);
+}
+
+// ══════════════════════════════════════════════════
+// XP / GAMIFICATION
+// ══════════════════════════════════════════════════
+function addXP(n) {
+  xp += n;
+  document.getElementById('xpCount').textContent = xp;
+  document.getElementById('xpBarFill').style.width = Math.min((xp % 500) / 5, 100) + '%';
+  if (n > 0) showToast(`+${n} XP ⚡`);
+}
+function loseHeart() {
+  if (hearts > 0) hearts--;
+  updateHearts();
+}
+function updateHearts() {
+  const h = '❤️'.repeat(hearts) + '🖤'.repeat(5 - hearts);
+  document.getElementById('heartsDisplay').textContent = h;
+  const qh = document.getElementById('heartsQuiz');
+  if (qh) qh.textContent = h;
+}
+function showToast(msg, color) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = color || 'var(--green)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+// ══════════════════════════════════════════════════
+// HOME
+// ══════════════════════════════════════════════════
+function initHome() {
+  const days = [['M','Mon'],['T','Tue'],['W','Wed'],['T','Thu'],['F','Fri'],['S','Sat'],['S','Sun']];
+  document.getElementById('streakRow').innerHTML = days.map((d,i) => `
+    <div class="day-chip ${i===0?'done':''} ${i===1?'today':''}">
+      <span class="day-icon">${i===0?'🔥':i===1?'⭐':'○'}</span>${d[0]}
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════════════
+// FLASHCARDS
+// ══════════════════════════════════════════════════
+function initFC() {
+  const cats = Object.keys(vocabulary);
+  document.getElementById('fcCatPills').innerHTML = cats.map(c =>
+    `<button class="cat-pill ${c===currentFCCat?'active':''}" onclick="selectFCCat('${c.replace(/'/g,"\\'")}')"> ${c}</button>`
+  ).join('');
+  loadFCCards();
+}
+function selectFCCat(cat) {
+  currentFCCat = cat; fcIdx = 0;
+  initFC();
+}
+function loadFCCards() {
+  currentFCCards = vocabulary[currentFCCat];
+  fcIdx = 0; renderFC();
+}
+function getTagClass(tag) {
+  if (tag.includes('Coursera')) return 'tag-coursera';
+  if (tag.includes('AI')) return 'tag-ai';
+  if (tag.includes('Business')) return 'tag-business';
+  return 'tag-fluency';
+}
+function renderFC() {
+  const card = currentFCCards[fcIdx];
+  fcFlipped = false;
+  document.getElementById('flashcard3d').classList.remove('flipped');
+  document.getElementById('cardFront').innerHTML = `
+    <span class="card-tag ${getTagClass(card.tag)}">${card.tag}</span>
+    <div class="card-word">${card.word}</div>
+    <div class="card-pron">${card.pron}</div>
+    <div class="card-hint-text">👆 Tap to see translation</div>
+  `;
+  document.getElementById('cardBack').innerHTML = `
+    <span class="card-tag ${getTagClass(card.tag)}">${card.tag}</span>
+    <div class="card-word" style="font-size:1.4rem">${card.word}</div>
+    <div class="card-translation">${card.ru}</div>
+    <div class="card-example">${card.ex}</div>
+    <button class="speak-btn" onclick="event.stopPropagation();speakText('${card.ex.replace(/'/g,"\\'")}')" >🔊 Example</button>
+  `;
+  const pct = ((fcIdx + 1) / currentFCCards.length * 100).toFixed(0);
+  document.getElementById('fcCount').textContent = `${fcIdx+1}/${currentFCCards.length}`;
+  document.getElementById('fcProgFill').style.width = pct + '%';
+  document.getElementById('ratingRow').style.display = 'none';
+  document.getElementById('fcNavRow').style.display = 'flex';
+  document.getElementById('tapHint').textContent = '👆 Tap card to see translation';
+}
+function flipCard() {
+  fcFlipped = !fcFlipped;
+  document.getElementById('flashcard3d').classList.toggle('flipped', fcFlipped);
+  if (fcFlipped) {
+    document.getElementById('ratingRow').style.display = 'flex';
+    document.getElementById('fcNavRow').style.display = 'none';
+    document.getElementById('tapHint').textContent = '⬆️ How well did you know it?';
+    speakCurrentCard();
+  } else {
+    document.getElementById('ratingRow').style.display = 'none';
+    document.getElementById('fcNavRow').style.display = 'flex';
+    document.getElementById('tapHint').textContent = '👆 Tap card to see translation';
+  }
+}
+function speakCurrentCard() {
+  const card = currentFCCards[fcIdx];
+  speakText(card.word);
+}
+function rateCard(r) {
+  if (r === 'easy') { wordsLearned++; document.getElementById('homeWords').textContent = wordsLearned; addXP(10); showToast('🎉 Easy! +10 XP'); }
+  else if (r === 'ok') { addXP(5); showToast('👍 OK! +5 XP'); }
+  else { showToast('💪 Keep practicing!', 'var(--orange)'); }
+  trackEvent('flashcard', { rating: r, word: currentFCCards[fcIdx]?.word || '', cat: currentFCCat });
+  nextCard();
+}
+function nextCard() { fcIdx = (fcIdx + 1) % currentFCCards.length; renderFC(); }
+function prevCard() { fcIdx = (fcIdx - 1 + currentFCCards.length) % currentFCCards.length; renderFC(); }
+
+// ══════════════════════════════════════════════════
+// QUIZ
+// ══════════════════════════════════════════════════
+function initQuiz() {
+  document.getElementById('quizBadge').style.display = 'none';
+  quizQList = buildQuiz();
+  quizIdx = 0; quizAnswered = false;
+  renderQuizQ();
+}
+function buildQuiz() {
+  // Mix: 8 vocab translation + questions from testQuestions pool
+  const qs = [];
+  [...allCards].sort(() => Math.random()-0.5).slice(0,8).forEach(card => {
+    const distractors = allCards.filter(c => c.ru !== card.ru).sort(() => Math.random()-0.5).slice(0,3);
+    const opts = [card.ru, ...distractors.map(d=>d.ru)].sort(() => Math.random()-0.5);
+    qs.push({ type:'vocab', badge:'badge-vocab', q:`What does <em>${card.word}</em> mean?`, sub:'', opts, ans:opts.indexOf(card.ru), exp:`${card.word} — ${card.ru}. "${card.ex}"` });
+  });
+  testQuestions.sort(() => Math.random()-0.5).slice(0,7).forEach(q => qs.push(q));
+  return qs.sort(() => Math.random()-0.5);
+}
+function renderQuizQ() {
+  if (quizIdx >= quizQList.length) {
+    const acc = quizCorrect + quizWrong > 0 ? Math.round(quizCorrect/(quizCorrect+quizWrong)*100) : 0;
+    document.getElementById('homeAccuracy').textContent = acc + '%';
+    document.getElementById('quizQText').innerHTML = '';
+    document.getElementById('quizOptions').innerHTML = `
+      <div class="complete-screen" style="grid-column:1/-1;padding:20px 0">
+        <div class="big-emoji">🎉</div>
+        <h2>Round complete!</h2>
+        <p>Score: ${quizScore} pts · Accuracy: ${acc}%</p>
+        <div class="xp-earned">⚡ +${quizScore} XP earned!</div><br>
+        <button class="btn-primary" onclick="initQuiz()">Play again →</button>
+      </div>`;
+    document.getElementById('quizFeedback').classList.remove('show');
+    document.getElementById('quizNextBtn').style.display = 'none';
+    document.getElementById('quizBadgeType').style.display = 'none';
+    return;
+  }
+  quizAnswered = false;
+  const q = quizQList[quizIdx];
+  const pct = (quizIdx / quizQList.length * 100).toFixed(0);
+  document.getElementById('quizProgFill').style.width = pct + '%';
+  document.getElementById('quizBadgeType').className = `q-type-badge ${q.badge||'badge-vocab'}`;
+  document.getElementById('quizBadgeType').style.display = '';
+  document.getElementById('quizBadgeType').textContent = q.type === 'vocab' ? 'Vocabulary' : q.type === 'grammar' ? 'Grammar' : q.type === 'idiom' ? 'Idiom' : q.type === 'fill' ? 'Fill in the blank' : 'Coursera';
+  document.getElementById('quizQText').innerHTML = q.q;
+  document.getElementById('quizQSub').textContent = q.sub || '';
+  document.getElementById('quizFeedback').classList.remove('show');
+  document.getElementById('quizNextBtn').style.display = 'none';
+  document.getElementById('quizOptions').innerHTML = q.opts.map((o,i) =>
+    `<button class="option-btn" onclick="answerQuiz(${i})">${o}</button>`
+  ).join('');
+  document.getElementById('qScore').textContent = quizScore;
+  document.getElementById('qCorrect').textContent = quizCorrect;
+  document.getElementById('qWrong').textContent = quizWrong;
+}
+function answerQuiz(idx) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const q = quizQList[quizIdx];
+  const btns = document.querySelectorAll('.option-btn');
+  btns[idx].classList.add(idx===q.ans?'correct':'wrong');
+  if (idx!==q.ans) btns[q.ans].classList.add('correct');
+  btns.forEach(b => b.disabled = true);
+  const fb = document.getElementById('quizFeedback');
+  if (idx===q.ans) {
+    quizCorrect++; quizScore += 10; addXP(10);
+    fb.className = 'feedback-box show correct';
+    fb.innerHTML = `<span class="fb-icon">✅</span><span>${q.exp}</span>`;
+  } else {
+    quizWrong++; loseHeart();
+    fb.className = 'feedback-box show wrong';
+    fb.innerHTML = `<span class="fb-icon">❌</span><span>${q.exp}</span>`;
+  }
+  document.getElementById('qScore').textContent = quizScore;
+  document.getElementById('qCorrect').textContent = quizCorrect;
+  document.getElementById('qWrong').textContent = quizWrong;
+  document.getElementById('quizNextBtn').style.display = 'inline-block';
+  // Track each answer
+  trackEvent('quiz_answer', { correct: idx === q.ans, type: q.type || 'vocab' });
+}
+function nextQuizQ() { quizIdx++; renderQuizQ(); }
+
+// ══════════════════════════════════════════════════
+// PLACEMENT TEST
+// ══════════════════════════════════════════════════
+const shuffledTest = [...testQuestions].sort(() => Math.random()-0.5);
+function startTest() {
+  testIdx = 0; testScore = 0; testAnswered = false;
+  document.getElementById('testIntro').style.display = 'none';
+  document.getElementById('testResult').style.display = 'none';
+  document.getElementById('testQuiz').style.display = 'block';
+  renderTestQ();
+}
+function cancelTest() {
+  document.getElementById('testQuiz').style.display = 'none';
+  document.getElementById('testIntro').style.display = 'block';
+}
+function retakeTest() {
+  document.getElementById('testResult').style.display = 'none';
+  document.getElementById('testIntro').style.display = 'block';
+}
+function renderTestQ() {
+  testAnswered = false;
+  const q = shuffledTest[testIdx];
+  const pct = ((testIdx+1)/shuffledTest.length*100).toFixed(0);
+  document.getElementById('testProgFill').style.width = pct + '%';
+  document.getElementById('testProgLabel').textContent = `${testIdx+1}/${shuffledTest.length}`;
+  document.getElementById('testBadge').className = `q-type-badge ${q.badge||'badge-grammar'}`;
+  document.getElementById('testBadge').textContent = q.type==='vocab'?'Vocabulary':q.type==='grammar'?'Grammar':q.type==='idiom'?'Idiom':q.type==='fill'?'Fill in the blank':'Coursera AI';
+  document.getElementById('testQText').innerHTML = q.q;
+  document.getElementById('testQSub').textContent = q.sub || '';
+  document.getElementById('testFeedback').classList.remove('show');
+  document.getElementById('testNextBtn').style.display = 'none';
+  document.getElementById('testOptions').innerHTML = q.opts.map((o,i) =>
+    `<button class="option-btn" onclick="answerTest(${i})">${o}</button>`
+  ).join('');
+}
+function answerTest(idx) {
+  if (testAnswered) return;
+  testAnswered = true;
+  const q = shuffledTest[testIdx];
+  const btns = document.querySelectorAll('#testOptions .option-btn');
+  btns[idx].classList.add(idx===q.ans?'correct':'wrong');
+  if (idx!==q.ans) btns[q.ans].classList.add('correct');
+  btns.forEach(b => b.disabled = true);
+  if (idx===q.ans) testScore++;
+  const fb = document.getElementById('testFeedback');
+  fb.className = `feedback-box show ${idx===q.ans?'correct':'wrong'}`;
+  fb.innerHTML = `<span class="fb-icon">${idx===q.ans?'✅':'❌'}</span><span>${q.exp}</span>`;
+  document.getElementById('testNextBtn').style.display = 'inline-block';
+}
+function nextTestQ() {
+  testIdx++;
+  if (testIdx >= shuffledTest.length) { showTestResult(); return; }
+  renderTestQ();
+}
+function showTestResult() {
+  document.getElementById('testQuiz').style.display = 'none';
+  document.getElementById('testResult').style.display = 'block';
+  const total = shuffledTest.length;
+  const pct = testScore / total;
+  let level, desc, stars;
+  if (pct <= 0.35) { level='A2'; desc=`Score ${testScore}/${total}. Focus on basics first — start with Coursera flashcards daily and build your foundation vocabulary.`; stars='⭐'; }
+  else if (pct <= 0.55) { level='B1'; desc=`Score ${testScore}/${total}. Good foundation! Now expand your AI vocabulary and practice dialogues to reach B1+.`; stars='⭐⭐'; }
+  else if (pct <= 0.75) { level='B1+'; desc=`Score ${testScore}/${total}. Almost B2! Your grammar is solid — focus on idioms, Coursera vocabulary, and fluency practice.`; stars='⭐⭐⭐'; }
+  else if (pct <= 0.9) { level='B2'; desc=`Score ${testScore}/${total}. Strong B2! Work on advanced idioms, professional speaking, and AI-specific vocabulary to reach C1.`; stars='⭐⭐⭐⭐'; }
+  else { level='B2+'; desc=`Excellent! Score ${testScore}/${total}. You're at the top of B2. Focus on native-level fluency and C1 vocabulary.`; stars='⭐⭐⭐⭐⭐'; }
+  document.getElementById('resultStars').textContent = stars;
+  document.getElementById('resultLevel').textContent = level;
+  document.getElementById('resultDesc').textContent = desc;
+  addXP(20);
+}
+
+// ══════════════════════════════════════════════════
+// DIALOGUE
+// ══════════════════════════════════════════════════
+function initDialogue() {
+  const keys = Object.keys(scenarios);
+  document.getElementById('scenarioPills').innerHTML = keys.map(k =>
+    `<button class="scenario-pill ${k===activeScenario?'active':''}" onclick="selectScenario('${k.replace(/'/g,"\\'")}')">
+      ${scenarios[k].icon} ${k}
+    </button>`).join('');
+  if (dialogHistory.length === 0) startDialogue();
+}
+function selectScenario(s) {
+  activeScenario = s; dialogHistory = [];
+  document.querySelectorAll('.scenario-pill').forEach((b,i) => {
+    b.classList.toggle('active', Object.keys(scenarios)[i] === s);
+  });
+  document.getElementById('chatName').textContent = `${scenarios[s].icon} ${s}`;
+  startDialogue();
+}
+function startDialogue() {
+  const opener = scenarios[activeScenario].opener;
+  dialogHistory = [];
+  document.getElementById('chatBody').innerHTML = '';
+  addMsg('ai', 'AI Partner', opener);
+  dialogHistory.push({role:'assistant', content: opener});
+}
+function addMsg(type, label, text) {
+  const body = document.getElementById('chatBody');
+  const div = document.createElement('div');
+  div.className = `msg ${type}`;
+  const [main, fbPart] = text.split('💬 Feedback:');
+  const fbHtml = fbPart ? `<span class="feedback">💬 ${fbPart.trim()}</span>` : '';
+  div.innerHTML = `<div class="msg-label">${label}</div>
+    <div class="msg-bubble">${main.trim()}${fbHtml}
+      ${type==='ai' ? `<br><button class="speak-btn" style="margin-top:4px" onclick="speakText(this.dataset.t)" data-t="${main.trim().replace(/"/g,'&quot;')}">🔊 Listen</button>` : ''}
+    </div>`;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+  if (type==='ai' && main.trim().length < 280) setTimeout(() => speakText(main.trim()), 300);
+}
+async function sendMsg() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  trackEvent('dialogue', {});
+  input.value = '';
+  document.getElementById('sendBtn').disabled = true;
+  addMsg('user', 'You', text);
+  dialogHistory.push({role:'user', content: text});
+  const loadEl = document.createElement('div');
+  loadEl.className = 'msg ai'; loadEl.id = 'typing';
+  loadEl.innerHTML = `<div class="msg-label">AI Partner</div><div class="msg-bubble"><span class="typing-dots"><span>●</span><span>●</span><span>●</span></span></div>`;
+  document.getElementById('chatBody').appendChild(loadEl);
+  document.getElementById('chatBody').scrollTop = 9999;
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system: scenarios[activeScenario].system, messages: dialogHistory })
+    });
+    const data = await res.json();
+    const reply = data.content.map(c=>c.text||'').join('');
+    document.getElementById('typing')?.remove();
+    addMsg('ai','AI Partner', reply);
+    dialogHistory.push({role:'assistant', content: reply});
+    addXP(15);
+  } catch(e) {
+    document.getElementById('typing')?.remove();
+    addMsg('ai','System','Connection error. Please try again.');
+  }
+  document.getElementById('sendBtn').disabled = false;
+}
+
+// ══════════════════════════════════════════════════
+// IDIOMS
+// ══════════════════════════════════════════════════
+let activeIdiomCat = '📚 Coursera';
+function renderIdioms() {
+  const cats = Object.keys(idioms);
+  document.getElementById('idiomCatPills').innerHTML = cats.map(c =>
+    `<button class="cat-pill ${c===activeIdiomCat?'active':''}" onclick="selectIdiomCat('${c.replace(/'/g,"\\'")}')"> ${c}</button>`
+  ).join('');
+  document.getElementById('idiomGrid').innerHTML = idioms[activeIdiomCat].map(i => `
+    <div class="idiom-card">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div class="idiom-phrase">${i.phrase}</div>
+        <button class="speak-btn idiom-speak" onclick="speakText('${i.phrase.replace(/'/g,"\\'")}')">🔊</button>
+      </div>
+      <div class="idiom-meaning">${i.meaning}</div>
+      <div class="idiom-ex">${i.ex}</div>
+      <button class="speak-btn" style="margin-top:8px" onclick="speakText('${i.ex.replace(/'/g,"\\'")}')">🔊 Example</button>
+    </div>`).join('');
+}
+function selectIdiomCat(c) { activeIdiomCat = c; renderIdioms(); }
+
+// ══════════════════════════════════════════════════
+// VOICE ENGINE
+// ══════════════════════════════════════════════════
+function initTTS() {
+  const load = () => {
+    const vs = speechSynthesis.getVoices();
+    ttsVoice = vs.find(v=>v.lang==='en-US'&&v.localService) || vs.find(v=>v.lang==='en-GB'&&v.localService) || vs.find(v=>v.lang.startsWith('en-US')) || vs.find(v=>v.lang.startsWith('en')) || vs[0] || null;
+  };
+  speechSynthesis.onvoiceschanged = load; load();
+}
+function speakText(text) {
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.voice = ttsVoice; u.lang = 'en-US'; u.rate = 0.88;
+  speechSynthesis.speak(u);
+}
+function initSR() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) return;
+  recognition = new SR();
+  recognition.lang = 'en-US'; recognition.interimResults = true;
+  recognition.onstart = () => {
+    isRecording = true;
+    document.getElementById('micBtn').classList.add('recording');
+    const s = document.getElementById('micStatus');
+    s.textContent = '🔴 Listening...'; s.classList.add('active');
+  };
+  recognition.onresult = e => {
+    let t = '';
+    for (let i=e.resultIndex;i<e.results.length;i++) t+=e.results[i][0].transcript;
+    document.getElementById('chatInput').value = t;
+  };
+  recognition.onend = () => {
+    isRecording = false;
+    document.getElementById('micBtn').classList.remove('recording');
+    const s = document.getElementById('micStatus');
+    s.textContent = '✅ Done — sending...'; s.classList.remove('active');
+    const v = document.getElementById('chatInput').value.trim();
+    if (v) setTimeout(sendMsg, 400);
+  };
+  recognition.onerror = e => {
+    isRecording = false;
+    document.getElementById('micBtn').classList.remove('recording');
+    const msgs = {'not-allowed':'❌ Mic access denied','no-speech':'🔇 Nothing heard — try again','network':'⚠️ Network error'};
+    document.getElementById('micStatus').textContent = msgs[e.error]||'⚠️ Error: '+e.error;
+  };
+}
+function toggleMic() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { alert('Speech recognition needs Chrome or Edge.'); return; }
+  if (!recognition) initSR();
+  isRecording ? recognition.stop() : recognition.start();
+}
+
+// ══════════════════════════════════════════════════
+// IRREGULAR VERBS
+// ══════════════════════════════════════════════════
+const irregularVerbs = [
+  // ── A1: Super basic ──
+  { base:"be",         past:"was / were",  pp:"been",          ru:"быть",                    ex:"I was tired after the meeting.",             level:"A1", group:"Daily Life" },
+  { base:"have",       past:"had",         pp:"had",           ru:"иметь",                   ex:"She had a brilliant idea.",                  level:"A1", group:"Daily Life" },
+  { base:"do",         past:"did",         pp:"done",          ru:"делать",                  ex:"We did the analysis overnight.",             level:"A1", group:"Daily Life" },
+  { base:"go",         past:"went",        pp:"gone",          ru:"идти / ехать",            ex:"She went to the AI conference.",             level:"A1", group:"Daily Life" },
+  { base:"get",        past:"got",         pp:"got / gotten",  ru:"получать",                ex:"We got the results yesterday.",              level:"A1", group:"Daily Life" },
+  { base:"see",        past:"saw",         pp:"seen",          ru:"видеть",                  ex:"I saw the error in the code.",               level:"A1", group:"Daily Life" },
+  { base:"come",       past:"came",        pp:"come",          ru:"приходить",               ex:"The results came quickly.",                  level:"A1", group:"Daily Life" },
+  { base:"say",        past:"said",        pp:"said",          ru:"сказать",                 ex:"He said the model was ready.",               level:"A1", group:"Daily Life" },
+  { base:"make",       past:"made",        pp:"made",          ru:"делать / создавать",      ex:"They made a breakthrough.",                  level:"A1", group:"Daily Life" },
+  { base:"know",       past:"knew",        pp:"known",         ru:"знать",                   ex:"He knew the algorithm well.",                level:"A1", group:"Daily Life" },
+  { base:"think",      past:"thought",     pp:"thought",       ru:"думать",                  ex:"We thought about the risks.",                level:"A1", group:"Daily Life" },
+  { base:"take",       past:"took",        pp:"taken",         ru:"брать / принимать",       ex:"We took a different approach.",              level:"A1", group:"Daily Life" },
+  { base:"give",       past:"gave",        pp:"given",         ru:"давать",                  ex:"She gave a great presentation.",             level:"A1", group:"Daily Life" },
+  { base:"find",       past:"found",       pp:"found",         ru:"находить",                ex:"We found a bug in the model.",               level:"A1", group:"Daily Life" },
+  { base:"put",        past:"put",         pp:"put",           ru:"класть / помещать",       ex:"Put the data into the pipeline.",            level:"A1", group:"Daily Life" },
+  { base:"sit",        past:"sat",         pp:"sat",           ru:"сидеть",                  ex:"We sat down to review the metrics.",         level:"A1", group:"Daily Life" },
+  { base:"eat",        past:"ate",         pp:"eaten",         ru:"есть",                    ex:"We ate lunch during the sprint.",            level:"A1", group:"Daily Life" },
+  { base:"drink",      past:"drank",       pp:"drunk",         ru:"пить",                    ex:"He drank coffee before the demo.",           level:"A1", group:"Daily Life" },
+  { base:"run",        past:"ran",         pp:"run",           ru:"запускать / управлять",   ex:"She ran the project for six months.",        level:"A1", group:"Daily Life" },
+  { base:"write",      past:"wrote",       pp:"written",       ru:"писать",                  ex:"She wrote the technical specification.",     level:"A1", group:"Daily Life" },
+
+  // ── A2: Common everyday ──
+  { base:"tell",       past:"told",        pp:"told",          ru:"рассказывать",            ex:"He told us about the deadline.",             level:"A2", group:"Communication" },
+  { base:"show",       past:"showed",      pp:"shown",         ru:"показывать",              ex:"The data showed clear trends.",              level:"A2", group:"Communication" },
+  { base:"feel",       past:"felt",        pp:"felt",          ru:"чувствовать",             ex:"We felt the pressure to deliver.",           level:"A2", group:"Communication" },
+  { base:"leave",      past:"left",        pp:"left",          ru:"оставлять / уходить",     ex:"She left the company last year.",            level:"A2", group:"Communication" },
+  { base:"become",     past:"became",      pp:"become",        ru:"становиться",             ex:"AI became mainstream in 2023.",              level:"A2", group:"Communication" },
+  { base:"hear",       past:"heard",       pp:"heard",         ru:"слышать",                 ex:"I heard about the new model release.",       level:"A2", group:"Communication" },
+  { base:"mean",       past:"meant",       pp:"meant",         ru:"значить / иметь в виду",  ex:"What did you mean by scalable?",             level:"A2", group:"Communication" },
+  { base:"keep",       past:"kept",        pp:"kept",          ru:"держать / хранить",       ex:"Keep the stakeholders informed.",            level:"A2", group:"Communication" },
+  { base:"forget",     past:"forgot",      pp:"forgotten",     ru:"забывать",                ex:"Do not forget to update the docs.",          level:"A2", group:"Communication" },
+  { base:"understand", past:"understood",  pp:"understood",    ru:"понимать",                ex:"She understood the feedback instantly.",     level:"A2", group:"Communication" },
+  { base:"speak",      past:"spoke",       pp:"spoken",        ru:"говорить",                ex:"He spoke at the AI conference.",             level:"A2", group:"Communication" },
+  { base:"teach",      past:"taught",      pp:"taught",        ru:"обучать / преподавать",   ex:"She taught the team about RAG.",             level:"A2", group:"Communication" },
+  { base:"read",       past:"read",        pp:"read",          ru:"читать",                  ex:"I read the paper on LLMs last night.",       level:"A2", group:"Communication" },
+  { base:"send",       past:"sent",        pp:"sent",          ru:"отправлять",              ex:"She sent the report to the team.",           level:"A2", group:"Communication" },
+  { base:"bring",      past:"brought",     pp:"brought",       ru:"приносить",               ex:"AI brought many new opportunities.",         level:"A2", group:"Communication" },
+  { base:"meet",       past:"met",         pp:"met",           ru:"встречаться",             ex:"We met the stakeholders this morning.",      level:"A2", group:"Communication" },
+  { base:"pay",        past:"paid",        pp:"paid",          ru:"платить",                 ex:"The company paid for the GPU training.",     level:"A2", group:"Communication" },
+  { base:"buy",        past:"bought",      pp:"bought",        ru:"покупать",                ex:"They bought the AI startup last year.",      level:"A2", group:"Communication" },
+  { base:"sell",       past:"sold",        pp:"sold",          ru:"продавать",               ex:"We sold the product to 50 clients.",         level:"A2", group:"Communication" },
+  { base:"stand",      past:"stood",       pp:"stood",         ru:"стоять / придерживаться", ex:"The team stood behind their decision.",      level:"A2", group:"Communication" },
+
+  // ── B1: Intermediate — business and tech ──
+  { base:"build",      past:"built",       pp:"built",         ru:"строить / создавать",     ex:"We built the model from scratch.",           level:"B1", group:"Business" },
+  { base:"hold",       past:"held",        pp:"held",          ru:"держать / проводить",     ex:"We held a meeting on AI ethics.",            level:"B1", group:"Business" },
+  { base:"lead",       past:"led",         pp:"led",           ru:"вести / руководить",      ex:"She led the AI team for three years.",       level:"B1", group:"Business" },
+  { base:"set",        past:"set",         pp:"set",           ru:"устанавливать",           ex:"We set ambitious goals for the quarter.",    level:"B1", group:"Business" },
+  { base:"win",        past:"won",         pp:"won",           ru:"выигрывать",              ex:"Our team won the hackathon.",                level:"B1", group:"Business" },
+  { base:"lose",       past:"lost",        pp:"lost",          ru:"терять / проигрывать",    ex:"We lost the deal to a competitor.",          level:"B1", group:"Business" },
+  { base:"choose",     past:"chose",       pp:"chosen",        ru:"выбирать",                ex:"We chose a transformer architecture.",       level:"B1", group:"Business" },
+  { base:"spend",      past:"spent",       pp:"spent",         ru:"тратить",                 ex:"We spent a month fine-tuning the model.",    level:"B1", group:"Business" },
+  { base:"grow",       past:"grew",        pp:"grown",         ru:"расти",                   ex:"The model grew more accurate over time.",    level:"B1", group:"Business" },
+  { base:"cut",        past:"cut",         pp:"cut",           ru:"сокращать",               ex:"AI cut processing time in half.",            level:"B1", group:"Business" },
+  { base:"hit",        past:"hit",         pp:"hit",           ru:"достигать",               ex:"We hit 95% accuracy last week.",             level:"B1", group:"Business" },
+  { base:"break",      past:"broke",       pp:"broken",        ru:"ломать / нарушать",       ex:"The update broke the pipeline.",             level:"B1", group:"Business" },
+  { base:"begin",      past:"began",       pp:"begun",         ru:"начинать",                ex:"The training job began automatically.",      level:"B1", group:"Business" },
+  { base:"fall",       past:"fell",        pp:"fallen",        ru:"падать / снижаться",      ex:"The error rate fell by 30%.",                level:"B1", group:"Business" },
+  { base:"rise",       past:"rose",        pp:"risen",         ru:"расти / повышаться",      ex:"Compute costs rose significantly in 2024.", level:"B1", group:"Business" },
+  { base:"drive",      past:"drove",       pp:"driven",        ru:"двигать / управлять",     ex:"Data drives every AI decision we make.",    level:"B1", group:"Business" },
+  { base:"draw",       past:"drew",        pp:"drawn",         ru:"извлекать / рисовать",    ex:"We drew valuable insights from the logs.",  level:"B1", group:"Business" },
+  { base:"spread",     past:"spread",      pp:"spread",        ru:"распространять",          ex:"Misinformation spread quickly online.",      level:"B1", group:"Business" },
+  { base:"feed",       past:"fed",         pp:"fed",           ru:"подавать данные",         ex:"We fed the data into the pipeline.",         level:"B1", group:"Business" },
+  { base:"catch",      past:"caught",      pp:"caught",        ru:"перехватывать",           ex:"The filter caught the anomaly in time.",     level:"B1", group:"Business" },
+
+  // ── B2: Advanced professional ──
+  { base:"arise",      past:"arose",       pp:"arisen",        ru:"возникать",               ex:"New ethical issues have arisen with LLMs.", level:"B2", group:"Professional" },
+  { base:"seek",       past:"sought",      pp:"sought",        ru:"искать / стремиться",     ex:"We sought a better solution to the problem.",level:"B2", group:"Professional" },
+  { base:"prove",      past:"proved",      pp:"proven",        ru:"доказывать",              ex:"This approach has proven highly effective.", level:"B2", group:"Professional" },
+  { base:"undergo",    past:"underwent",   pp:"undergone",     ru:"подвергаться / проходить",ex:"The model underwent extensive fine-tuning.",level:"B2", group:"Professional" },
+  { base:"overcome",   past:"overcame",    pp:"overcome",      ru:"преодолевать",            ex:"We overcame the data shortage creatively.", level:"B2", group:"Professional" },
+  { base:"undertake",  past:"undertook",   pp:"undertaken",    ru:"предпринимать",           ex:"We undertook a full responsible AI audit.", level:"B2", group:"Professional" },
+  { base:"withdraw",   past:"withdrew",    pp:"withdrawn",     ru:"отзывать / выводить",     ex:"They withdrew the biased model from prod.", level:"B2", group:"Professional" },
+  { base:"foresee",    past:"foresaw",     pp:"foreseen",      ru:"предвидеть",              ex:"No one foresaw these unintended consequences.",level:"B2", group:"Professional" },
+  { base:"mislead",    past:"misled",      pp:"misled",        ru:"вводить в заблуждение",   ex:"The hallucinating model misled many users.",level:"B2", group:"Professional" },
+  { base:"strive",     past:"strove",      pp:"striven",       ru:"стремиться",              ex:"We strove to reduce bias in every dataset.",level:"B2", group:"Professional" },
+  { base:"bind",       past:"bound",       pp:"bound",         ru:"связывать / обязывать",   ex:"The model is bound by its training data.",  level:"B2", group:"Professional" },
+  { base:"forbid",     past:"forbade",     pp:"forbidden",     ru:"запрещать",               ex:"The policy forbade sharing sensitive data.",level:"B2", group:"Professional" },
+  { base:"split",      past:"split",       pp:"split",         ru:"разделять",               ex:"Split the dataset into train and test sets.",level:"B2", group:"Professional" },
+  { base:"fit",        past:"fit",         pp:"fit",           ru:"подходить / обучать",     ex:"We fit the regression model to our data.", level:"B2", group:"Professional" },
+  { base:"overcome",   past:"overcame",    pp:"overcome",      ru:"преодолевать",            ex:"The team overcame every technical obstacle.",level:"B2", group:"Professional" },
+];
+
+// ── VERBS STATE ──
+let verbMode = 'cards';
+let verbLevel = 'A1';
+let verbIdx = 0;
+let verbFlipped = false;
+let verbQuizList = [];
+let verbQuizIdx = 0;
+let vqCorrect = 0, vqWrong = 0;
+let verbQuizAnswered = false;
+
+
+function getVerbGroups() {
+  return ['A1','A2','B1','B2'];
+}
+function getFilteredVerbs() {
+  return irregularVerbs.filter(v => v.level === verbLevel);
+}
+
+const verbLevelDescs = {
+  'A1': '🟢 A1 — The most common verbs. You use these every day.',
+  'A2': '🔵 A2 — Common verbs for everyday communication.',
+  'B1': '🟡 B1 — Business and tech vocabulary. Important for work.',
+  'B2': '🔴 B2 — Advanced professional vocabulary. The hardest ones.'
+};
+const verbLevelColors = { 'A1':'var(--green)', 'A2':'var(--blue)', 'B1':'var(--yellow)', 'B2':'var(--red)' };
+const verbLevelBg    = { 'A1':'var(--green-light)', 'A2':'var(--blue-light)', 'B1':'var(--yellow-light)', 'B2':'var(--red-light)' };
+
+function selectVerbLevel(level) {
+  verbLevel = level;
+  verbIdx = 0;
+  // Update button styles
+  ['A1','A2','B1','B2'].forEach(l => {
+    const btn = document.getElementById('vl' + l);
+    if (!btn) return;
+    const active = l === level;
+    btn.style.background = active ? verbLevelColors[l] : 'var(--white)';
+    btn.style.borderColor = active ? verbLevelColors[l] : 'var(--border)';
+    btn.style.color = active ? 'white' : 'var(--text2)';
+  });
+  // Update description
+  const desc = document.getElementById('verbLevelDesc');
+  if (desc) {
+    desc.textContent = verbLevelDescs[level];
+    desc.style.background = verbLevelBg[level];
+    desc.style.borderLeftColor = verbLevelColors[level];
+  }
+  setVerbMode(verbMode);
+}
+
+function initVerbs() {
+  verbIdx = 0;
+  selectVerbLevel(verbLevel);
+}
+
+function setVerbMode(mode) {
+  verbMode = mode;
+  ['cards','quiz','table'].forEach(m => {
+    document.getElementById('verbMode' + m.charAt(0).toUpperCase() + m.slice(1)).style.display = m === mode ? 'block' : 'none';
+    document.getElementById('vMode' + m.charAt(0).toUpperCase() + m.slice(1)).classList.toggle('active', m === mode);
+  });
+  if (mode === 'cards') renderVerbCard();
+  if (mode === 'quiz') startVerbQuiz();
+  if (mode === 'table') renderVerbTable();
+}
+
+// ── VERB FLASHCARDS ──
+function renderVerbCard() {
+  const verbs = getFilteredVerbs();
+  if (!verbs.length) return;
+  const v = verbs[verbIdx];
+  verbFlipped = false;
+  document.getElementById('verbCard3d').style.transform = 'rotateY(0deg)';
+  document.getElementById('verbCardHint').textContent = '👆 Tap to see all forms';
+  document.getElementById('verbRatingRow').style.display = 'none';
+  document.getElementById('verbNavRow').style.display = 'flex';
+
+  const pct = ((verbIdx + 1) / verbs.length * 100).toFixed(0);
+  document.getElementById('verbCardCount').textContent = `${verbIdx + 1}/${verbs.length}`;
+  document.getElementById('verbCardProg').style.width = pct + '%';
+
+  document.getElementById('verbCardFront').innerHTML = `
+    <div style="font-size:0.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:3px 10px;border-radius:12px;background:${verbLevelBg[v.level]};color:${verbLevelColors[v.level]};border:1px solid ${verbLevelColors[v.level]};margin-bottom:12px">${v.level} · ${v.group}</div>
+    <div style="font-size:2.2rem;font-weight:900;color:var(--text);margin-bottom:8px">${v.base}</div>
+    <div style="font-size:0.85rem;font-weight:700;color:var(--text3)">base form</div>
+    <div style="font-size:0.78rem;color:var(--text3);margin-top:14px;font-style:italic">tap to see all 3 forms →</div>
+  `;
+  document.getElementById('verbCardBack').innerHTML = `
+    <div style="font-size:0.72rem;font-weight:800;padding:3px 10px;border-radius:12px;background:${verbLevelBg[v.level]};color:${verbLevelColors[v.level]};margin-bottom:12px">${v.level} · ${v.group}</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;width:100%;margin-bottom:14px;">
+      <div style="text-align:center">
+        <div style="font-size:0.62rem;font-weight:800;color:var(--text3);text-transform:uppercase;margin-bottom:4px">Base</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--green-dark)">${v.base}</div>
+      </div>
+      <div style="text-align:center;border-left:2px solid var(--border);border-right:2px solid var(--border);padding:0 6px">
+        <div style="font-size:0.62rem;font-weight:800;color:var(--text3);text-transform:uppercase;margin-bottom:4px">Past Simple</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--blue-dark)">${v.past}</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:0.62rem;font-weight:800;color:var(--text3);text-transform:uppercase;margin-bottom:4px">Past Part.</div>
+        <div style="font-size:1rem;font-weight:900;color:var(--purple)">${v.pp}</div>
+      </div>
+    </div>
+    <div style="font-size:1rem;font-weight:800;color:var(--orange);margin-bottom:8px">${v.ru}</div>
+    <div style="font-size:0.8rem;font-weight:600;color:var(--text2);font-style:italic;border-left:3px solid var(--green-light);padding-left:8px;text-align:left">"${v.ex}"</div>
+  `;
+}
+
+function flipVerbCard() {
+  verbFlipped = !verbFlipped;
+  document.getElementById('verbCard3d').style.transform = verbFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+  if (verbFlipped) {
+    document.getElementById('verbRatingRow').style.display = 'flex';
+    document.getElementById('verbNavRow').style.display = 'none';
+    document.getElementById('verbCardHint').textContent = '⬆️ How well did you know it?';
+    speakVerb();
+  } else {
+    document.getElementById('verbRatingRow').style.display = 'none';
+    document.getElementById('verbNavRow').style.display = 'flex';
+    document.getElementById('verbCardHint').textContent = '👆 Tap to see all forms';
+  }
+}
+
+function speakVerb() {
+  try {
+    const v = getFilteredVerbs()[verbIdx];
+    if (v) speakText(`${v.base}, ${v.past}, ${v.pp}`);
+  } catch(e) {}
+}
+
+function rateVerb(r) {
+  try { trackEvent('verb_card', { rating: r, verb: getFilteredVerbs()[verbIdx]?.base }); } catch(e) {}
+  if (r === 'easy') addXP(10);
+  else if (r === 'ok') addXP(5);
+  nextVerb();
+}
+function nextVerb() {
+  const verbs = getFilteredVerbs();
+  verbIdx = (verbIdx + 1) % verbs.length;
+  renderVerbCard();
+}
+function prevVerb() {
+  const verbs = getFilteredVerbs();
+  verbIdx = (verbIdx - 1 + verbs.length) % verbs.length;
+  renderVerbCard();
+}
+
+// ── VERB QUIZ ──
+function startVerbQuiz() {
+  vqCorrect = 0; vqWrong = 0; verbQuizAnswered = false;
+  document.getElementById('vqCorrect').textContent = 0;
+  document.getElementById('vqWrong').textContent = 0;
+  buildVerbQuiz();
+}
+
+function buildVerbQuiz() {
+  const verbs = getFilteredVerbs();
+  verbQuizList = [...verbs].sort(() => Math.random() - 0.5);
+  verbQuizIdx = 0;
+  renderVerbQuiz();
+}
+
+function renderVerbQuiz() {
+  if (verbQuizIdx >= verbQuizList.length) {
+    const acc = Math.round(vqCorrect / (vqCorrect + vqWrong) * 100) || 0;
+    document.getElementById('verbQuizQ').textContent = '';
+    document.getElementById('verbQuizSub').textContent = '';
+    document.getElementById('verbQuizOptions').innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:20px 0">
+        <div style="font-size:3rem;margin-bottom:10px">${acc >= 80 ? '🎉' : acc >= 60 ? '💪' : '📚'}</div>
+        <div style="font-weight:900;font-size:1.1rem;margin-bottom:6px">Round complete!</div>
+        <div style="color:var(--text2);font-weight:700;margin-bottom:16px">✅ ${vqCorrect} correct · ❌ ${vqWrong} wrong · ${acc}% accuracy</div>
+        <button class="btn-primary" onclick="startVerbQuiz()">Play again →</button>
+      </div>`;
+    document.getElementById('verbQuizFeedback').classList.remove('show');
+    document.getElementById('verbQuizNext').style.display = 'none';
+    return;
+  }
+
+  verbQuizAnswered = false;
+  const v = verbQuizList[verbQuizIdx];
+  const allVerbs = irregularVerbs;
+
+  // Randomly pick question type
+  const types = ['givePast', 'givePP', 'giveBase', 'chooseTranslation'];
+  const type = types[Math.floor(Math.random() * types.length)];
+
+  let q = '', sub = '', correct = '', opts = [];
+
+  if (type === 'givePast') {
+    q = `What is the past simple of: "${v.base}"?`;
+    sub = `(${v.ru})`;
+    correct = v.past;
+    opts = [v.past, ...allVerbs.filter(x=>x.base!==v.base).sort(()=>Math.random()-.5).slice(0,3).map(x=>x.past)];
+  } else if (type === 'givePP') {
+    q = `What is the past participle of: "${v.base}"?`;
+    sub = `(${v.ru})`;
+    correct = v.pp;
+    opts = [v.pp, ...allVerbs.filter(x=>x.base!==v.base).sort(()=>Math.random()-.5).slice(0,3).map(x=>x.pp)];
+  } else if (type === 'giveBase') {
+    q = `"${v.past}" — what is the base form?`;
+    sub = `past simple → base form`;
+    correct = v.base;
+    opts = [v.base, ...allVerbs.filter(x=>x.base!==v.base).sort(()=>Math.random()-.5).slice(0,3).map(x=>x.base)];
+  } else {
+    q = `"${v.base} / ${v.past} / ${v.pp}" — что это значит?`;
+    sub = 'Choose the Russian translation:';
+    correct = v.ru;
+    opts = [v.ru, ...allVerbs.filter(x=>x.base!==v.base).sort(()=>Math.random()-.5).slice(0,3).map(x=>x.ru)];
+  }
+
+  opts = opts.sort(() => Math.random() - 0.5);
+  const ansIdx = opts.indexOf(correct);
+
+  document.getElementById('verbQuizBadge').textContent = v.group + ' Verb';
+  document.getElementById('verbQuizQ').textContent = q;
+  document.getElementById('verbQuizSub').textContent = sub;
+  document.getElementById('verbQuizFeedback').classList.remove('show');
+  document.getElementById('verbQuizNext').style.display = 'none';
+  document.getElementById('verbQuizOptions').innerHTML = opts.map((o, i) =>
+    `<button class="option-btn" onclick="answerVerbQuiz(${i}, ${ansIdx}, '${v.base.replace(/'/g,"\\'")}', '${v.past.replace(/'/g,"\\'")}', '${v.pp.replace(/'/g,"\\'")}', '${v.ru.replace(/'/g,"\\'")}', '${v.ex.replace(/'/g,"\\'")}')">${o}</button>`
+  ).join('');
+}
+
+function answerVerbQuiz(idx, ans, base, past, pp, ru, ex) {
+  if (verbQuizAnswered) return;
+  verbQuizAnswered = true;
+  const btns = document.querySelectorAll('#verbQuizOptions .option-btn');
+  const correct = idx === ans;
+  btns[idx].classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) btns[ans].classList.add('correct');
+  btns.forEach(b => b.disabled = true);
+  if (correct) { vqCorrect++; addXP(8); } else { vqWrong++; loseHeart(); }
+  document.getElementById('vqCorrect').textContent = vqCorrect;
+  document.getElementById('vqWrong').textContent = vqWrong;
+  const fb = document.getElementById('verbQuizFeedback');
+  fb.className = `feedback-box show ${correct ? 'correct' : 'wrong'}`;
+  fb.innerHTML = `<span class="fb-icon">${correct ? '✅' : '❌'}</span>
+    <span><strong>${base}</strong> → ${past} → ${pp} &nbsp;·&nbsp; ${ru}<br>
+    <em style="font-size:0.82rem">"${ex}"</em></span>`;
+  try { speakText(`${base}, ${past}, ${pp}`); } catch(e) {}
+  try { trackEvent('verb_quiz', { correct, verb: base }); } catch(e) {}
+  document.getElementById('verbQuizNext').style.display = 'inline-block';
+  verbQuizIdx++;
+}
+
+function nextVerbQuiz() { renderVerbQuiz(); }
+
+// ── VERB TABLE ──
+function renderVerbTable() {
+  const verbs = getFilteredVerbs();
+  document.getElementById('verbTableBody').innerHTML = verbs.map((v, i) => `
+    <tr style="background:${i%2===0?'var(--white)':'var(--bg)'};border-bottom:1px solid var(--border);">
+      <td style="padding:9px 12px;font-weight:800;color:var(--green-dark)">${v.base}</td>
+      <td style="padding:9px 12px;font-weight:700;color:var(--blue-dark)">${v.past}</td>
+      <td style="padding:9px 12px;font-weight:700;color:var(--purple)">${v.pp}</td>
+      <td style="padding:9px 12px;font-weight:600;color:var(--text2);font-size:0.82rem">${v.ru}</td>
+    </tr>`).join('');
+}
+
+function filterVerbTable() {
+  const q = document.getElementById('verbSearch').value.toLowerCase();
+  const verbs = getFilteredVerbs().filter(v =>
+    v.base.includes(q) || v.past.includes(q) || v.pp.includes(q) || v.ru.includes(q)
+  );
+  document.getElementById('verbTableBody').innerHTML = verbs.map((v, i) => `
+    <tr style="background:${i%2===0?'var(--white)':'var(--bg)'};border-bottom:1px solid var(--border);">
+      <td style="padding:9px 12px;font-weight:800;color:var(--green-dark)">${v.base}</td>
+      <td style="padding:9px 12px;font-weight:700;color:var(--blue-dark)">${v.past}</td>
+      <td style="padding:9px 12px;font-weight:700;color:var(--purple)">${v.pp}</td>
+      <td style="padding:9px 12px;font-weight:600;color:var(--text2);font-size:0.82rem">${v.ru}</td>
+    </tr>`).join('');
+}
+// ══════════════════════════════════════════════════
+const _memStore = {};
+const safeStorage = {
+  get(key) {
+    try { return localStorage.getItem(key); } catch(e) { return _memStore[key] || null; }
+  },
+  set(key, val) {
+    try { localStorage.setItem(key, val); } catch(e) { _memStore[key] = val; }
+  },
+  remove(key) {
+    try { localStorage.removeItem(key); } catch(e) { delete _memStore[key]; }
+  }
+};
+
+// ══════════════════════════════════════════════════
+// WORD SELECTION — select any word → popup → add to My Words
+// ══════════════════════════════════════════════════
+let myWords = [];
+try { myWords = JSON.parse(safeStorage.get('sofi_mywords') || '[]'); } catch(e) { myWords = []; }
+let selectedWord = '';
+let popupTimeout = null;
+
+function saveMyWords() {
+  try { safeStorage.set('sofi_mywords', JSON.stringify(myWords)); } catch(e){}
+  updateMyWordsBadge();
+}
+
+function updateMyWordsBadge() {
+  const badge = document.getElementById('myWordsBadge');
+  const mobBadge = document.getElementById('mobWordsBadge');
+  document.getElementById('myWordsTotal').textContent = myWords.length;
+  if (myWords.length > 0) {
+    badge.style.display = 'inline';
+    badge.textContent = myWords.length;
+    if (mobBadge) { mobBadge.style.display = 'inline'; mobBadge.textContent = myWords.length; }
+  } else {
+    badge.style.display = 'none';
+    if (mobBadge) mobBadge.style.display = 'none';
+  }
+}
+
+function closePopup() {
+  document.getElementById('wordPopup').classList.remove('show');
+  document.getElementById('popupArrow').style.display = 'none';
+}
+
+function showWordPopup(word, x, y) {
+  if (!word || word.length < 2) return;
+  selectedWord = word;
+  const popup = document.getElementById('wordPopup');
+  const arrow = document.getElementById('popupArrow');
+  document.getElementById('pwWord').textContent = word;
+  popup.classList.add('show');
+
+  // Position popup above the selection
+  const pw = 240;
+  let left = Math.max(8, Math.min(x - pw/2, window.innerWidth - pw - 8));
+  let top = y - 70;
+  if (top < 60) top = y + 24;
+
+  popup.style.left = left + 'px';
+  popup.style.top = top + 'px';
+  arrow.style.left = (x - 8) + 'px';
+  arrow.style.top = (top + popup.offsetHeight - 2) + 'px';
+  arrow.style.display = 'block';
+
+  // Auto-speak the word
+  speakText(word);
+
+  // Clear auto-close
+  clearTimeout(popupTimeout);
+  popupTimeout = setTimeout(closePopup, 6000);
+}
+
+// Listen for text selection — desktop (mouseup) AND mobile (touchend)
+document.addEventListener('mouseup', handleSelectionEvent);
+document.addEventListener('touchend', (e) => {
+  if (e.target.closest('#wordPopup') || e.target.closest('#manualWordInput')) return;
+  setTimeout(() => handleSelectionEvent(e), 100); // small delay for iOS selection to settle
+});
+
+function handleSelectionEvent(e) {
+  if (e && e.target && e.target.closest('#wordPopup')) return;
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) { return; }
+  const word = sel.toString().trim().replace(/[^a-zA-Z\s\-']/g, '').trim();
+  if (!word || word.length < 2 || word.length > 40) { closePopup(); return; }
+  try {
+    const range = sel.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    const x = rect.left + rect.width / 2 + window.scrollX;
+    const y = rect.top + window.scrollY;
+    showWordPopup(word, x, y);
+  } catch(err) {
+    // fallback — show popup at center of screen
+    showWordPopup(word, window.innerWidth / 2, window.scrollY + 200);
+  }
+}
+
+async function addManualWord() {
+  const input = document.getElementById('manualWordInput');
+  if (!input) return;
+  const word = input.value.trim().replace(/[^a-zA-Z\s\-']/g, '').trim();
+  if (!word || word.length < 2) {
+    input.style.borderColor = 'var(--red)';
+    setTimeout(() => input.style.borderColor = 'var(--border)', 1200);
+    return;
+  }
+  selectedWord = word;
+  input.value = '';
+  await addSelectedWord();
+}
+
+// Close popup on scroll or click elsewhere
+document.addEventListener('mousedown', (e) => {
+  if (!e.target.closest('#wordPopup')) closePopup();
+});
+
+async function addSelectedWord() {
+  if (!selectedWord) return;
+  // Check duplicate
+  if (myWords.find(w => w.word.toLowerCase() === selectedWord.toLowerCase())) {
+    showToast('Already saved! ⭐', 'var(--orange)');
+    closePopup();
+    return;
+  }
+  const btn = document.querySelector('.pw-add');
+  btn.textContent = '⏳ Translating...';
+  btn.disabled = true;
+
+  // Ask Claude to translate and give example
+  let translation = '';
+  let example = '';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 120,
+        messages: [{
+          role: 'user',
+          content: `Translate the English word or phrase "${selectedWord}" to Russian. Reply ONLY in this exact JSON format with no extra text:
+{"ru":"Russian translation","ex":"Short example sentence in English (max 12 words)"}`
+        }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content.map(c => c.text || '').join('').trim();
+    const parsed = JSON.parse(text.replace(/```json|```/g, '').trim());
+    translation = parsed.ru || '';
+    example = parsed.ex || '';
+  } catch(e) {
+    translation = '(translate manually)';
+  }
+
+  const entry = {
+    word: selectedWord,
+    ru: translation,
+    ex: example,
+    date: new Date().toLocaleDateString('en-GB'),
+    id: Date.now()
+  };
+  myWords.unshift(entry);
+  saveMyWords();
+  renderMyWords();
+  showToast(`✅ "${selectedWord}" saved!`);
+  closePopup();
+  btn.textContent = '+ Add to Sofi';
+  btn.disabled = false;
+  wordsLearned++;
+  document.getElementById('homeWords').textContent = wordsLearned;
+}
+
+function renderMyWords() {
+  const grid = document.getElementById('myWordsGrid');
+  if (myWords.length === 0) {
+    grid.innerHTML = `<div class="mywords-empty" style="grid-column:1/-1">
+      <div class="big">🔍</div>
+      <div style="font-weight:800;font-size:1rem;margin-bottom:6px">No saved words yet</div>
+      <div style="font-size:0.85rem">Select any word on this page or in the chat — a popup will appear!</div>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = myWords.map(w => `
+    <div class="myword-card">
+      <button class="myword-del" onclick="deleteMyWord(${w.id})" title="Remove">✕</button>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <div class="myword-word">${w.word}</div>
+        <button onclick="speakText('${w.word.replace(/'/g,"\\'")}')\" style="background:var(--green-light);border:1px solid var(--green);border-radius:12px;padding:2px 8px;font-size:0.75rem;cursor:pointer;color:var(--green-dark);font-weight:700">🔊</button>
+      </div>
+      <div class="myword-translation">${w.ru}</div>
+      ${w.ex ? `<div style="font-size:0.78rem;color:var(--text2);font-style:italic;font-weight:600;border-left:3px solid var(--green-light);padding-left:8px;margin-bottom:6px">${w.ex}</div>` : ''}
+      <div class="myword-source">📅 ${w.date}</div>
+    </div>`).join('');
+}
+
+function deleteMyWord(id) {
+  myWords = myWords.filter(w => w.id !== id);
+  saveMyWords();
+  renderMyWords();
+}
+
+function clearMyWords() {
+  if (myWords.length === 0) return;
+  if (confirm(`Remove all ${myWords.length} saved words?`)) {
+    myWords = [];
+    saveMyWords();
+    renderMyWords();
+    showToast('Cleared!', 'var(--orange)');
+  }
+}
+
+function practiceMyWords() {
+  if (myWords.length < 2) { showToast('Save at least 2 words first!', 'var(--orange)'); return; }
+  // Inject myWords into flashcard system temporarily
+  currentFCCat = '⭐ My Words';
+  vocabulary['⭐ My Words'] = myWords.map(w => ({
+    word: w.word, pron: '', tag: '⭐ My Words', ru: w.ru, ex: w.ex || `Use "${w.word}" in a sentence.`
+  }));
+  showScreen('flashcards');
+}
+
+// ══════════════════════════════════════════════════
+// TAB SWITCHER (My Words)
+// ══════════════════════════════════════════════════
+function switchTab(tab) {
+  const isType = tab === 'type';
+  document.getElementById('tabType').style.display = isType ? 'block' : 'none';
+  document.getElementById('tabPaste').style.display = isType ? 'none' : 'block';
+  document.getElementById('tabTypeBtn').style.background = isType ? 'var(--green)' : 'var(--white)';
+  document.getElementById('tabTypeBtn').style.color = isType ? 'white' : 'var(--text2)';
+  document.getElementById('tabPasteBtn').style.background = isType ? 'var(--white)' : 'var(--blue)';
+  document.getElementById('tabPasteBtn').style.color = isType ? 'var(--text2)' : 'white';
+}
+
+// ══════════════════════════════════════════════════
+// IMPORT FROM CLAUDE — parse pasted text
+// ══════════════════════════════════════════════════
+function importFromClaude() {
+  const raw = document.getElementById('claudePasteInput').value.trim();
+  if (!raw) {
+    showToast('⚠️ Paste Claude\'s reply first!', 'var(--orange)');
+    return;
+  }
+
+  // Parse the structured format Claude uses:
+  // 📖 WORD · /pron/ · Translation · Example · Tip
+  // Try multiple formats gracefully
+  let word = '', pron = '', ru = '', ex = '', tip = '';
+
+  // Format 1: line-based structured card
+  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+
+  lines.forEach(line => {
+    const lower = line.toLowerCase();
+    if (lower.startsWith('📖') || lower.startsWith('word:') || lower.startsWith('**') && !lower.includes(':')) {
+      word = line.replace(/^📖\s*/, '').replace(/\*\*/g, '').replace(/^word:\s*/i, '').split('·')[0].split('/')[0].trim();
+    } else if (lower.startsWith('🔤') || lower.startsWith('pronunciation:') || lower.startsWith('pron:')) {
+      pron = line.replace(/^🔤\s*/, '').replace(/^(pronunciation|pron):\s*/i, '').trim();
+    } else if (lower.startsWith('🇷🇺') || lower.startsWith('translation:') || lower.startsWith('russian:') || lower.startsWith('перевод:')) {
+      ru = line.replace(/^🇷🇺\s*/, '').replace(/^(translation|russian|перевод):\s*/i, '').trim();
+    } else if (lower.startsWith('💬') || lower.startsWith('example:') || lower.startsWith('пример:')) {
+      ex = line.replace(/^💬\s*/, '').replace(/^(example|пример):\s*/i, '').replace(/^["«]|["»]$/g, '').trim();
+    } else if (lower.startsWith('💡') || lower.startsWith('tip:') || lower.startsWith('совет:')) {
+      tip = line.replace(/^💡\s*/, '').replace(/^(tip|совет):\s*/i, '').trim();
+    }
+  });
+
+  // Fallback: if no structured format found, extract first meaningful word
+  if (!word) {
+    // Try to find a bold word **word** pattern
+    const boldMatch = raw.match(/\*\*([^*]+)\*\*/);
+    if (boldMatch) word = boldMatch[1];
+    else word = lines[0].replace(/[^a-zA-Z\s\-']/g, '').trim().split(' ').slice(0,3).join(' ');
+  }
+
+  if (!word || word.length < 2) {
+    showToast('❌ Could not read the word. Check format.', 'var(--red)');
+    return;
+  }
+
+  // Check duplicate
+  if (myWords.find(w => w.word.toLowerCase() === word.toLowerCase())) {
+    showToast('⭐ Already saved!', 'var(--orange)');
+    document.getElementById('claudePasteInput').value = '';
+    return;
+  }
+
+  const entry = {
+    word, pron, ru: ru || '(see Claude reply)',
+    ex: ex || '', tip: tip || '',
+    date: new Date().toLocaleDateString('en-GB'),
+    id: Date.now()
+  };
+
+  myWords.unshift(entry);
+  saveMyWords();
+  renderMyWords();
+  wordsLearned++;
+  document.getElementById('homeWords').textContent = wordsLearned;
+  document.getElementById('claudePasteInput').value = '';
+  speakText(word);
+  showToast(`✅ "${word}" saved to My Words!`);
+  switchTab('type'); // go back to type tab
+}
+
+// ══════════════════════════════════════════════════
+// HISTORY & PROGRESS TRACKING
+// ══════════════════════════════════════════════════
+const HIST_KEY = 'sofi_history';
+function loadHistory() {
+  try { return JSON.parse(safeStorage.get(HIST_KEY) || '[]'); } catch(e) { return []; }
+}
+function saveHistory(h) {
+  try { safeStorage.set(HIST_KEY, JSON.stringify(h.slice(-500))); } catch(e) {}
+}
+function trackEvent(type, data) {
+  const h = loadHistory();
+  h.push({ type, ...data, ts: Date.now(), date: new Date().toLocaleDateString('en-GB') });
+  saveHistory(h);
+}
+
+function renderHistory() {
+  const h = loadHistory();
+  renderHistSummary(h);
+  renderHistCalendar(h);
+  renderHistChart(h);
+  renderHistLog(h);
+}
+
+function renderHistSummary(h) {
+  const quizEvents = h.filter(e => e.type === 'quiz_answer');
+  const correct = quizEvents.filter(e => e.correct).length;
+  const total = quizEvents.length;
+  const acc = total > 0 ? Math.round(correct / total * 100) : 0;
+  const flashEvents = h.filter(e => e.type === 'flashcard');
+  const days = new Set(h.map(e => e.date)).size;
+  document.getElementById('histSummary').innerHTML = `
+    <div class="duo-card" style="text-align:center">
+      <div style="font-size:1.8rem;font-weight:900;color:var(--green-dark)">${total}</div>
+      <div style="font-size:0.7rem;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Questions</div>
+    </div>
+    <div class="duo-card" style="text-align:center">
+      <div style="font-size:1.8rem;font-weight:900;color:var(--blue-dark)">${acc}%</div>
+      <div style="font-size:0.7rem;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Accuracy</div>
+    </div>
+    <div class="duo-card" style="text-align:center">
+      <div style="font-size:1.8rem;font-weight:900;color:var(--orange)">${days}</div>
+      <div style="font-size:0.7rem;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Study days</div>
+    </div>
+    <div class="duo-card" style="text-align:center">
+      <div style="font-size:1.8rem;font-weight:900;color:var(--purple)">${myWords.length}</div>
+      <div style="font-size:0.7rem;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Words saved</div>
+    </div>
+    <div class="duo-card" style="text-align:center">
+      <div style="font-size:1.8rem;font-weight:900;color:var(--red)">${flashEvents.filter(e=>e.rating==='easy').length}</div>
+      <div style="font-size:0.7rem;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Cards easy</div>
+    </div>
+    <div class="duo-card" style="text-align:center">
+      <div style="font-size:1.8rem;font-weight:900;color:#b37c00">${xp}</div>
+      <div style="font-size:0.7rem;font-weight:800;color:var(--text2);text-transform:uppercase;letter-spacing:.05em;margin-top:2px">Total XP</div>
+    </div>`;
+}
+
+function renderHistCalendar(h) {
+  const activeDates = new Set(h.map(e => e.date));
+  const cal = document.getElementById('histCalendar');
+  const dayLabels = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+  let html = dayLabels.map(d =>
+    `<div style="text-align:center;font-size:0.6rem;font-weight:800;color:var(--text3);padding-bottom:4px">${d}</div>`
+  ).join('');
+
+  const today = new Date();
+  const todayStr = today.toLocaleDateString('en-GB');
+  // build 28 days back
+  const cells = [];
+  for (let i = 27; i >= 0; i--) {
+    const d = new Date(today); d.setDate(today.getDate() - i);
+    cells.push(d);
+  }
+  // Pad so first cell aligns to Monday
+  const firstDow = (cells[0].getDay() + 6) % 7;
+  for (let i = 0; i < firstDow; i++) cells.unshift(null);
+
+  html += cells.map(d => {
+    if (!d) return `<div></div>`;
+    const ds = d.toLocaleDateString('en-GB');
+    const isToday = ds === todayStr;
+    const active = activeDates.has(ds);
+    const bg = isToday ? 'var(--blue)' : active ? 'var(--green)' : 'var(--border)';
+    const border = isToday ? '2px solid var(--blue-dark)' : '1px solid transparent';
+    return `<div title="${ds}" style="aspect-ratio:1;border-radius:5px;background:${bg};border:${border};cursor:default"></div>`;
+  }).join('');
+
+  cal.innerHTML = html;
+}
+
+function renderHistChart(h) {
+  const byDate = {};
+  h.filter(e => e.type === 'quiz_answer').forEach(e => {
+    if (!byDate[e.date]) byDate[e.date] = { correct:0, total:0 };
+    byDate[e.date].total++;
+    if (e.correct) byDate[e.date].correct++;
+  });
+  const dates = Object.keys(byDate).sort().slice(-10);
+  const chartEl = document.getElementById('histChart');
+  const labelsEl = document.getElementById('histChartLabels');
+
+  if (!dates.length) {
+    chartEl.innerHTML = `<div style="width:100%;text-align:center;color:var(--text3);font-size:0.85rem;font-weight:700;padding:20px 0;align-self:center">Complete a quiz to see your chart!</div>`;
+    labelsEl.innerHTML = '';
+    return;
+  }
+  chartEl.innerHTML = dates.map(date => {
+    const { correct, total } = byDate[date];
+    const acc = Math.round(correct / total * 100);
+    const barH = Math.max(4, Math.round(acc * 0.72));
+    const color = acc >= 80 ? 'var(--green)' : acc >= 55 ? 'var(--yellow)' : 'var(--red)';
+    return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
+      <div style="font-size:0.62rem;font-weight:900;color:${color}">${acc}%</div>
+      <div style="width:100%;height:${barH}px;background:${color};border-radius:4px 4px 0 0"></div>
+    </div>`;
+  }).join('');
+
+  labelsEl.innerHTML = dates.map(d => {
+    const p = d.split('/');
+    return `<span style="flex:1;text-align:center;font-size:0.6rem">${p[0]}/${p[1]}</span>`;
+  }).join('');
+}
+
+function renderHistLog(h) {
+  const logEl = document.getElementById('histLog');
+  if (!h.length) {
+    logEl.innerHTML = `<div style="text-align:center;padding:20px;color:var(--text3);font-size:0.85rem;font-weight:700">Start studying — your sessions will appear here!</div>`;
+    return;
+  }
+  const byDate = {};
+  h.forEach(e => {
+    if (!byDate[e.date]) byDate[e.date] = { quiz:[], flash:[], dialogue:0, words:0 };
+    if (e.type==='quiz_answer') byDate[e.date].quiz.push(e);
+    if (e.type==='flashcard') byDate[e.date].flash.push(e);
+    if (e.type==='dialogue') byDate[e.date].dialogue++;
+    if (e.type==='word_saved') byDate[e.date].words++;
+  });
+  const todayStr = new Date().toLocaleDateString('en-GB');
+  logEl.innerHTML = Object.entries(byDate).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,20).map(([date, data]) => {
+    const isToday = date === todayStr;
+    const qTotal = data.quiz.length;
+    const qCorrect = data.quiz.filter(e=>e.correct).length;
+    const acc = qTotal > 0 ? Math.round(qCorrect/qTotal*100) : null;
+    const fTotal = data.flash.length;
+    const fEasy = data.flash.filter(e=>e.rating==='easy').length;
+    const pills = [];
+    if (qTotal) pills.push(`<span style="background:var(--blue-light);color:var(--blue-dark);padding:3px 10px;border-radius:12px;font-size:0.72rem;font-weight:800">⚡ ${qCorrect}/${qTotal}${acc!==null?` · ${acc}%`:''}</span>`);
+    if (fTotal) pills.push(`<span style="background:var(--green-light);color:var(--green-dark);padding:3px 10px;border-radius:12px;font-size:0.72rem;font-weight:800">🃏 ${fTotal} cards · ${fEasy} ✅</span>`);
+    if (data.dialogue) pills.push(`<span style="background:var(--purple-light);color:var(--purple);padding:3px 10px;border-radius:12px;font-size:0.72rem;font-weight:800">💬 ${data.dialogue} msgs</span>`);
+    if (data.words) pills.push(`<span style="background:var(--yellow-light);color:var(--orange);padding:3px 10px;border-radius:12px;font-size:0.72rem;font-weight:800">⭐ +${data.words} words</span>`);
+    return `<div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start">
+      <div style="flex-shrink:0;text-align:center;min-width:38px">
+        <div style="font-size:1.3rem">${isToday?'📍':'📅'}</div>
+        <div style="font-size:0.62rem;font-weight:800;color:var(--text3)">${date.split('/').slice(0,2).join('/')}</div>
+      </div>
+      <div>
+        <div style="font-weight:800;font-size:0.85rem;color:var(--text);margin-bottom:5px">${isToday?'✨ Today':date}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px">${pills.join('')||'<span style="color:var(--text3);font-size:0.78rem">Session recorded</span>'}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════
+// CROSS-TAB SYNC
+// ══════════════════════════════════════════════════
+window.addEventListener('storage', (e) => {
+  try {
+    if (e.key === 'sofi_mywords') {
+      const updated = JSON.parse(e.newValue || '[]');
+      const added = updated.length - myWords.length;
+      myWords = updated;
+      updateMyWordsBadge();
+      renderMyWords();
+      if (added > 0) showToast(`📖 +${added} word${added>1?'s':''} from Dictionary!`);
+    }
+  } catch(e) {}
+});
+
+// ══════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════
+window.onerror = function(msg, src, line, col, err) {
+  console.warn('Sofi caught error:', msg, 'line:', line);
+  return true;
+};
+window.addEventListener('unhandledrejection', function(e) {
+  console.warn('Sofi promise error:', e.reason);
+  e.preventDefault();
+});
+
+try { initHome(); } catch(e) { console.warn('initHome error', e); }
+try { initTTS(); } catch(e) { console.warn('initTTS error', e); }
+try { updateHearts(); } catch(e) {}
+try { updateMyWordsBadge(); } catch(e) {}
+try { renderMyWords(); } catch(e) {}
+</script>
+</body>
+</html>
