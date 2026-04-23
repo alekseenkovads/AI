@@ -1,0 +1,2645 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)file:///C:/Users/aleks/Downloads/agency-os_40.html -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agency OS</title>
+<link href="./agency-os_files/css2" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f3f1;
+  --surface: #ffffff;
+  --surface2: #eeecea;
+  --surface3: #1a1917;
+  --border: #dddbd6;
+  --border2: #c8c5be;
+  --text: #1a1917;
+  --muted: #7a7870;
+  --dim: #b0ada6;
+  --accent: #b8a882;
+  --accent-dark: #8a7d60;
+  --gold: #8a7d60;
+  --gold-bg: #f5f2ea;
+  --red: #c0392b;
+  --red-bg: #fdf0ee;
+  --green: #2d7a4f;
+  --green-bg: #eef7f2;
+  --blue: #2c5f8a;
+  --blue-bg: #eef2f9;
+  --orange: #c07030;
+  --orange-bg: #fdf3ee;
+}
+  }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'DM Sans', sans-serif; font-size:13px; line-height:1.5; min-height:100vh; }
+
+/* LOGIN */
+#login-screen {
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  background:var(--surface3);
+  background-image: radial-gradient(ellipse at 30% 50%, rgba(184,168,130,.10) 0%, transparent 60%),
+                    radial-gradient(ellipse at 70% 20%, rgba(184,168,130,.06) 0%, transparent 50%);
+}
+.login-box {
+  background:var(--bg); border:1px solid var(--border);
+  padding:52px; width:420px;
+  box-shadow: 0 40px 80px rgba(0,0,0,.5);
+}
+.login-logo { font-family:'Playfair Display'; font-size:22px; font-weight:700; color:var(--accent); margin-bottom:36px; letter-spacing:1px; }
+.login-title { font-family:'Playfair Display'; font-size:28px; font-weight:600; margin-bottom:8px; line-height:1.2; color:var(--text); }
+.login-sub { color:var(--muted); font-size:12px; margin-bottom:36px; }
+.login-label { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--accent-dark); margin-bottom:6px; font-family:'DM Mono'; }
+.login-select {
+  width:100%; padding:12px 14px; border:1px solid var(--border2); background:var(--surface);
+  font-family:'DM Sans'; font-size:13px; color:var(--text); margin-bottom:24px;
+  appearance:none; cursor:pointer; outline:none; transition:border-color .15s;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b8a882' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 14px center;
+}
+.login-select:focus { border-color:var(--accent); }
+.login-btn {
+  width:100%; padding:15px; background:var(--surface3); color:var(--accent);
+  border:1px solid var(--accent); font-family:'DM Mono'; font-size:11px; letter-spacing:3px;
+  text-transform:uppercase; cursor:pointer; transition:all .2s;
+}
+.login-btn:hover { background:var(--accent); color:var(--surface3); }
+
+/* APP */
+#app { display:none; min-height:100vh; flex-direction:column; }
+#app.visible { display:flex; }
+
+/* TOPBAR */
+.topbar {
+  background:var(--surface3); color:var(--text); height:54px;
+  display:flex; align-items:center; padding:0 28px; gap:0;
+  position:sticky; top:0; z-index:100; border-bottom:1px solid rgba(184,168,130,.2);
+}
+.topbar-logo { font-family:'Playfair Display'; font-size:18px; font-weight:700; color:var(--accent); padding-right:32px; border-right:1px solid rgba(184,168,130,.2); letter-spacing:.5px; }
+.topbar-nav { display:flex; margin-left:24px; }
+.topbar-nav-item {
+  padding:0 18px; height:54px; display:flex; align-items:center;
+  font-size:11px; letter-spacing:.8px; text-transform:uppercase; color:rgba(244,243,241,.4);
+  cursor:pointer; border-bottom:2px solid transparent; transition:all .15s;
+  font-family:'DM Mono'; white-space:nowrap;
+}
+.topbar-nav-item:hover { color:rgba(244,243,241,.8); }
+.topbar-nav-item.active { color:var(--accent); border-bottom-color:var(--accent); }
+.topbar-nav-item.disabled { opacity:.2; cursor:not-allowed; pointer-events:none; }
+.topbar-spacer { flex:1; }
+.topbar-user { display:flex; align-items:center; gap:10px; }
+.topbar-avatar {
+  width:32px; height:32px; border-radius:50%;
+  background:rgba(184,168,130,.15); border:1px solid rgba(184,168,130,.3);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'DM Mono'; font-size:10px; color:var(--accent);
+}
+.topbar-name { font-size:12px; color:rgba(244,243,241,.8); font-family:'DM Sans'; }
+.topbar-role { font-size:10px; color:rgba(244,243,241,.4); font-family:'DM Mono'; }
+.topbar-logout { margin-left:16px; padding:5px 14px; border:1px solid rgba(184,168,130,.3); font-size:10px; letter-spacing:.5px; color:rgba(244,243,241,.4); cursor:pointer; transition:all .15s; font-family:'DM Mono'; }
+.topbar-logout:hover { border-color:var(--accent); color:var(--accent); }
+
+/* MAIN */
+.main { flex:1; padding:28px 32px; }
+
+/* ROLE BANNER */
+.role-banner {
+  display:flex; align-items:center; gap:12px; padding:12px 16px;
+  border:1px solid; margin-bottom:24px; font-size:12px;
+}
+.role-banner .rb-icon { font-size:18px; }
+.role-banner .rb-text strong { display:block; font-size:13px; margin-bottom:1px; font-family:'Playfair Display'; }
+.role-banner.owner { background:var(--gold-bg); border-color:var(--accent); color:var(--gold); }
+.role-banner.admin { background:var(--blue-bg); border-color:#4a6fa0; color:var(--blue); }
+.role-banner.buh { background:var(--orange-bg); border-color:#c07040; color:var(--orange); }
+.role-banner.manager { background:var(--green-bg); border-color:#4a9a6a; color:var(--green); }
+.role-banner.lawyer { background:var(--surface2); border-color:var(--border2); color:var(--muted); }
+
+/* PAGE */
+.page { display:none; }
+.page.active { display:block; animation:fadeIn .18s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+/* SECTION */
+.section { margin-bottom:32px; }
+.section-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+.section-title { font-family:'Playfair Display'; font-size:18px; font-weight:600; color:var(--text); }
+.section-sub { font-size:11px; color:var(--muted); margin-top:3px; font-family:'DM Mono'; }
+
+.add-btn {
+  padding:8px 18px; background:var(--surface3); color:var(--accent);
+  border:1px solid var(--accent); font-size:10px; font-family:'DM Mono'; cursor:pointer;
+  letter-spacing:1px; text-transform:uppercase; transition:all .15s;
+}
+.add-btn:hover { background:var(--accent); color:var(--surface3); }
+.add-btn:disabled { opacity:.3; cursor:not-allowed; }
+
+/* TABLE */
+.table-wrap { background:var(--surface); border:1px solid var(--border); overflow-x:auto; }
+table { width:100%; border-collapse:collapse; min-width:700px; }
+thead tr { border-bottom:2px solid var(--border2); }
+th {
+  padding:10px 14px; text-align:left;
+  font-size:10px; font-family:'DM Mono'; font-weight:500;
+  letter-spacing:.8px; text-transform:uppercase; color:var(--muted);
+  white-space:nowrap; background:var(--surface2);
+}
+th.wrap { white-space:normal; line-height:1.3; }
+th.locked { color:var(--dim); }
+td { padding:10px 14px; border-bottom:1px solid var(--border); font-size:12px; color:var(--muted); vertical-align:middle; }
+tr:last-child td { border-bottom:none; }
+tr:hover td { background:#f0ede6; color:var(--text); }
+td.main { color:var(--text); font-weight:500; }
+td.mono { font-family:'DM Mono'; font-size:11px; }
+td.amount { font-family:'DM Mono'; font-size:12px; font-weight:500; color:var(--text); }
+td.locked-cell { color:var(--dim); background:repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(0,0,0,.02) 3px, rgba(0,0,0,.02) 6px); }
+
+/* SUBTOTALS */
+tr.subtotal td { background:var(--gold-bg) !important; border-top:1px solid var(--accent); border-bottom:1px solid var(--accent); font-family:'DM Mono'; font-size:11px; font-weight:500; color:var(--text); }
+tr.subtotal:hover td { background:#ede8da !important; }
+tr.subtotal td.sub-label { color:var(--accent-dark); font-size:10px; text-transform:uppercase; letter-spacing:.5px; }
+tr.total-row td { background:var(--surface3) !important; color:var(--accent) !important; font-family:'DM Mono'; font-size:12px; font-weight:600; border:none; }
+tr.total-row:hover td { background:#2a2926 !important; }
+
+/* BADGES */
+.badge { display:inline-flex; align-items:center; padding:2px 8px; font-size:10px; font-family:'DM Mono'; border:1px solid; white-space:nowrap; }
+.badge-ok { border-color:var(--green); color:var(--green); background:var(--green-bg); }
+.badge-warn { border-color:var(--accent-dark); color:var(--accent-dark); background:var(--gold-bg); }
+.badge-alert { border-color:var(--red); color:var(--red); background:var(--red-bg); }
+.badge-draft { border-color:var(--dim); color:var(--muted); background:var(--surface2); }
+.badge-blue { border-color:var(--blue); color:var(--blue); background:var(--blue-bg); }
+
+/* METRICS */
+.metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
+.metric { background:var(--surface); border:1px solid var(--border); border-top:3px solid var(--accent); padding:20px; }
+.metric-label { font-size:10px; font-family:'DM Mono'; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:10px; }
+.metric-value { font-family:'Playfair Display'; font-size:28px; font-weight:700; line-height:1; color:var(--text); }
+.metric-sub { font-size:11px; color:var(--muted); margin-top:6px; font-family:'DM Mono'; }
+
+/* TABS */
+.tabs { display:flex; border-bottom:2px solid var(--border); margin-bottom:24px; }
+.tab { padding:10px 20px; font-size:11px; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .12s; white-space:nowrap; font-family:'DM Mono'; text-transform:uppercase; letter-spacing:.5px; margin-bottom:-2px; }
+.tab:hover { color:var(--text); }
+.tab.active { color:var(--accent-dark); border-bottom-color:var(--accent); font-weight:500; }
+
+/* NOTICE */
+.notice { padding:12px 16px; border-left:3px solid; font-size:12px; margin-bottom:16px; }
+.notice-info { border-color:var(--blue); background:var(--blue-bg); color:var(--blue); }
+.notice-warn { border-color:var(--accent); background:var(--gold-bg); color:var(--gold); }
+
+/* LOCK */
+.lock-icon { display:inline-block; margin-right:4px; opacity:.4; }
+
+/* FILTER IN TH */
+.th-filter { position:relative; vertical-align:top; }
+.th-filter-select {
+  margin-top:5px; width:100%; padding:3px 6px;
+  border:1px solid var(--border2); background:var(--surface);
+  font-family:'DM Mono'; font-size:10px; color:var(--text);
+  cursor:pointer; outline:none; appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6' viewBox='0 0 8 6'%3E%3Cpath d='M1 1l3 3 3-3' stroke='%23b8a882' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 5px center;
+  padding-right:18px;
+}
+.th-filter-select:focus { border-color:var(--accent); }
+.th-filter-select.filtered { border-color:var(--accent-dark); background:var(--surface3); color:var(--accent); }
+
+/* SORT */
+th.sortable { cursor:pointer; user-select:none; }
+th.sortable:hover { background:var(--border); color:var(--text); }
+th.sortable .sort-arrow { margin-left:4px; opacity:.4; font-size:9px; }
+th.sort-asc .sort-arrow::after { content:'▲'; color:var(--accent-dark); opacity:1; }
+th.sort-desc .sort-arrow::after { content:'▼'; color:var(--accent-dark); opacity:1; }
+th.sortable:not(.sort-asc):not(.sort-desc) .sort-arrow::after { content:'⇅'; }
+
+/* MODAL */
+.modal-overlay { position:fixed; inset:0; background:rgba(26,25,23,.6); z-index:200; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
+.modal { background:var(--surface); border:1px solid var(--border2); width:560px; max-width:95vw; box-shadow:0 32px 64px rgba(0,0,0,.2); }
+.modal-header { padding:20px 24px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; background:var(--surface2); }
+.modal-title { font-family:'Playfair Display'; font-size:16px; font-weight:600; color:var(--text); }
+.modal-close { cursor:pointer; color:var(--muted); font-size:20px; line-height:1; transition:color .1s; }
+.modal-close:hover { color:var(--text); }
+.modal-body { padding:24px; }
+.modal-footer { padding:16px 24px; border-top:1px solid var(--border); display:flex; justify-content:flex-end; gap:10px; }
+.form-row { margin-bottom:16px; }
+.form-label { font-size:10px; font-family:'DM Mono'; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:6px; display:block; }
+.form-input, .form-select {
+  width:100%; padding:9px 12px; border:1px solid var(--border2); background:var(--bg);
+  font-family:'DM Sans'; font-size:12px; color:var(--text); outline:none; transition:border-color .1s;
+}
+.form-input:focus, .form-select:focus { border-color:var(--accent); }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.btn-primary { padding:10px 20px; background:var(--surface3); color:var(--accent); border:1px solid var(--accent); font-family:'DM Mono'; font-size:11px; letter-spacing:1px; cursor:pointer; transition:all .15s; text-transform:uppercase; }
+.btn-primary:hover { background:var(--accent); color:var(--surface3); }
+.btn-secondary { padding:10px 20px; background:transparent; color:var(--muted); border:1px solid var(--border2); font-family:'DM Sans'; font-size:12px; cursor:pointer; }
+
+/* MANAGER TAG */
+.mtag { display:inline-block; padding:2px 7px; font-size:10px; background:var(--gold-bg); border:1px solid var(--accent); color:var(--accent-dark); font-family:'DM Mono'; }
+
+/* ACCESS GRID */
+.access-grid { display:grid; }
+.ag-header { background:var(--surface3); padding:10px 12px; font-size:10px; font-family:'DM Mono'; text-transform:uppercase; letter-spacing:.5px; color:var(--accent); border-bottom:1px solid rgba(184,168,130,.2); border-right:1px solid rgba(184,168,130,.1); }
+.ag-cell { padding:10px 12px; font-size:11px; border-bottom:1px solid var(--border); border-right:1px solid var(--border); display:flex; align-items:center; background:var(--surface); }
+.ag-name { font-weight:500; color:var(--text); font-size:12px; background:var(--surface2) !important; }
+.ag-yes { color:var(--green); }
+.ag-no { color:var(--dim); }
+.ag-partial { color:var(--accent-dark); }
+
+/* EMPTY */
+.empty { padding:40px; text-align:center; color:var(--dim); font-size:12px; font-family:'DM Mono'; }
+
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border2); }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Agency OS</div>
+    <div class="login-title">Войти в систему</div>
+    <div class="login-sub">Выберите пользователя для демонстрации прав доступа</div>
+    <div class="login-label">Пользователь</div>
+    <select class="login-select" id="user-select">
+      <option value="">— выберите —</option>
+      <option value="rodion">Родион — Владелец</option>
+      <option value="anastasia">Анастасия — Гл. бухгалтер</option>
+      <option value="alexander">Александр — Администратор</option>
+      <option value="evgeny">Евгений — Менеджер</option>
+      <option value="andrey_s">Андрей Старший — Клиентский менеджер</option>
+      <option value="nikita">Никита — Клиентский менеджер</option>
+      <option value="elina">Элина — Менеджер</option>
+      <option value="maxim">Максим — Менеджер</option>
+      <option value="danila">Данила — Баинг менеджер</option>
+      <option value="andrey">Андрей — Менеджер</option>
+      <option value="lawyer">Александр Юрист — Юрист</option>
+    </select>
+    <button class="login-btn" onclick="doLogin()">Войти</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-logo">Agency OS</div>
+    <div class="topbar-nav" id="topbar-nav"></div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-user">
+      <div class="topbar-avatar" id="tb-avatar"></div>
+      <div>
+        <div class="topbar-name" id="tb-name"></div>
+        <div class="topbar-role" id="tb-role"></div>
+      </div>
+      <div class="topbar-logout" onclick="doLogout()">Выйти</div>
+    </div>
+  </div>
+
+  <div class="main" id="main-content"></div>
+</div>
+
+<!-- MODAL: Добавить строку -->
+<div class="modal-overlay" id="modal" style="display:none" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Новая запись</div>
+      <div class="modal-close" onclick="closeModal()">×</div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal()">Отмена</button>
+      <button class="btn-primary" onclick="saveModal()">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const USERS = {
+  rodion:    { name:'Родион',           short:'РД', role:'owner',     roleLabel:'Владелец',         dept:null },
+  anastasia: { name:'Анастасия',        short:'АН', role:'buh',       roleLabel:'Гл. бухгалтер',    dept:'Бухгалтерия / Финансы' },
+  alexander: { name:'Александр',        short:'АЛ', role:'admin',     roleLabel:'Head of Agency',   dept:'Управление' },
+  evgeny:    { name:'Евгений',          short:'ЕВ', role:'manager',   roleLabel:'Менеджер',              dept:null, clients:[] },
+  andrey_s:  { name:'Андрей Старший',   short:'АС', role:'manager',   roleLabel:'Клиентский менеджер',   dept:'Клиентский отдел', clients:['Gorilla Energy','Mega Brands','Neon Foods'] },
+  nikita:    { name:'Никита',           short:'НИ', role:'manager',   roleLabel:'Менеджер',              dept:'Клиентский отдел', clients:['TechWave'] },
+  elina:     { name:'Элина',            short:'ЭЛ', role:'manager',   roleLabel:'Менеджер',              dept:'Клиентский отдел', clients:[] },
+  maxim:     { name:'Максим',           short:'МА', role:'manager',   roleLabel:'Менеджер',              dept:'Клиентский отдел', clients:[] },
+  danila:    { name:'Данила',           short:'ДА', role:'manager',   roleLabel:'Баинг менеджер',        dept:'Баинг', clients:['Mega Brands','TechWave','Gorilla Energy'] },
+  andrey:    { name:'Андрей',           short:'АН', role:'manager',   roleLabel:'Баинг менеджер',        dept:'Баинг', clients:['Gorilla Energy','TechWave','Neon Foods'] },
+  lawyer:    { name:'Александр Юрист',  short:'АЮ', role:'lawyer',    roleLabel:'Юрист',            dept:'Юр. отдел' },
+};
+
+const ROLE_CONFIG = {
+  owner:   { label:'Владелец',          tabs:['payments','deals','clients','vendors','opex','audit','access'], canAdd:false },
+  admin:   { label:'Администратор',     tabs:['payments','deals','clients','vendors','opex','audit','access'], canAdd:true  },
+  buh:     { label:'Бухгалтер',         tabs:['payments','deals','clients','vendors','opex','audit'],  canAdd:true  },
+  manager: { label:'Менеджер',          tabs:['payments','deals','clients','vendors'],                 canAdd:true  }, // clients/vendors filtered by dept in renderTopbar
+  lawyer:  { label:'Юрист',             tabs:['deals','clients'],                                      canAdd:false },
+};
+
+// Колонки Таблицы 2 по роли
+const DEAL_COLS = {
+  cols: [
+    { key:'client',    label:'Client',           edit:['admin','manager'],         visible:'all' },
+    { key:'period',    label:'Period',            edit:['admin','manager'],         visible:'all' },
+    { key:'media',     label:'Media',             edit:['admin','manager'],         visible:'all' },
+    { key:'vendor',    label:'Vendor (юр.лицо)',  edit:['admin','manager'],         visible:'all' },
+    { key:'service',   label:'Service',           edit:['admin','manager'],         visible:'all' },
+    { key:'budget_p',  label:'Budget (до налогов)',edit:['admin','manager'],         visible:'all' },
+    { key:'budget_f',  label:'Budget Fact (с налогом)',edit:['admin','manager'],     visible:'all' },
+    { key:'tax_type',  label:'Налогообложение',   edit:['admin','buh','manager'],   visible:'all' },
+    { key:'av_pct',    label:'AV %',              edit:['admin'],                   visible:'no_buying' },
+    { key:'av_sum',    label:'AV Sum',            edit:[],                          visible:'no_buying' },
+    { key:'sk',        label:'СК',                edit:['admin','manager'],         visible:'buying_only' },
+    { key:'sk_date',   label:'СК Дата возврата',  edit:['admin','manager'],         visible:'buying_only' },
+    { key:'pay_plan',  label:'Pay Date Plan',     edit:['admin','manager','buh'],   visible:'all' },
+    { key:'pay_fact',  label:'Pay Date Fact',     edit:['admin','buh'],             visible:'no_buying' },
+    { key:'contract',  label:'Contract №',        edit:['admin','manager','lawyer'],visible:'all' },
+    { key:'appendix',  label:'Appendix №',        edit:['admin','manager','lawyer'],visible:'all' },
+    { key:'act',       label:'Act № / Date',      edit:['admin','buh'],             visible:'all' },
+    { key:'manager',   label:'Manager',           edit:['admin'],                   visible:'all' },
+  ]
+};
+
+// Данные
+let DB = {
+  payments_in: [
+    // === ИСТОРИЯ: янв–апр 2026 ===
+    { id:101, client:'Gorilla Energy', period:'Янв 2026', sum_plan:'29 750', sum_fact:'29 750', date_issue:'07.01.2026', date_pay:'08.02.2026', status:'Оплачен',  manager:'Андрей Старший' },
+    { id:102, client:'Mega Brands',    period:'Янв 2026', sum_plan:'27 600', sum_fact:'27 600', date_issue:'07.01.2026', date_pay:'05.02.2026', status:'Оплачен',  manager:'Андрей Старший' },
+    { id:103, client:'Neon Foods',     period:'Янв 2026', sum_plan:'9 775',  sum_fact:'9 775',  date_issue:'07.01.2026', date_pay:'06.02.2026', status:'Оплачен',  manager:'Андрей Старший' },
+    { id:104, client:'Gorilla Energy', period:'Фев 2026', sum_plan:'5 750',  sum_fact:'5 750',  date_issue:'07.02.2026', date_pay:'09.03.2026', status:'Оплачен',  manager:'Андрей Старший' },
+    { id:105, client:'Mega Brands',    period:'Фев 2026', sum_plan:'32 200', sum_fact:'32 200', date_issue:'07.02.2026', date_pay:'07.03.2026', status:'Оплачен',  manager:'Андрей Старший' },
+    { id:106, client:'Gorilla Energy', period:'Мар 2026', sum_plan:'10 350', sum_fact:'10 350', date_issue:'07.03.2026', date_pay:'05.04.2026', status:'Оплачен',  manager:'Андрей Старший' },
+    { id:107, client:'Mega Brands',    period:'Мар 2026', sum_plan:'36 800', sum_fact:'36 800', date_issue:'07.03.2026', date_pay:'08.04.2026', status:'Оплачен',  manager:'Андрей Старший' },
+    { id:108, client:'Gorilla Energy', period:'Апр 2026', sum_plan:'8 050',  sum_fact:'—',      date_issue:'07.04.2026', date_pay:'—',          status:'В работе', manager:'Андрей Старший' },
+    { id:109, client:'Neon Foods',     period:'Апр 2026', sum_plan:'10 925', sum_fact:'—',      date_issue:'07.04.2026', date_pay:'—',          status:'В работе', manager:'Андрей Старший' },
+    { id:110, client:'Neon Foods',     period:'Фев 2026', sum_plan:'9 520',  sum_fact:'9 520',  date_issue:'07.02.2026', date_pay:'07.03.2026', status:'Оплачен',  manager:'Андрей Старший' },
+    // === БУДУЩЕЕ: май–дек 2026 ===
+    { id:1, client:'Gorilla Energy', period:'Май 2026', sum_plan:'68 606', sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Андрей Старший' },
+    { id:2, client:'Mega Brands',    period:'Май 2026', sum_plan:'20 700', sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Андрей Старший' },
+    { id:3, client:'TechWave',       period:'Май 2026', sum_plan:'9 900',  sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Никита' },
+    { id:4, client:'Gorilla Energy', period:'Июн 2026', sum_plan:'96 666', sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Андрей Старший' },
+    { id:5, client:'TechWave',       period:'Июн 2026', sum_plan:'7 150',  sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Никита' },
+    { id:6, client:'Gorilla Energy', period:'Июл 2026', sum_plan:'68 307', sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Андрей Старший' },
+    { id:7, client:'Gorilla Energy', period:'Авг 2026', sum_plan:'78 887', sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Андрей Старший' },
+    { id:8, client:'Gorilla Energy', period:'Сен 2026', sum_plan:'40 247', sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Андрей Старший' },
+    { id:9,  client:'Gorilla Energy', period:'Окт 2026', sum_plan:'73 137', sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Андрей Старший' },
+    { id:10, client:'Gorilla Energy', period:'Ноя 2026', sum_plan:'28 078', sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Андрей Старший' },
+    { id:11, client:'Gorilla Energy', period:'Дек 2026', sum_plan:'14 800', sum_fact:'—', date_issue:'—', date_pay:'—', status:'В работе', manager:'Андрей Старший' },
+  ],
+    payments_out: [
+    // ИСТОРИЧЕСКИЕ — янв–апр 2026
+    { id:201, vendor:'Яндекс Директ',        client:'Mega Brands',    period:'Янв 2026', sum:'12 000', date_plan:'20.01.2026', date_fact:'20.01.2026', status:'Оплачено', manager:'Андрей' },
+    { id:202, vendor:'ООО «ВК»',             client:'Neon Foods',     period:'Янв 2026', sum:'8 500',  date_plan:'20.01.2026', date_fact:'19.01.2026', status:'Оплачено', manager:'Андрей' },
+    { id:203, vendor:'Яндекс Директ',        client:'Mega Brands',    period:'Фев 2026', sum:'14 000', date_plan:'20.02.2026', date_fact:'20.02.2026', status:'Оплачено', manager:'Андрей' },
+    { id:204, vendor:'ООО «ВК»',             client:'Gorilla Energy', period:'Фев 2026', sum:'5 000',  date_plan:'15.02.2026', date_fact:'14.02.2026', status:'Оплачено', manager:'Андрей' },
+    { id:205, vendor:'ООО «Стример Медиа»',  client:'Gorilla Energy', period:'Мар 2026', sum:'9 000',  date_plan:'10.03.2026', date_fact:'10.03.2026', status:'Оплачено', manager:'Андрей' },
+    { id:206, vendor:'Яндекс Директ',        client:'Mega Brands',    period:'Мар 2026', sum:'16 000', date_plan:'20.03.2026', date_fact:'21.03.2026', status:'Оплачено', manager:'Андрей' },
+    { id:207, vendor:'ООО «ВК»',             client:'Neon Foods',     period:'Апр 2026', sum:'9 500',  date_plan:'20.04.2026', date_fact:'—',          status:'В работе', manager:'Андрей' },
+    // БУДУЩИЕ — май–окт 2026 (факта нет)
+    { id:1,  vendor:'Moonton Technology Co., Ltd.', client:'Gorilla Energy', period:'Май 2026', sum:'34 998', date_plan:'05.05.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:2,  vendor:'Moonton Technology Co., Ltd.', client:'Gorilla Energy', period:'Июн 2026', sum:'34 998', date_plan:'05.06.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:3,  vendor:'Moonton Technology Co., Ltd.', client:'Gorilla Energy', period:'Июл 2026', sum:'34 998', date_plan:'05.07.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:4,  vendor:'Moonton Technology Co., Ltd.', client:'Gorilla Energy', period:'Авг 2026', sum:'34 998', date_plan:'05.08.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:5,  vendor:'Moonton Technology Co., Ltd.', client:'Gorilla Energy', period:'Сен 2026', sum:'34 998', date_plan:'05.09.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:6,  vendor:'Moonton Technology Co., Ltd.', client:'Gorilla Energy', period:'Окт 2026', sum:'34 998', date_plan:'05.10.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:7,  vendor:'ООО «Стример Медиа»',          client:'Gorilla Energy', period:'Июн 2026', sum:'10 000', date_plan:'10.06.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:8,  vendor:'ООО «Стример Медиа»',          client:'Gorilla Energy', period:'Июл 2026', sum:'10 000', date_plan:'10.07.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:9,  vendor:'ООО «Стример Медиа»',          client:'Gorilla Energy', period:'Авг 2026', sum:'10 000', date_plan:'10.08.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:10, vendor:'ООО «ВК»',                     client:'Gorilla Energy', period:'Май 2026', sum:'5 000',  date_plan:'15.05.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:11, vendor:'ООО «ВК»',                     client:'Gorilla Energy', period:'Окт 2026', sum:'5 000',  date_plan:'15.10.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:12, vendor:'ООО «Посев Диджитал»',         client:'Gorilla Energy', period:'Июл 2026', sum:'5 400',  date_plan:'20.07.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:13, vendor:'ООО «Дизайн Студия Прайм»',    client:'Gorilla Energy', period:'Май 2026', sum:'4 200',  date_plan:'10.05.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:14, vendor:'ООО «Горилла Диджитал»',       client:'Gorilla Energy', period:'Май 2026', sum:'6 960',  date_plan:'01.05.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:15, vendor:'ООО «Горилла Диджитал»',       client:'Gorilla Energy', period:'Июн 2026', sum:'6 960',  date_plan:'01.06.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:16, vendor:'ИП Призов А.А.',               client:'Gorilla Energy', period:'Июн 2026', sum:'23 600', date_plan:'05.06.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:17, vendor:'ИП Призов А.А.',               client:'Gorilla Energy', period:'Авг 2026', sum:'23 600', date_plan:'05.08.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:18, vendor:'ИП Призов А.А.',               client:'Gorilla Energy', period:'Окт 2026', sum:'23 600', date_plan:'05.10.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    // === ДОПОЛНИТЕЛЬНЫЕ ИСТОРИЧЕСКИЕ — Андрей ===
+    { id:211, vendor:'Яндекс Директ',           client:'Gorilla Energy', period:'Янв 2026', sum:'15 000', date_plan:'20.01.2026', date_fact:'20.01.2026', status:'Оплачено', manager:'Андрей' },
+    { id:212, vendor:'ООО «ВК»',                client:'Gorilla Energy', period:'Янв 2026', sum:'10 870', date_plan:'20.01.2026', date_fact:'20.01.2026', status:'Оплачено', manager:'Андрей' },
+    { id:213, vendor:'ООО «ВК»',                client:'Neon Foods',     period:'Фев 2026', sum:'8 500',  date_plan:'20.02.2026', date_fact:'19.02.2026', status:'Оплачено', manager:'Андрей' },
+    { id:214, vendor:'ООО «Горилла Диджитал»',  client:'Gorilla Energy', period:'Апр 2026', sum:'7 000',  date_plan:'15.04.2026', date_fact:'—',          status:'В работе', manager:'Андрей' },
+    // === НОЯ/ДЕК 2026 ===
+    { id:215, vendor:'Moonton Technology Co., Ltd.', client:'Gorilla Energy', period:'Ноя 2026', sum:'24 416', date_plan:'05.11.2026', date_fact:'—', status:'В работе', manager:'Андрей' },
+    { id:216, vendor:'ИП Призов А.А.',          client:'Gorilla Energy', period:'Дек 2026', sum:'12 870', date_plan:'05.12.2026', date_fact:'—',          status:'В работе', manager:'Андрей' },
+  ],
+  deals: [
+    // ========== ИСТОРИЧЕСКИЕ — янв–апр 2026 ==========
+    { id:301, client:'Mega Brands',    period:'Янв 2026', media:'Digital',        vendor:'Яндекс Директ',           service:'Контекстная реклама',        budget_p:'12 000', budget_f:'12 000', tax_type:'НДС', av_pct:'15', av_sum:'1 800', sk:'—',       sk_date:'—', pay_plan:'20.01.2026', pay_fact:'20.01.2026', contract:'Д-МВ-001/26', appendix:'П-001', act:'АКТ-МВ-01 от 31.01.2026', manager:'Андрей' },
+    { id:302, client:'Neon Foods',     period:'Янв 2026', media:'Social',         vendor:'ООО «ВК»',                service:'Таргетированная реклама',    budget_p:'8 500',  budget_f:'8 500',  tax_type:'НДС', av_pct:'15', av_sum:'1 275', sk:'—',       sk_date:'—', pay_plan:'20.01.2026', pay_fact:'19.01.2026', contract:'Д-НФ-001/26', appendix:'П-001', act:'АКТ-НФ-01 от 31.01.2026', manager:'Андрей' },
+    { id:303, client:'Mega Brands',    period:'Фев 2026', media:'Digital',        vendor:'Яндекс Директ',           service:'Контекстная реклама',        budget_p:'14 000', budget_f:'14 000', tax_type:'НДС', av_pct:'15', av_sum:'2 100', sk:'—',       sk_date:'—', pay_plan:'20.02.2026', pay_fact:'20.02.2026', contract:'Д-МВ-001/26', appendix:'П-002', act:'АКТ-МВ-02 от 28.02.2026', manager:'Андрей' },
+    { id:304, client:'Gorilla Energy', period:'Фев 2026', media:'Social / Promo', vendor:'ООО «ВК»',                service:'Промо в пабликах ВК',        budget_p:'5 000',  budget_f:'5 000',  tax_type:'НДС', av_pct:'15', av_sum:'750',   sk:'500',     sk_date:'—', pay_plan:'15.02.2026', pay_fact:'14.02.2026', contract:'Д-003/26',    appendix:'П-000', act:'АКТ-ГЕ-01 от 28.02.2026', manager:'Андрей' },
+    { id:305, client:'Gorilla Energy', period:'Мар 2026', media:'Digital / Influencers', vendor:'ООО «Стример Медиа»', service:'Брендирование стримеров — предзапуск', budget_p:'9 000', budget_f:'9 000', tax_type:'НДС', av_pct:'15', av_sum:'1 350', sk:'1 500', sk_date:'15.04.2026', pay_plan:'10.03.2026', pay_fact:'10.03.2026', contract:'Д-002/26', appendix:'П-000', act:'АКТ-ГЕ-02 от 31.03.2026', manager:'Андрей' },
+    { id:306, client:'Mega Brands',    period:'Мар 2026', media:'Digital',        vendor:'Яндекс Директ',           service:'Контекстная реклама',        budget_p:'16 000', budget_f:'16 000', tax_type:'НДС', av_pct:'15', av_sum:'2 400', sk:'—',       sk_date:'—', pay_plan:'20.03.2026', pay_fact:'21.03.2026', contract:'Д-МВ-001/26', appendix:'П-003', act:'АКТ-МВ-03 от 31.03.2026', manager:'Андрей' },
+    { id:307, client:'Neon Foods',     period:'Апр 2026', media:'Social',         vendor:'ООО «ВК»',                service:'Таргетированная реклама',    budget_p:'9 500',  budget_f:'—',      tax_type:'НДС', av_pct:'15', av_sum:'1 425', sk:'—',       sk_date:'—', pay_plan:'20.04.2026', pay_fact:'—',          contract:'Д-НФ-001/26', appendix:'П-002', act:'—',                           manager:'Андрей' },
+    { id:308, client:'Gorilla Energy', period:'Апр 2026', media:'Production/Tech',vendor:'ООО «Горилла Диджитал»',  service:'Поддержка лендинга (апрель)',budget_p:'7 000',  budget_f:'—',      tax_type:'НДС', av_pct:'15', av_sum:'1 050', sk:'—',       sk_date:'—', pay_plan:'15.04.2026', pay_fact:'—',          contract:'Д-006/26',    appendix:'П-000', act:'—',                           manager:'Андрей' },
+    // ========== БУДУЩИЕ — май–окт 2026 ==========
+{ id:1,  client:'Gorilla Energy', period:'Май 2026',  media:'In-Game',             vendor:'Moonton Technology Co., Ltd.', service:'Интеграция в игру (герои, логотип, баннеры, поп-ап)',  budget_p:'34 998', budget_f:'—', tax_type:'НДС', av_pct:'15', av_sum:'5 249', sk:'—',       sk_date:'—',          pay_plan:'05.05.2026', pay_fact:'—', contract:'Д-001/26', appendix:'П-001', act:'АКТ-001 от 31.05.2026', manager:'Андрей' },
+    { id:2,  client:'Gorilla Energy', period:'Июн 2026',  media:'In-Game',             vendor:'Moonton Technology Co., Ltd.', service:'Интеграция в игру (герои, логотип, баннеры, поп-ап)',  budget_p:'34 998', budget_f:'—', tax_type:'НДС', av_pct:'15', av_sum:'5 249', sk:'—',       sk_date:'—',          pay_plan:'05.06.2026', pay_fact:'—', contract:'Д-001/26', appendix:'П-002', act:'АКТ-002 от 30.06.2026', manager:'Андрей' },
+    { id:3,  client:'Gorilla Energy', period:'Июл 2026',  media:'In-Game',             vendor:'Moonton Technology Co., Ltd.', service:'Интеграция в игру (герои, логотип, баннеры, поп-ап)',  budget_p:'34 998', budget_f:'—',         tax_type:'НДС', av_pct:'15', av_sum:'5 249', sk:'—',       sk_date:'—',          pay_plan:'05.07.2026', pay_fact:'—',          contract:'Д-001/26', appendix:'П-003', act:'—',                      manager:'Андрей' },
+    { id:4,  client:'Gorilla Energy', period:'Авг 2026',  media:'In-Game',             vendor:'Moonton Technology Co., Ltd.', service:'Интеграция в игру (герои, логотип, баннеры, поп-ап)',  budget_p:'34 998', budget_f:'—',         tax_type:'НДС', av_pct:'15', av_sum:'5 249', sk:'—',       sk_date:'—',          pay_plan:'05.08.2026', pay_fact:'—',          contract:'Д-001/26', appendix:'П-004', act:'—',                      manager:'Андрей' },
+    { id:5,  client:'Gorilla Energy', period:'Сен 2026',  media:'In-Game',             vendor:'Moonton Technology Co., Ltd.', service:'Интеграция в игру (герои, логотип, баннеры, поп-ап)',  budget_p:'34 998', budget_f:'—',         tax_type:'НДС', av_pct:'15', av_sum:'5 249', sk:'—',       sk_date:'—',          pay_plan:'05.09.2026', pay_fact:'—',          contract:'Д-001/26', appendix:'П-005', act:'—',                      manager:'Андрей' },
+    { id:6,  client:'Gorilla Energy', period:'Окт 2026',  media:'In-Game',             vendor:'Moonton Technology Co., Ltd.', service:'Интеграция в игру (герои, логотип, баннеры, поп-ап)',  budget_p:'34 998', budget_f:'—',         tax_type:'НДС', av_pct:'15', av_sum:'5 249', sk:'—',       sk_date:'—',          pay_plan:'05.10.2026', pay_fact:'—',          contract:'Д-001/26', appendix:'П-006', act:'—',                      manager:'Андрей' },
+    // Стримеры — июнь–август
+    { id:7,  client:'Gorilla Energy', period:'Июн 2026',  media:'Digital / Influencers', vendor:'ООО «Стример Медиа»',        service:'Брендирование каналов стримеров',                      budget_p:'10 000', budget_f:'—', tax_type:'НДС', av_pct:'15', av_sum:'1 500', sk:'1 500', sk_date:'15.07.2026', pay_plan:'10.06.2026', pay_fact:'—', contract:'Д-002/26', appendix:'П-001', act:'АКТ-007 от 30.06.2026', manager:'Андрей' },
+    { id:8,  client:'Gorilla Energy', period:'Июл 2026',  media:'Digital / Influencers', vendor:'ООО «Стример Медиа»',        service:'Брендирование каналов стримеров',                      budget_p:'10 000', budget_f:'—',         tax_type:'НДС', av_pct:'15', av_sum:'1 500', sk:'1 500', sk_date:'15.08.2026', pay_plan:'10.07.2026', pay_fact:'—',          contract:'Д-002/26', appendix:'П-002', act:'—',                      manager:'Андрей' },
+    { id:9,  client:'Gorilla Energy', period:'Авг 2026',  media:'Digital / Influencers', vendor:'ООО «Стример Медиа»',        service:'Брендирование каналов стримеров',                      budget_p:'10 000', budget_f:'—',         tax_type:'НДС', av_pct:'15', av_sum:'1 500', sk:'1 500', sk_date:'15.09.2026', pay_plan:'10.08.2026', pay_fact:'—',          contract:'Д-002/26', appendix:'П-003', act:'—',                      manager:'Андрей' },
+    // VK/TG промо — май и октябрь
+    { id:10, client:'Gorilla Energy', period:'Май 2026',  media:'Social / Promo',       vendor:'ООО «ВК»',                    service:'Промо в игровых пабликах ВК и Telegram — флайт 1',     budget_p:'5 000',   budget_f:'—',   tax_type:'НДС', av_pct:'15', av_sum:'750',  sk:'500',  sk_date:'—',          pay_plan:'15.05.2026', pay_fact:'—', contract:'Д-003/26', appendix:'П-001', act:'АКТ-003 от 31.05.2026', manager:'Андрей' },
+    { id:11, client:'Gorilla Energy', period:'Окт 2026',  media:'Social / Promo',       vendor:'ООО «ВК»',                    service:'Промо в игровых пабликах ВК и Telegram — флайт 2',     budget_p:'5 000',   budget_f:'—',         tax_type:'НДС', av_pct:'15', av_sum:'750',  sk:'500',  sk_date:'—',          pay_plan:'15.10.2026', pay_fact:'—',          contract:'Д-003/26', appendix:'П-002', act:'—',                      manager:'Андрей' },
+    // Посевы — июль
+    { id:12, client:'Gorilla Energy', period:'Июл 2026',  media:'Social / Seeding',     vendor:'ООО «Посев Диджитал»',        service:'Посевы в релевантных группах TG и ВК',                 budget_p:'5 400',   budget_f:'—',         tax_type:'НДС', av_pct:'15', av_sum:'810',  sk:'—',       sk_date:'—',          pay_plan:'20.07.2026', pay_fact:'—',          contract:'Д-004/26', appendix:'П-001', act:'—',                      manager:'Андрей' },
+    // Дизайн — май
+    { id:13, client:'Gorilla Energy', period:'Май 2026',  media:'Production',           vendor:'ООО «Дизайн Студия Прайм»',   service:'КВ, посты для соцсетей, визуал для стримеров',          budget_p:'4 200',   budget_f:'—',   tax_type:'НДС', av_pct:'15', av_sum:'630',  sk:'—',       sk_date:'—',          pay_plan:'10.05.2026', pay_fact:'—', contract:'Д-005/26', appendix:'П-001', act:'АКТ-005 от 31.05.2026', manager:'Андрей' },
+    // Чат-бот — май и июнь
+    { id:14, client:'Gorilla Energy', period:'Май 2026',  media:'Production / Tech',    vendor:'ООО «Горилла Диджитал»',      service:'Лендинг и чат-бот (70 000 чеков) — запуск',            budget_p:'6 960',   budget_f:'—',   tax_type:'НДС', av_pct:'15', av_sum:'1 044', sk:'—',       sk_date:'—',          pay_plan:'01.05.2026', pay_fact:'—', contract:'Д-006/26', appendix:'П-001', act:'АКТ-006 от 31.05.2026', manager:'Андрей' },
+    { id:15, client:'Gorilla Energy', period:'Июн 2026',  media:'Production / Tech',    vendor:'ООО «Горилла Диджитал»',      service:'Лендинг и чат-бот (70 000 чеков) — поддержка',         budget_p:'6 960',   budget_f:'—',         tax_type:'НДС', av_pct:'15', av_sum:'1 044', sk:'—',       sk_date:'—',          pay_plan:'01.06.2026', pay_fact:'—',          contract:'Д-006/26', appendix:'П-002', act:'—',                      manager:'Андрей' },
+    // Призовой фонд — июнь, август, октябрь (УСН!)
+    { id:16, client:'Gorilla Energy', period:'Июн 2026',  media:'Prize Fund',           vendor:'ИП Призов А.А.',              service:'Призовой фонд — волна 1 (перстни, iPhone, AirPods)',    budget_p:'23 600', budget_f:'—', tax_type:'УСН', av_pct:'15', av_sum:'3 540', sk:'—',       sk_date:'—',          pay_plan:'05.06.2026', pay_fact:'—', contract:'Д-007/26', appendix:'П-001', act:'АКТ-008 от 30.06.2026', manager:'Андрей' },
+    { id:17, client:'Gorilla Energy', period:'Авг 2026',  media:'Prize Fund',           vendor:'ИП Призов А.А.',              service:'Призовой фонд — волна 2 (фигурки, Power Bank)',         budget_p:'23 600', budget_f:'—',         tax_type:'УСН', av_pct:'15', av_sum:'3 540', sk:'—',       sk_date:'—',          pay_plan:'05.08.2026', pay_fact:'—',          contract:'Д-007/26', appendix:'П-002', act:'—',                      manager:'Андрей' },
+    { id:18, client:'Gorilla Energy', period:'Окт 2026',  media:'Prize Fund',           vendor:'ИП Призов А.А.',              service:'Призовой фонд — волна 3 (промокоды алмазов)',           budget_p:'23 600', budget_f:'—',         tax_type:'УСН', av_pct:'15', av_sum:'3 540', sk:'—',       sk_date:'—',          pay_plan:'05.10.2026', pay_fact:'—',          contract:'Д-007/26', appendix:'П-003', act:'—',                      manager:'Андрей' },
+    // === ДОПОЛНИТЕЛЬНЫЕ ИСТОРИЧЕСКИЕ СДЕЛКИ ===
+    { id:501, client:'Neon Foods',     period:'Фев 2026', media:'Social',  vendor:'ООО «ВК»',          service:'Таргетированная реклама фев', budget_p:'8 500',  budget_f:'8 500',  tax_type:'НДС', av_pct:'12', av_sum:'1 020', sk:'—', sk_date:'—', pay_plan:'20.02.2026', pay_fact:'19.02.2026', contract:'Д-НФ-001/26', appendix:'П-003', act:'АКТ-НФ-02 от 28.02.2026', manager:'Андрей' },
+    { id:502, client:'Gorilla Energy', period:'Янв 2026', media:'Digital', vendor:'Яндекс Директ',     service:'Контекстная реклама янв',    budget_p:'15 000', budget_f:'15 000', tax_type:'НДС', av_pct:'15', av_sum:'2 250', sk:'—', sk_date:'—', pay_plan:'20.01.2026', pay_fact:'20.01.2026', contract:'Д-ГЕ-Я/001/26', appendix:'П-001', act:'АКТ-ГЕ-Я1 от 31.01.2026', manager:'Андрей' },
+    { id:503, client:'Gorilla Energy', period:'Янв 2026', media:'Social',  vendor:'ООО «ВК»',          service:'Таргет ВК янв',              budget_p:'10 870', budget_f:'10 870', tax_type:'НДС', av_pct:'15', av_sum:'1 630', sk:'—', sk_date:'—', pay_plan:'20.01.2026', pay_fact:'20.01.2026', contract:'Д-003/26', appendix:'П-003', act:'АКТ-ГЕ-Я2 от 31.01.2026', manager:'Андрей' },
+    // Gorilla Energy Nov/Dec — итоговые сделки без детализации
+    { id:504, client:'Gorilla Energy', period:'Ноя 2026', media:'In-Game', vendor:'Moonton Technology Co., Ltd.', service:'Интеграция финальный флайт', budget_p:'24 416', budget_f:'—', tax_type:'НДС', av_pct:'15', av_sum:'3 662', sk:'—', sk_date:'—', pay_plan:'05.11.2026', pay_fact:'—', contract:'Д-001/26', appendix:'П-007', act:'—', manager:'Андрей' },
+    { id:505, client:'Gorilla Energy', period:'Дек 2026', media:'Prize Fund', vendor:'ИП Призов А.А.',  service:'Призовой фонд — финал',       budget_p:'12 870', budget_f:'—', tax_type:'УСН', av_pct:'15', av_sum:'1 930', sk:'—', sk_date:'—', pay_plan:'05.12.2026', pay_fact:'—', contract:'Д-007/26', appendix:'П-004', act:'—', manager:'Андрей' },
+    // ========== ДАНИЛА — баинг Mega Brands, TechWave, Gorilla Energy ==========
+    { id:401, client:'Mega Brands',    period:'Янв 2026', media:'Digital',          vendor:'Яндекс Директ',           service:'Контекстная реклама — Яндекс', budget_p:'12 000', budget_f:'12 000', tax_type:'НДС', av_pct:'15', av_sum:'1 800', sk:'—',   sk_date:'—', pay_plan:'20.01.2026', pay_fact:'20.01.2026', contract:'Д-МВ-002/26', appendix:'П-001', act:'АКТ-Д-01 от 31.01.2026', manager:'Данила' },
+    { id:402, client:'Mega Brands',    period:'Фев 2026', media:'Digital',          vendor:'Яндекс Директ',           service:'Контекстная реклама — Яндекс', budget_p:'14 000', budget_f:'14 000', tax_type:'НДС', av_pct:'15', av_sum:'2 100', sk:'—',   sk_date:'—', pay_plan:'20.02.2026', pay_fact:'20.02.2026', contract:'Д-МВ-002/26', appendix:'П-002', act:'АКТ-Д-02 от 28.02.2026', manager:'Данила' },
+    { id:403, client:'Mega Brands',    period:'Мар 2026', media:'Digital',          vendor:'Яндекс Директ',           service:'Контекстная реклама — Яндекс', budget_p:'16 000', budget_f:'16 000', tax_type:'НДС', av_pct:'15', av_sum:'2 400', sk:'—',   sk_date:'—', pay_plan:'20.03.2026', pay_fact:'21.03.2026', contract:'Д-МВ-002/26', appendix:'П-003', act:'АКТ-Д-03 от 31.03.2026', manager:'Данила' },
+    { id:404, client:'Mega Brands',    period:'Май 2026', media:'Digital',          vendor:'Яндекс Директ',           service:'Контекстная реклама — Яндекс', budget_p:'18 000', budget_f:'—',      tax_type:'НДС', av_pct:'15', av_sum:'2 700', sk:'—',   sk_date:'—', pay_plan:'20.05.2026', pay_fact:'—',          contract:'Д-МВ-002/26', appendix:'П-004', act:'—',                       manager:'Данила' },
+    { id:405, client:'TechWave',       period:'Май 2026', media:'Digital',          vendor:'Яндекс Директ',           service:'Запуск рекламных кампаний',    budget_p:'9 000',  budget_f:'—',      tax_type:'НДС', av_pct:'10', av_sum:'900',   sk:'—',   sk_date:'—', pay_plan:'15.05.2026', pay_fact:'—',          contract:'Д-ТВ-001/26', appendix:'П-001', act:'—',                       manager:'Данила' },
+    { id:406, client:'TechWave',       period:'Июн 2026', media:'Social',           vendor:'ООО «ВК»',                service:'Таргет в VK — IT аудитория',   budget_p:'6 500',  budget_f:'—',      tax_type:'НДС', av_pct:'10', av_sum:'650',   sk:'500', sk_date:'15.07.2026', pay_plan:'15.06.2026', pay_fact:'—', contract:'Д-ТВ-001/26', appendix:'П-002', act:'—',                       manager:'Данила' },
+    // Gorilla Energy — пул Данилы (Programmatic, отдельный от Андрея)
+    { id:407, client:'Gorilla Energy', period:'Май 2026', media:'Programmatic',     vendor:'eLama DSP',               service:'Programmatic — brand awareness', budget_p:'8 500', budget_f:'—',      tax_type:'НДС', av_pct:'15', av_sum:'1 275', sk:'850', sk_date:'15.06.2026', pay_plan:'20.05.2026', pay_fact:'—', contract:'Д-ГЕ-Д/001/26', appendix:'П-001', act:'—',              manager:'Данила' },
+    { id:408, client:'Gorilla Energy', period:'Июн 2026', media:'Programmatic',     vendor:'eLama DSP',               service:'Programmatic — brand awareness', budget_p:'8 500', budget_f:'—',      tax_type:'НДС', av_pct:'15', av_sum:'1 275', sk:'850', sk_date:'15.07.2026', pay_plan:'20.06.2026', pay_fact:'—', contract:'Д-ГЕ-Д/001/26', appendix:'П-002', act:'—',              manager:'Данила' },
+    { id:409, client:'Gorilla Energy', period:'Июл 2026', media:'Programmatic',     vendor:'eLama DSP',               service:'Programmatic — retargeting',    budget_p:'9 000',  budget_f:'—',      tax_type:'НДС', av_pct:'15', av_sum:'1 350', sk:'900', sk_date:'15.08.2026', pay_plan:'20.07.2026', pay_fact:'—', contract:'Д-ГЕ-Д/001/26', appendix:'П-003', act:'—',              manager:'Данила' },
+  ],
+  auditLog: [],
+  clientFiles: {}, // { clientId: [{name, size, type, data, uploadedBy, uploadedAt}] }
+  vendorFiles: {}, // { vendorId: [...] }
+  clients: [
+    {
+      id:1, name:'Gorilla Energy', legal:'ООО «Горилла Энерджи»',
+      inn:'7701234567', kpp:'770101001',
+      address:'123001, г. Москва, ул. Арбат, д. 1',
+      contact_name:'Петров Алексей Сергеевич', contact_email:'a.petrov@gorilla.ru', contact_phone:'+7 495 123-45-67',
+      contract:'Д-А/001/26', contract_date:'01.04.2026', av_pct:'15',
+      payment_terms:'Постоплата 30 дней', credit_limit:'100 000',
+      status:'Активный', manager:'Андрей Старший', note:'Ключевой клиент Q2–Q4 2026'
+    },
+    {
+      id:2, name:'Mega Brands', legal:'ООО «Мега Брендс»',
+      inn:'7702345678', kpp:'770201001',
+      address:'115054, г. Москва, Космодамианская наб., д. 52',
+      contact_name:'Сидорова Елена Викторовна', contact_email:'e.sidorova@megabrands.ru', contact_phone:'+7 499 234-56-78',
+      contract:'Д-МВ-001/26', contract_date:'15.12.2025', av_pct:'15',
+      payment_terms:'Постоплата 21 день', credit_limit:'50 000',
+      status:'Активный', manager:'Андрей Старший', note:'Клиент с 2024 года. Digital-направление.'
+    },
+    {
+      id:3, name:'Neon Foods', legal:'АО «Неон Фудс»',
+      inn:'7703456789', kpp:'770301001',
+      address:'127015, г. Москва, ул. Новодмитровская, д. 5А',
+      contact_name:'Козлов Дмитрий Александрович', contact_email:'d.kozlov@neonfoods.ru', contact_phone:'+7 916 345-67-89',
+      contract:'Д-НФ-001/26', contract_date:'10.01.2026', av_pct:'12',
+      payment_terms:'Предоплата 50%, постоплата 50%', credit_limit:'30 000',
+      status:'Активный', manager:'Андрей Старший', note:'FMCG. Социальные сети + посевы.'
+    },
+    {
+      id:4, name:'TechWave', legal:'ООО «ТехВейв»',
+      inn:'7704567890', kpp:'770401001',
+      address:'121087, г. Москва, ул. Барклая, д. 6, стр. 5',
+      contact_name:'Морозов Игорь Павлович', contact_email:'i.morozov@techwave.ru', contact_phone:'+7 926 456-78-90',
+      contract:'—', contract_date:'—', av_pct:'10',
+      payment_terms:'Предоплата 100%', credit_limit:'20 000',
+      status:'Активный', manager:'Никита', note:'Новый клиент. IT-продукт, планируем запуск в мае.'
+    },
+  ],
+  vendors: [
+    { id:1,  name:'Moonton Technology Co., Ltd.', contact_phone:'—', legal:'Moonton Technology Co., Ltd.', inn:'—',           tax_type:'НДС', payment_terms:'Предоплата 100%',    contact_name:'—',                     contact_email:'partner@moonton.com',    contact_phone:'—',              contract:'Д-001/26', status:'Активный', note:'Основной партнёр MLBB',         sk_pct:'—',  manager:'Андрей' },
+    { id:2,  name:'ООО «Стример Медиа»', contact_phone:'+7 916 234-56-78',          legal:'ООО «Стример Медиа»',          inn:'77 023 456', tax_type:'НДС', payment_terms:'Постоплата 14 дней', contact_name:'Иванов Денис',          contact_email:'d.ivanov@streamer.ru',   contact_phone:'+7 916 234-56-78', contract:'Д-002/26', status:'Активный', note:'Сеть стримеров MLBB',           sk_pct:'5%', manager:'Андрей' },
+    { id:3,  name:'ООО «ВК»', contact_phone:'+7 812 000-00-00',                     legal:'ООО «ВКонтакте»',              inn:'10 277 398 034',tax_type:'НДС', payment_terms:'Предоплата 100%',    contact_name:'Менеджер площадки',     contact_email:'agency@vk.com',         contact_phone:'+7 812 000-00-00', contract:'Д-003/26', status:'Активный', note:'Промо и таргет VK',             sk_pct:'—',  manager:'Андрей' },
+    { id:4,  name:'ООО «Посев Диджитал»', contact_phone:'+7 903 345-67-89',         legal:'ООО «Посев Диджитал»',         inn:'77 034 567', tax_type:'НДС', payment_terms:'Постоплата 7 дней',  contact_name:'Смирнов Кирилл',        contact_email:'k.smirnov@posev.ru',    contact_phone:'+7 903 345-67-89', contract:'Д-004/26', status:'Активный', note:'Посевы TG+VK',                  sk_pct:'—',  manager:'Андрей' },
+    { id:5,  name:'ООО «Дизайн Студия Прайм»', contact_phone:'+7 926 456-78-90',    legal:'ООО «Дизайн Студия Прайм»',    inn:'77 045 678', tax_type:'НДС', payment_terms:'Предоплата 50%',      contact_name:'Козлова Марина',        contact_email:'m.kozlova@prime.ru',    contact_phone:'+7 926 456-78-90', contract:'Д-005/26', status:'Активный', note:'Дизайн и продакшн',             sk_pct:'—',  manager:'Андрей' },
+    { id:6,  name:'ООО «Горилла Диджитал»', contact_phone:'+7 917 567-89-01',       legal:'ООО «Горилла Диджитал»',       inn:'77 056 789', tax_type:'НДС', payment_terms:'Предоплата 100%',    contact_name:'Лебедев Артём',         contact_email:'a.lebedev@gorilla.ru',  contact_phone:'+7 917 567-89-01', contract:'Д-006/26', status:'Активный', note:'Чат-бот и лендинг',             sk_pct:'—',  manager:'Андрей' },
+    { id:8,  name:'eLama DSP', legal:'ООО «еЛама»', inn:'7710670795', contact_phone:'+7 495 133-50-92', tax_type:'НДС', payment_terms:'Постоплата 14 дней', contact_name:'Менеджер eLama', contact_email:'support@elama.ru', contract:'Д-ГЕ-Д/001/26', status:'Активный', note:'DSP/Programmatic. СК 10% от оборота', sk_pct:'10%', manager:'Данила' },
+    { id:7,  name:'ИП Призов А.А.', contact_phone:'+7 985 678-90-12',               legal:'ИП Призов Андрей Александрович',inn:'7 723 456 789',tax_type:'УСН', payment_terms:'Предоплата 100%',    contact_name:'Призов Андрей',         contact_email:'prizes@mail.ru',        contact_phone:'+7 985 678-90-12', contract:'Д-007/26', status:'Активный', note:'Призовой фонд. УСН 6%',         sk_pct:'—',  manager:'Андрей' },
+  ],
+  opex: [
+    { id:1,  category:'ФОТ',              item:'Зарплаты (май)',           sum:'8 500', period:'Май 2026', date_pay:'05.06.2026', vendor:'—',               status:'Оплачено', note:'' },
+    { id:2,  category:'Аренда',           item:'Офис (май)',               sum:'1 200', period:'Май 2026', date_pay:'01.05.2026', vendor:'—',               status:'Оплачено', note:'' },
+    { id:3,  category:'Софт',             item:'Google Workspace',         sum:'120',  period:'Май 2026', date_pay:'15.05.2026', vendor:'Google',          status:'Оплачено', note:'' },
+    { id:4,  category:'Административные', item:'Юридическое сопровождение — Gorilla/MLBB', sum:'350', period:'Май 2026', date_pay:'20.05.2026', vendor:'Александр Юрист', status:'Оплачено', note:'Договор с MLBB / Moonton подписан' },
+    { id:5,  category:'ФОТ',              item:'Зарплаты (июнь)',          sum:'8 500', period:'Июн 2026', date_pay:'05.07.2026', vendor:'—',               status:'Оплачено', note:'' },
+    { id:6,  category:'Аренда',           item:'Офис (июнь)',              sum:'1 200', period:'Июн 2026', date_pay:'01.06.2026', vendor:'—',               status:'Оплачено', note:'' },
+    { id:7,  category:'ФОТ',              item:'Зарплаты (июль)',          sum:'8 500', period:'Июл 2026', date_pay:'05.08.2026', vendor:'—',               status:'Ожидание', note:'' },
+    { id:8,  category:'Аренда',           item:'Офис (июль)',              sum:'1 200', period:'Июл 2026', date_pay:'01.07.2026', vendor:'—',               status:'Ожидание', note:'' },
+    { id:9,  category:'Административные', item:'Бухгалтерское сопровождение Q3', sum:'450', period:'Июл 2026', date_pay:'—', vendor:'Аутсорс бух.',   status:'В работе', note:'' },
+    { id:10, category:'ФОТ',              item:'Зарплаты (август)',        sum:'8 500', period:'Авг 2026', date_pay:'—',          vendor:'—',               status:'Ожидание', note:'' },
+    { id:11, category:'Аренда',           item:'Офис (август)',            sum:'1 200', period:'Авг 2026', date_pay:'—',          vendor:'—',               status:'Ожидание', note:'' },
+    { id:12, category:'Прочее',           item:'Командировки / встречи',   sum:'800',  period:'Авг 2026', date_pay:'—',          vendor:'—',               status:'Ожидание', note:'Встречи с командой MLBB' },
+  ],
+};
+
+let currentUser = null;
+let currentTab = null;
+let currentModalType = null;
+let sortState = { payments_in: { col: 'period', dir: 1 }, payments_out: { col: 'period', dir: 1 }, deals: { col: 'period', dir: 1 } };
+let filterStatus = { payments_in: 'all', payments_out: 'all', deals: 'all' };
+let filterManager = { deals: 'all' };
+function setManagerFilter(val) { filterManager.deals = val; showTab('deals'); }
+
+function updateDeal(id, field, value) {
+  const deal = DB.deals.find(d => d.id === id);
+  if (deal) deal[field] = value;
+  // re-render just the tax cell visually without full re-render
+  const select = event.target;
+  const taxBg = {'НДС':'var(--blue-bg)','УСН':'var(--gold-bg)','НАЛ':'var(--red-bg)'}[value] || 'var(--surface)';
+  const taxCol = {'НДС':'var(--blue)','УСН':'var(--gold)','НАЛ':'var(--red)'}[value] || 'var(--muted)';
+  select.style.borderColor = taxCol;
+  select.style.background = taxBg;
+  select.style.color = taxCol;
+}
+let collapseState = { payments_in: false, payments_out: false, deals: false };
+
+function setFilterStatus(table, status) {
+  filterStatus[table] = status;
+  setSortPayments(table, sortState[table].col); // re-render keeping sort
+}
+
+// Month order for sorting
+const MONTH_ORDER = {
+  'Янв':1,'Фев':2,'Мар':3,'Апр':4,'Май':5,'Июн':6,
+  'Июл':7,'Авг':8,'Сен':9,'Окт':10,'Ноя':11,'Дек':12
+};
+
+function parsePeriod(str) {
+  if (!str || str === '—') return 9999;
+  const s = str.trim();
+  const clean = s.replace(/[–—-].+?(?=\s|$)/, '').trim();
+  const parts = clean.split(/\s+/);
+  const m = MONTH_ORDER[parts[0]] || 0;
+  const y = parseInt(parts[parts.length - 1]) || 2026;
+  return y * 100 + m;
+}
+
+// Текущий период — апрель 2026 (последний закрытый)
+const CURRENT_PERIOD = 202604; // апрель 2026
+
+function isFuturePeriod(periodStr) {
+  return parsePeriod(periodStr) > CURRENT_PERIOD;
+}
+
+function factValue(val, periodStr) {
+  // Нельзя иметь факт в будущем периоде
+  if (isFuturePeriod(periodStr)) return '—';
+  return val;
+}
+
+function parseSum(str) {
+  if (!str || str === '—') return -1;
+  return parseFloat(str.replace(/\s/g,'')) || 0;
+}
+
+function calcTax(sum, taxType) {
+  if (!sum || sum <= 0) return 0;
+  if (taxType === 'НДС') return Math.round(sum * 0.20);
+  if (taxType === 'УСН') return Math.round(sum * 0.06);
+  return 0; // НАЛ — без налога
+}
+
+function getTaxType(vendorName) {
+  const v = DB.vendors.find(x => x.name === vendorName);
+  return v ? v.tax_type : 'НДС';
+}
+
+function sortRows(rows, col, dir) {
+  return [...rows].sort((a, b) => {
+    let va = a[col] || '—';
+    let vb = b[col] || '—';
+    if (col === 'period') { va = parsePeriod(va); vb = parsePeriod(vb); return (va - vb) * dir; }
+    if (['sum_plan','sum_fact','sum'].includes(col)) { va = parseSum(va); vb = parseSum(vb); return (va - vb) * dir; }
+    return String(va).localeCompare(String(vb), 'ru') * dir;
+  });
+}
+
+function setSortPayments(table, col) {
+  if (sortState[table].col === col) {
+    sortState[table].dir *= -1;
+  } else {
+    sortState[table].col = col;
+    sortState[table].dir = 1;
+  }
+  showTab(currentTab);
+  // re-open correct sub-tab
+  setTimeout(() => {
+    const targetId = table === 'payments_in' ? 'pt-in' : 'pt-out';
+    const otherTab = table === 'payments_in' ? 'pt-out' : 'pt-in';
+    const t1 = document.getElementById(targetId);
+    const t2 = document.getElementById(otherTab);
+    if (t1) t1.style.display = 'block';
+    if (t2) t2.style.display = 'none';
+    document.querySelectorAll('.tab').forEach(t => {
+      t.classList.toggle('active', t.textContent.includes(table === 'payments_in' ? 'Входящие' : 'Исходящие'));
+    });
+  }, 10);
+}
+
+function setSortDeals(col) {
+  if (sortState.deals.col === col) {
+    sortState.deals.dir *= -1;
+  } else {
+    sortState.deals.col = col;
+    sortState.deals.dir = 1;
+  }
+  showTab('deals');
+}
+
+function setFilterDeals(val) {
+  filterStatus.deals = val;
+  showTab('deals');
+}
+
+// ============================================================
+// INLINE EDIT + AUDIT LOG
+// ============================================================
+function editPaymentRow(table, id) {
+  const rows = table === 'in' ? DB.payments_in : DB.payments_out;
+  const row = rows.find(r => r.id === id);
+  if (!row) return;
+  window._editingPayment = { table, id, original: {...row} };
+
+  const tr = document.querySelector('[data-pay-id="' + table + '-' + id + '"]');
+  if (!tr) return;
+  tr.classList.add('editing');
+
+  tr.querySelectorAll('td[data-paykey]').forEach(td => {
+    const key = td.dataset.paykey;
+    const val = row[key] || '';
+    if (key === 'status') {
+      const statuses = table === 'in'
+        ? ['В работе','Оплачен','Просрочен','Ожидание']
+        : ['В работе','Оплачено','Просрочено','Ожидание'];
+      const opts = statuses.map(s => '<option' + (val===s?' selected':'') + '>' + s + '</option>').join('');
+      td.innerHTML = '<select class="edit-input" data-editkey="' + key + '">' + opts + '</select>';
+    } else if (['date_issue','date_pay','date_plan','date_fact'].includes(key)) {
+      let dv = '';
+      if (val && val !== '—' && val.includes('.')) { const p=val.split('.'); if(p.length===3) dv=p[2]+'-'+p[1]+'-'+p[0]; }
+      td.innerHTML = '<input type="date" class="edit-input" data-editkey="' + key + '" value="' + dv + '">';
+    } else if (['sum_plan','sum_fact','sum'].includes(key)) {
+      const clean = val.replace('₽','').trim();
+      td.innerHTML = '<input class="edit-input" data-editkey="' + key + '" value="' + (clean==='—'?'':clean) + '" placeholder="0">';
+    } else {
+      td.innerHTML = '<input class="edit-input" data-editkey="' + key + '" value="' + (val==='—'?'':val) + '">';
+    }
+  });
+
+  // Action cell
+  const actTd = tr.querySelector('td[data-paykey="actions"]');
+  if (actTd) {
+    actTd.innerHTML = '<div style="display:flex;gap:4px;flex-direction:column">' +
+      '<button class="edit-btn edit-btn-save" data-paytable="' + table + '" data-payrowid="' + id + '" onclick="savePaymentRow(this.dataset.paytable,+this.dataset.payrowid)">✓</button>' +
+      '<button class="edit-btn edit-btn-cancel" data-paytable="' + table + '" data-payrowid="' + id + '" onclick="cancelPaymentEdit(this.dataset.paytable,+this.dataset.payrowid)">✕</button></div>';
+  }
+
+  // Banner
+  const mc = document.getElementById('main-content');
+  if (mc && !document.getElementById('edit-banner')) {
+    const banner = document.createElement('div');
+    banner.id = 'edit-banner';
+    banner.className = 'edit-mode-banner';
+    banner.innerHTML = '<span>✏ РЕЖИМ РЕДАКТИРОВАНИЯ</span>' +
+      '<button class="edit-btn edit-btn-save" data-paytable="' + table + '" data-payrowid="' + id + '" onclick="savePaymentRow(this.dataset.paytable,+this.dataset.payrowid)" style="padding:6px 20px">✓ Сохранить</button>' +
+      '<button class="edit-btn edit-btn-cancel" data-paytable="' + table + '" data-payrowid="' + id + '" onclick="cancelPaymentEdit(this.dataset.paytable,+this.dataset.payrowid)" style="padding:6px 16px">✕ Отмена</button>';
+    mc.prepend(banner);
+  }
+}
+
+function savePaymentRow(table, id) {
+  const rows = table === 'in' ? DB.payments_in : DB.payments_out;
+  const row = rows.find(r => r.id === id);
+  if (!row) return;
+  const tr = document.querySelector('[data-pay-id="' + table + '-' + id + '"]');
+  if (!tr) return;
+  const changes = [];
+  tr.querySelectorAll('[data-editkey]').forEach(inp => {
+    const key = inp.dataset.editkey;
+    let newVal = inp.value || '—';
+    if (['date_issue','date_pay','date_plan','date_fact'].includes(key) && newVal && newVal !== '—' && newVal.includes('-')) {
+      const p = newVal.split('-'); newVal = p[2]+'.'+p[1]+'.'+p[0];
+    }
+    if (newVal === '') newVal = '—';
+    if (row[key] !== newVal) { changes.push({field:key, from:row[key], to:newVal}); row[key] = newVal; }
+  });
+  if (changes.length) {
+    const now = new Date();
+    const ts = now.toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    DB.auditLog.unshift({id:Date.now(), ts, user:USERS[currentUser].name, entity:'ГП '+(table==='in'?'Входящие':'Исходящие'), target:row.client||row.vendor, changes});
+  }
+  const banner = document.getElementById('edit-banner');
+  if (banner) banner.remove();
+  showTab('payments');
+}
+
+function cancelPaymentEdit(table, id) {
+  if (window._editingPayment && window._editingPayment.table===table && window._editingPayment.id===id) {
+    const rows = table === 'in' ? DB.payments_in : DB.payments_out;
+    Object.assign(rows.find(r=>r.id===id), window._editingPayment.original);
+  }
+  const banner = document.getElementById('edit-banner');
+  if (banner) banner.remove();
+  showTab('payments');
+}
+
+function editDealRow(id) {
+  const deal = DB.deals.find(d => d.id === id);
+  if (!deal) return;
+  // Store original for audit
+  window._editingOriginal = {...deal};
+  window._editingId = id;
+  // Find the row and replace cells with inputs
+  const row = document.querySelector('[data-deal-id="' + id + '"]');
+  if (!row) return;
+  row.classList.add('editing');
+  const editableKeys = ['client','period','media','vendor','service','budget_p','budget_f','tax_type','sk','sk_date','pay_plan','pay_fact','contract','appendix','act'];
+  // Make ALL editableKeys editable regardless of locked-cell class
+  // Find tds by data-key directly for each editable key
+  editableKeys.forEach(key => {
+    const td = row.querySelector('td[data-key="' + key + '"]');
+    if (!td) return;
+    td.classList.remove('locked-cell'); // unlock
+    const val = deal[key] || '';
+    if (key === 'tax_type') {
+      td.innerHTML = '<select class="edit-input" data-editkey="' + key + '"><option' + (val==='НДС'?' selected':'') + '>НДС</option><option' + (val==='УСН'?' selected':'') + '>УСН</option><option' + (val==='НАЛ'?' selected':'') + '>НАЛ</option></select>';
+    } else if (key === 'pay_plan' || key === 'pay_fact' || key === 'sk_date') {
+      // Convert dd.mm.yyyy to yyyy-mm-dd for date input
+      let dateVal = '';
+      if (val && val !== '—' && val.includes('.')) {
+        const p = val.split('.');
+        if (p.length === 3) dateVal = p[2] + '-' + p[1] + '-' + p[0];
+      }
+      td.innerHTML = '<input type="date" class="edit-input" data-editkey="' + key + '" value="' + dateVal + '">';
+    } else if (key === 'period') {
+      const months = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+      const years = [2025, 2026, 2027];
+      const opts = years.flatMap(y => months.map(m => {
+        const v = m + ' ' + y;
+        return '<option value="' + v + '"' + (val === v ? ' selected' : '') + '>' + v + '</option>';
+      })).join('');
+      td.innerHTML = '<select class="edit-input" data-editkey="period" style="min-width:110px"><option value="">—</option>' + opts + '</select>';
+    } else {
+      // Strip ₽ prefix for budget fields
+      const cleanVal = (key === 'budget_p' || key === 'budget_f' || key === 'sk')
+        ? (val === '—' ? '' : String(val).replace(/₽/g,'').replace(/[\s\u00a0]/g,'').trim())
+        : (val === '—' ? '' : val);
+      td.innerHTML = '<input class="edit-input" data-editkey="' + key + '" value="' + cleanVal + '">';
+    }
+  });
+  // Replace action cell
+  const actionTd = row.querySelector('td[data-key="actions"]');
+  if (actionTd) {
+    actionTd.innerHTML = '<div style="display:flex;gap:6px;flex-direction:column"><button class="edit-btn edit-btn-save" data-dealid="' + id + '" onclick="saveDealRow(+this.dataset.dealid)">✓ Сохранить</button><button class="edit-btn edit-btn-cancel" data-dealid="' + id + '" onclick="cancelEditDeal(+this.dataset.dealid)">✕ Отмена</button></div>';
+  }
+  // Show edit mode banner
+  const mc = document.getElementById('main-content');
+  if (mc && !document.getElementById('edit-banner')) {
+    const banner = document.createElement('div');
+    banner.id = 'edit-banner';
+    banner.className = 'edit-mode-banner';
+    banner.innerHTML = '<span>✏ РЕЖИМ РЕДАКТИРОВАНИЯ</span><button class="edit-btn edit-btn-save" onclick="saveDealRow(' + id + ')" style="padding:6px 20px">✓ Сохранить изменения</button><button class="edit-btn edit-btn-cancel" onclick="cancelEditDeal(' + id + ')" style="padding:6px 16px">✕ Отмена</button><span style="color:var(--muted);font-size:10px">Нажмите Сохранить или Отмена для выхода из режима редактирования</span>';
+    mc.prepend(banner);
+  }
+}
+
+function saveDealRow(id) {
+  const deal = DB.deals.find(d => d.id === id);
+  if (!deal) return;
+  const row = document.querySelector('[data-deal-id="' + id + '"]');
+  if (!row) return;
+  const changes = [];
+  row.querySelectorAll('[data-editkey]').forEach(inp => {
+    const key = inp.dataset.editkey;
+    let newVal = inp.value || '—';
+    // Convert date back to dd.mm.yyyy
+    if ((key === 'pay_plan' || key === 'pay_fact' || key === 'sk_date') && newVal && newVal !== '—' && newVal.includes('-')) {
+      const p = newVal.split('-');
+      newVal = p[2] + '.' + p[1] + '.' + p[0];
+    }
+    if (newVal === '') newVal = '—';
+    if (deal[key] !== newVal) {
+      changes.push({ field: key, from: deal[key], to: newVal });
+      deal[key] = newVal;
+    }
+  });
+  // Log to audit
+  if (changes.length > 0) {
+    const now = new Date();
+    const ts = now.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    DB.auditLog.unshift({
+      id: Date.now(),
+      ts,
+      user: USERS[currentUser].name,
+      entity: 'Сделка',
+      target: deal.client + ' / ' + deal.period + ' / ' + deal.vendor,
+      changes
+    });
+  }
+  const banner = document.getElementById('edit-banner');
+  if (banner) banner.remove();
+  showTab('deals');
+}
+
+function cancelEditDeal(id) {
+  // Restore original
+  if (window._editingOriginal && window._editingId === id) {
+    Object.assign(DB.deals.find(d => d.id === id), window._editingOriginal);
+  }
+  const banner = document.getElementById('edit-banner');
+  if (banner) banner.remove();
+  showTab('deals');
+}
+
+function addAuditEntry(entity, target, field, from, to) {
+  const now = new Date();
+  const ts = now.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  DB.auditLog.unshift({ id: Date.now(), ts, user: USERS[currentUser].name, entity, target, changes: [{field, from, to}] });
+}
+
+// ============================================================
+// VENDOR INLINE EDIT
+// ============================================================
+function editVendorRow(id) {
+  const v = DB.vendors.find(x => x.id == id);
+  if (!v) return;
+  window._editingVendor = { id, original: {...v} };
+  const tr = document.querySelector('[data-vid="' + id + '"]');
+  if (!tr) return;
+  tr.classList.add('editing');
+  const taxColors = {'НДС':'badge-blue','УСН':'badge-warn','НАЛ':'badge-alert'};
+  tr.querySelectorAll('td[data-vkey]').forEach(td => {
+    const key = td.dataset.vkey;
+    const val = v[key] || '';
+    if (key === 'tax_type') {
+      const opts = ['НДС','УСН','НАЛ'].map(o => '<option'+(val===o?' selected':'')+'>'+o+'</option>').join('');
+      td.innerHTML = '<select class="edit-input" data-editkey="' + key + '">' + opts + '</select>';
+    } else if (key === 'status') {
+      const opts = ['Активный','Неактивный','Приостановлен'].map(o => '<option'+(val===o?' selected':'')+'>'+o+'</option>').join('');
+      td.innerHTML = '<select class="edit-input" data-editkey="' + key + '">' + opts + '</select>';
+    } else {
+      td.innerHTML = '<input class="edit-input" data-editkey="' + key + '" value="' + (val==='—'?'':val) + '" style="min-width:80px">';
+    }
+  });
+  // Replace edit btn cell with save/cancel
+  const lastTd = tr.cells[tr.cells.length - 1];
+  lastTd.innerHTML = '<div style="display:flex;gap:3px;flex-direction:column">' +
+    '<button class="edit-btn edit-btn-save" data-vid="' + id + '" onclick="saveVendorRow(+this.dataset.vid)">✓</button>' +
+    '<button class="edit-btn edit-btn-cancel" data-vid="' + id + '" onclick="cancelVendorEdit(+this.dataset.vid)">✕</button></div>';
+  // Banner
+  const mc = document.getElementById('main-content');
+  if (mc && !document.getElementById('edit-banner')) {
+    const banner = document.createElement('div');
+    banner.id = 'edit-banner';
+    banner.className = 'edit-mode-banner';
+    banner.dataset.vendorid = id;
+    banner.innerHTML = '<span>✏ РЕЖИМ РЕДАКТИРОВАНИЯ</span>' +
+      '<button class="edit-btn edit-btn-save" onclick="saveVendorRow(+document.getElementById(\'edit-banner\').dataset.vendorid)" style="padding:6px 20px">✓ Сохранить</button>' +
+      '<button class="edit-btn edit-btn-cancel" onclick="cancelVendorEdit(+document.getElementById(\'edit-banner\').dataset.vendorid)" style="padding:6px 16px">✕ Отмена</button>';
+    mc.prepend(banner);
+  }
+}
+
+function saveVendorRow(id) {
+  const v = DB.vendors.find(x => x.id == id);
+  if (!v) return;
+  const tr = document.querySelector('[data-vid="' + id + '"]');
+  if (!tr) return;
+  const changes = [];
+  tr.querySelectorAll('[data-editkey]').forEach(inp => {
+    const key = inp.dataset.editkey;
+    const newVal = inp.value || '—';
+    if (v[key] !== newVal) { changes.push({field:key, from:v[key], to:newVal}); v[key] = newVal; }
+  });
+  if (changes.length) {
+    const now = new Date();
+    const ts = now.toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    DB.auditLog.unshift({id:Date.now(), ts, user:USERS[currentUser].name, entity:'Контрагент', target:v.name, changes});
+  }
+  const banner = document.getElementById('edit-banner');
+  if (banner) banner.remove();
+  showTab('vendors');
+}
+
+function cancelVendorEdit(id) {
+  if (window._editingVendor && window._editingVendor.id == id) {
+    Object.assign(DB.vendors.find(x=>x.id==id), window._editingVendor.original);
+  }
+  const banner = document.getElementById('edit-banner');
+  if (banner) banner.remove();
+  showTab('vendors');
+}
+
+function renderAuditLog() {
+  const u = USERS[currentUser];
+  if (!['admin','owner','buh'].includes(u.role)) {
+    return roleBanner() + '<div class="notice notice-warn">Журнал изменений доступен только администраторам и бухгалтерии.</div>';
+  }
+  const logs = DB.auditLog;
+  const rows = logs.length ? logs.map(e => {
+    const changesHtml = e.changes.map(c =>
+      '<span class="audit-change">' + c.field + ': ' + (c.from||'—') + ' → ' + (c.to||'—') + '</span>'
+    ).join(' &nbsp;·&nbsp; ');
+    return '<tr><td class="audit-time mono">' + e.ts + '</td>' +
+      '<td class="audit-who">' + e.user + '</td>' +
+      '<td class="audit-what">' + e.entity + ' · ' + e.target + '</td>' +
+      '<td style="font-size:10px">' + changesHtml + '</td></tr>';
+  }).join('') : '<tr><td colspan="4" class="empty">Изменений пока не было</td></tr>';
+
+  return roleBanner() + `
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-title">Журнал изменений</div><div class="section-sub">Все правки в системе · ${logs.length} записей</div></div>
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Дата / Время</th><th>Пользователь</th><th>Объект</th><th>Изменения</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>`;
+}
+
+// ============================================================
+// FILE ATTACHMENTS
+// ============================================================
+function triggerFileUpload(clientId) {
+  const inp = document.getElementById('file-input-' + clientId);
+  if (inp) inp.click();
+}
+
+function handleFileUpload(clientId, input) {
+  const files = input.files;
+  if (!files || !files.length) return;
+  if (!DB.clientFiles[clientId]) DB.clientFiles[clientId] = [];
+  let processed = 0;
+  Array.from(files).forEach(file => {
+    if (file.size > 10 * 1024 * 1024) {
+      alert('Файл "' + file.name + '" слишком большой (макс. 10 МБ)');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const now = new Date();
+      const ts = now.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      DB.clientFiles[clientId].push({
+        id: Date.now() + Math.random(),
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        data: e.target.result, // base64 data URL
+        uploadedBy: USERS[currentUser].name,
+        uploadedAt: ts
+      });
+      processed++;
+      if (processed === files.length) {
+        // Log to audit
+        addAuditEntry('Клиент', DB.clients.find(c=>c.id==clientId)?.name||clientId, 'file_upload', '—', files.length + ' файл(ов)');
+        // Re-open the detail row
+        const detail = document.getElementById('cd-' + clientId);
+        if (detail) {
+          detail.style.display = 'table-row';
+          renderClientFiles(clientId);
+        }
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value = ''; // reset
+}
+
+function renderClientFiles(clientId) {
+  const container = document.getElementById('files-' + clientId);
+  if (!container) return;
+  const files = DB.clientFiles[clientId] || [];
+  const canEdit = ['admin','manager'].includes(USERS[currentUser].role);
+  if (!files.length) {
+    container.innerHTML = '<div style="color:var(--muted);font-size:11px;font-family:DM Mono">Файлы не прикреплены</div>';
+    return;
+  }
+  container.innerHTML = files.map(f => {
+    const icon = f.type.includes('pdf') ? '📄' : f.type.includes('image') ? '🖼' : f.type.includes('sheet') || f.name.endsWith('.xlsx') ? '📊' : f.type.includes('word') || f.name.endsWith('.docx') ? '📝' : '📎';
+    const sizeFmt = f.size > 1024*1024 ? (f.size/1024/1024).toFixed(1)+' МБ' : Math.round(f.size/1024)+' КБ';
+    return '<div class="file-item">' +
+      '<span class="file-item-icon">' + icon + '</span>' +
+      '<span class="file-item-name">' + f.name + '</span>' +
+      '<span class="file-item-meta">' + sizeFmt + ' · ' + f.uploadedBy + ' · ' + f.uploadedAt + '</span>' +
+      '<a class="file-item-dl" href="' + f.data + '" download="' + f.name + '">↓ Скачать</a>' +
+      (canEdit ? '<button class="file-item-del" onclick="deleteClientFile(' + clientId + ',' + f.id + ')">✕</button>' : '') +
+      '</div>';
+  }).join('');
+}
+
+function deleteClientFile(clientId, fileId) {
+  if (!DB.clientFiles[clientId]) return;
+  const file = DB.clientFiles[clientId].find(f => f.id == fileId);
+  if (file) addAuditEntry('Клиент', DB.clients.find(c=>c.id==clientId)?.name||clientId, 'file_delete', file.name, '—');
+  DB.clientFiles[clientId] = DB.clientFiles[clientId].filter(f => f.id != fileId);
+  renderClientFiles(clientId);
+}
+
+// ============================================================
+// CLIENTS TABLE
+// ============================================================
+function renderClients() {
+  const u = USERS[currentUser];
+  const role = u.role;
+  const isManager = role === 'manager';
+  const canAdd = ROLE_CONFIG[role].canAdd;
+  const isBuyer = isManager && u.dept === 'Баинг';
+
+  // Auto-sync: добавить клиентов из сделок которых нет в DB.clients
+  DB.deals.forEach(d => {
+    if (d.client && !DB.clients.find(c => c.name === d.client)) {
+      DB.clients.push({
+        id: Date.now() + Math.random(), name: d.client, legal:'—', inn:'—', kpp:'—',
+        address:'—', contact_name:'—', contact_email:'—', contact_phone:'—',
+        contract:'—', contract_date:'—', av_pct:'—', payment_terms:'—', credit_limit:'—',
+        status:'Активный', manager: d.manager || '—', note:'Добавлен автоматически из Сделок'
+      });
+    }
+  });
+
+  // Клиентский менеджер видит только СВОИХ клиентов (из u.clients)
+  const clientList = isHead
+    ? DB.clients.filter(c => u.clients && u.clients.includes(c.name))
+    : DB.clients;
+
+  const showContacts = !isBuyer;  // баеры не видят контакты
+  const rows = clientList.map(c => `
+    <tr onclick="toggleClientDetail('cd-${c.id}')" style="cursor:pointer">
+      <td class="main">${c.name}</td>
+      <td class="mono">${c.inn}</td>
+      ${showContacts ? `<td>${c.contact_name}</td><td class="mono">${c.contact_email}</td><td class="mono">${c.contact_phone}</td>` : ''}
+      <td>${c.payment_terms}</td>
+      <td class="mono">${c.av_pct !== '—' ? c.av_pct+'%' : '—'}</td>
+      <td><span class="badge badge-ok">${c.status}</span></td>
+      <td><span class="mtag">${c.manager}</span></td>
+    </tr>
+    <tr id="cd-${c.id}" style="display:none">
+      <td colspan="9" style="padding:0;background:var(--gold-bg)">
+        <div class="detail-card">
+          <div class="dc-field"><div class="dc-label">Юр. лицо</div><div class="dc-value">${c.legal}</div></div>
+          <div class="dc-field"><div class="dc-label">ИНН / КПП</div><div class="dc-value mono">${c.inn} / ${c.kpp}</div></div>
+          <div class="dc-field"><div class="dc-label">Договор №</div><div class="dc-value mono">${c.contract} от ${c.contract_date}</div></div>
+          <div class="dc-field"><div class="dc-label">Адрес</div><div class="dc-value">${c.address}</div></div>
+          <div class="dc-field"><div class="dc-label">Кредитный лимит</div><div class="dc-value mono">${c.credit_limit !== '—' ? '₽'+c.credit_limit : '—'}</div></div>
+          <div class="dc-field"><div class="dc-label">Примечание</div><div class="dc-value">${c.note}</div></div>
+        </div>
+        <div style="padding:12px 20px;background:var(--surface);border-top:1px solid var(--border)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div style="font-size:10px;font-family:'DM Mono';text-transform:uppercase;letter-spacing:.8px;color:var(--muted)">Прикреплённые файлы</div>
+            ${(canAdd || ['manager','owner','admin','buh'].includes(role)) ? `<label class="file-zone" onclick="triggerFileUpload(${c.id})" style="padding:4px 12px;margin:0">
+              <input type="file" id="file-input-${c.id}" multiple onchange="handleFileUpload(${c.id},this)">
+              <span class="file-zone-label">+ <span>Прикрепить файл</span></span>
+            </label>` : ''}
+          </div>
+          <div id="files-${c.id}"></div>
+        </div>
+      </td>
+    </tr>`
+  ).join('');
+
+  return roleBanner() + `
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-title">Клиенты</div><div class="section-sub">Реестр клиентов · ${clientList.length} записей · нажмите строку для деталей</div></div>
+        ${canAdd && !isBuyer ? `<button class="add-btn" onclick="openModal('client')">+ Добавить клиента</button>` : ''}
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Клиент</th><th>ИНН</th>${showContacts ? '<th>Контакт</th><th>Email</th><th>Телефон</th>' : ''}<th>Условия оплаты</th><th>AV %</th><th>Статус</th><th>Менеджер</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>`;
+}
+
+function toggleClientDetail(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const opening = el.style.display === 'none';
+    el.style.display = opening ? 'table-row' : 'none';
+    if (opening) {
+      const clientId = id.replace('cd-','');
+      setTimeout(() => renderClientFiles(clientId), 0);
+    }
+  }
+}
+
+// ============================================================
+// VENDORS TABLE
+// ============================================================
+function renderVendors() {
+  const u = USERS[currentUser];
+  const role = u.role;
+  const canAdd = ROLE_CONFIG[role].canAdd;
+  const isClientDept = role === 'manager' && u.dept === 'Клиентский отдел';
+
+  // Auto-sync: добавить вендоров из сделок которых нет в DB.vendors
+  DB.deals.forEach(d => {
+    if (d.vendor && !DB.vendors.find(v => v.name === d.vendor)) {
+      DB.vendors.push({
+        id: Date.now() + Math.random(), name: d.vendor, legal: d.vendor, inn:'—',
+        tax_type: d.tax_type || 'НДС', payment_terms:'—',
+        contact_name:'—', contact_email:'—', contact_phone:'—',
+        contract:'—', status:'Активный', note:'Добавлен автоматически из Сделок', sk_pct:'—', manager: d.manager || '—'
+      });
+    }
+  });
+
+  const rows = DB.vendors.map(v => {
+    const taxColors = {'НДС':'badge-blue','УСН':'badge-warn','НАЛ':'badge-alert'};
+    return `
+    <tr data-vid="${v.id}" onclick="toggleVendorDetail('vd-${v.id}')" style="cursor:pointer">
+      <td data-vkey="name" class="main">${v.name}</td>
+      <td data-vkey="legal" class="mono" style="font-size:11px">${v.legal !== v.name ? v.legal : '—'}</td>
+      <td data-vkey="inn" class="mono">${v.inn}</td>
+      <td data-vkey="tax_type"><span class="badge ${taxColors[v.tax_type]||'badge-draft'}">${v.tax_type}</span></td>
+      <td data-vkey="payment_terms">${v.payment_terms}</td>
+      <td data-vkey="contact_name">${v.contact_name}</td>
+      <td data-vkey="contact_phone" class="mono">${v.contact_phone||'—'}</td>
+      <td data-vkey="contact_email" class="mono">${v.contact_email}</td>
+      <td data-vkey="sk_pct">${v.sk_pct !== '—' ? '<span style="color:var(--green);font-family:DM Mono">'+v.sk_pct+'</span>' : '—'}</td>
+      <td data-vkey="status"><span class="badge ${v.status === 'Активный' ? 'badge-ok' : v.status === 'Неактивный' ? 'badge-alert' : 'badge-warn'}">${v.status}</span></td>
+      <td><span class="mtag">${v.manager}</span></td>
+      <td onclick="event.stopPropagation()"><button class="edit-btn-edit" onclick="editVendorRow(${v.id})">✏</button></td>
+    </tr>
+    <tr id="vd-${v.id}" style="display:none">
+      <td colspan="12" style="padding:0;background:var(--gold-bg)">
+        <div class="detail-card">
+          <div class="dc-field"><div class="dc-label">Юр. лицо</div><div class="dc-value">${v.legal}</div></div>
+          <div class="dc-field"><div class="dc-label">ИНН</div><div class="dc-value mono">${v.inn}</div></div>
+          <div class="dc-field"><div class="dc-label">Договор №</div><div class="dc-value mono">${v.contract}</div></div>
+          <div class="dc-field"><div class="dc-label">Налогообложение</div><div class="dc-value"><span class="badge ${taxColors[v.tax_type]||'badge-draft'}">${v.tax_type}</span></div></div>
+          <div class="dc-field"><div class="dc-label">СК %</div><div class="dc-value mono" style="color:var(--green)">${v.sk_pct}</div></div>
+          <div class="dc-field"><div class="dc-label">Примечание</div><div class="dc-value">${v.note}</div></div>
+        </div>
+        <div style="padding:12px 20px;background:var(--surface);border-top:1px solid var(--border)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div style="font-size:10px;font-family:'DM Mono';text-transform:uppercase;letter-spacing:.8px;color:var(--muted)">Прикреплённые файлы</div>
+            ${canAdd ? `<label class="file-zone" style="padding:4px 12px;margin:0;display:inline-flex;align-items:center;cursor:pointer">
+              <input type="file" id="vfile-input-${v.id}" multiple onchange="handleVendorFileUpload(${v.id},this)">
+              <span class="file-zone-label">+ <span>Прикрепить файл</span></span>
+            </label>` : ''}
+          </div>
+          <div id="vfiles-${v.id}"></div>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  return roleBanner() + `
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-title">Контрагенты</div><div class="section-sub">Реестр подрядчиков и площадок · ${DB.vendors.length} записей · нажмите строку для деталей</div></div>
+        ${canAdd && !isClientDept ? `<button class="add-btn" onclick="openModal('vendor')">+ Добавить контрагента</button>` : ''}
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Название</th><th>Юр. лицо</th><th>ИНН</th><th>Налог</th><th>Условия оплаты</th><th>Контакт</th><th>Телефон</th><th>Email</th><th>СК %</th><th>Статус</th><th>Менеджер</th><th style='width:32px'></th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>`;
+}
+
+function toggleVendorDetail(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const opening = el.style.display === 'none';
+    el.style.display = opening ? 'table-row' : 'none';
+    if (opening) {
+      const vendorId = id.replace('vd-','');
+      setTimeout(() => renderVendorFiles(vendorId), 0);
+    }
+  }
+}
+
+function triggerVendorFileUpload(vendorId) {
+  const inp = document.getElementById('vfile-input-' + vendorId);
+  if (inp) inp.click();
+}
+
+function handleVendorFileUpload(vendorId, input) {
+  const files = input.files;
+  if (!files || !files.length) return;
+  if (!DB.vendorFiles[vendorId]) DB.vendorFiles[vendorId] = [];
+  Array.from(files).forEach(file => {
+    if (file.size > 10 * 1024 * 1024) { alert('Файл "' + file.name + '" слишком большой (макс. 10 МБ)'); return; }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const now = new Date();
+      const ts = now.toLocaleString('ru-RU', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      DB.vendorFiles[vendorId].push({
+        id: Date.now() + Math.random(), name: file.name, size: file.size,
+        type: file.type, data: e.target.result,
+        uploadedBy: USERS[currentUser].name, uploadedAt: ts
+      });
+      const vName = DB.vendors.find(v=>v.id==vendorId)?.name || vendorId;
+      addAuditEntry('Контрагент', vName, 'file_upload', '—', '1 файл');
+      renderVendorFiles(vendorId);
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value = '';
+}
+
+function renderVendorFiles(vendorId) {
+  const container = document.getElementById('vfiles-' + vendorId);
+  if (!container) return;
+  const files = DB.vendorFiles[vendorId] || [];
+  const canEdit = ['admin','manager'].includes(USERS[currentUser].role);
+  if (!files.length) {
+    container.innerHTML = '<div style="color:var(--muted);font-size:11px;font-family:DM Mono">Файлы не прикреплены</div>';
+    return;
+  }
+  container.innerHTML = files.map(f => {
+    const icon = f.type.includes('pdf') ? '📄' : f.type.includes('image') ? '🖼' : f.type.includes('sheet')||f.name.endsWith('.xlsx') ? '📊' : f.type.includes('word')||f.name.endsWith('.docx') ? '📝' : '📎';
+    const sizeFmt = f.size > 1024*1024 ? (f.size/1024/1024).toFixed(1)+' МБ' : Math.round(f.size/1024)+' КБ';
+    return '<div class="file-item">' +
+      '<span class="file-item-icon">' + icon + '</span>' +
+      '<span class="file-item-name">' + f.name + '</span>' +
+      '<span class="file-item-meta">' + sizeFmt + ' · ' + f.uploadedBy + ' · ' + f.uploadedAt + '</span>' +
+      '<a class="file-item-dl" href="' + f.data + '" download="' + f.name + '">↓ Скачать</a>' +
+      (canEdit ? '<button class="file-item-del" onclick="deleteVendorFile(' + vendorId + ',' + f.id + ')">✕</button>' : '') +
+      '</div>';
+  }).join('');
+}
+
+function deleteVendorFile(vendorId, fileId) {
+  if (!DB.vendorFiles[vendorId]) return;
+  const file = DB.vendorFiles[vendorId].find(f => f.id == fileId);
+  const vName = DB.vendors.find(v=>v.id==vendorId)?.name || vendorId;
+  if (file) addAuditEntry('Контрагент', vName, 'file_delete', file.name, '—');
+  DB.vendorFiles[vendorId] = DB.vendorFiles[vendorId].filter(f => f.id != fileId);
+  renderVendorFiles(vendorId);
+}
+
+// ============================================================
+// AUTH
+// ============================================================
+function doLogin() {
+  const val = document.getElementById('user-select').value;
+  if (!val) return;
+  currentUser = val;
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').classList.add('visible');
+  renderTopbar();
+  const firstTab = ROLE_CONFIG[USERS[val].role].tabs[0];
+  showTab(firstTab);
+}
+
+function doLogout() {
+  currentUser = null;
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').classList.remove('visible');
+  document.getElementById('user-select').value = '';
+}
+
+// ============================================================
+// TOPBAR
+// ============================================================
+function renderTopbar() {
+  const u = USERS[currentUser];
+  const rc = ROLE_CONFIG[u.role];
+  document.getElementById('tb-avatar').textContent = u.short;
+  document.getElementById('tb-name').textContent = u.name;
+  document.getElementById('tb-role').textContent = u.roleLabel + (u.dept ? ' · ' + u.dept : '');
+
+  const tabLabels = {
+    payments: 'График платежей',
+    deals:    'Сделки',
+    clients:  'Клиенты',
+    vendors:  'Контрагенты',
+    opex:     'Опер. расходы',
+    audit:    'Журнал изменений',
+    access:   'Доступы',
+  };
+  const allTabs = ['payments','deals','clients','vendors','opex','audit','access'];
+  let html = '';
+  allTabs.forEach(t => {
+    let allowed = rc.tabs.includes(t);
+    // clients — только клиентский отдел и выше (не баинг)
+    if (t === 'clients' && u.role === 'manager' && u.dept === 'Баинг') allowed = false;
+    // vendors — только баинг и выше (не клиентский)
+    if (t === 'vendors' && u.role === 'manager' && u.dept === 'Клиентский отдел') allowed = false;
+    html += `<div class="topbar-nav-item ${!allowed?'disabled':''}" id="tab-btn-${t}" onclick="showTab('${t}')">${tabLabels[t]}</div>`;
+  });
+  document.getElementById('topbar-nav').innerHTML = html;
+}
+
+function toggleCollapse(table) {
+  collapseState[table] = !collapseState[table];
+  document.querySelectorAll('.detail-row-' + table).forEach(row => {
+    row.style.display = collapseState[table] ? 'none' : '';
+  });
+  const btn = document.getElementById('collapse-btn-' + table);
+  if (btn) {
+    btn.textContent = collapseState[table] ? '▶ Развернуть' : '▼ Свернуть';
+    btn.classList.toggle('active', collapseState[table]);
+  }
+}
+
+function showTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.topbar-nav-item').forEach(el => el.classList.remove('active'));
+  const btn = document.getElementById('tab-btn-' + tab);
+  if (btn) btn.classList.add('active');
+  const mc = document.getElementById('main-content');
+  if (tab === 'payments') mc.innerHTML = renderPayments();
+  else if (tab === 'deals') mc.innerHTML = renderDeals();
+  else if (tab === 'clients') mc.innerHTML = renderClients();
+  else if (tab === 'vendors') mc.innerHTML = renderVendors();
+  else if (tab === 'opex') mc.innerHTML = renderOpex();
+  else if (tab === 'audit') mc.innerHTML = renderAuditLog();
+  else if (tab === 'access') mc.innerHTML = renderAccess();
+  // Restore collapse state after render
+  ['payments_in','payments_out','deals'].forEach(table => {
+    if (collapseState[table]) {
+      document.querySelectorAll('.detail-row-' + table).forEach(r => r.style.display = 'none');
+      const b = document.getElementById('collapse-btn-' + table);
+      if (b) { b.textContent = '▶ Развернуть'; b.classList.add('active'); }
+    }
+  });
+}
+
+// ============================================================
+// ROLE BANNER
+// ============================================================
+function roleBanner() {
+  const u = USERS[currentUser];
+  const role = u.role;
+  const isHead = role === 'manager' && u.dept === 'Клиентский отдел';
+  const banners = {
+    owner:   { cls:'owner',   icon:'👁', text:'Режим просмотра — все данные агентства', sub:'Редактирование недоступно' },
+    admin:   { cls:'admin',   icon:'⚙️', text:`${u.name} — Head of Agency`, sub:'Полный доступ, управление пользователями и доступами' },
+    buh:     { cls:'buh',     icon:'📊', text:'Бухгалтерия / Финансовый отдел', sub:'Полный доступ к платежам и расходам, частичный к сделкам' },
+    manager: { cls:'manager', icon:'👤',
+      text: isHead ? `Клиентский менеджер: ${u.name}` : `Баинг менеджер: ${u.name}`,
+      sub: u.clients && u.clients.length
+        ? (isHead ? `Клиенты: ${u.clients.join(', ')} · виден клиентский раздел` : `Клиенты: ${u.clients.join(', ')} · виден баинговый раздел`)
+        : 'Нет назначенных клиентов — обратитесь к администратору'
+    },
+    lawyer:  { cls:'lawyer',  icon:'⚖️', text:'Юридический отдел', sub:'Доступ только к полям договора и приложений' },
+  };
+  const b = banners[u.role];
+  return `<div class="role-banner ${b.cls}"><div class="rb-icon">${b.icon}</div><div class="rb-text"><strong>${b.text}</strong>${b.sub}</div></div>`;
+}
+
+// ============================================================
+// STATUS BADGE
+// ============================================================
+function statusBadge(s) {
+  if (!s || s === '—') return `<span class="badge badge-draft">—</span>`;
+  const map = {
+    'Оплачен':'badge-ok','Оплачено':'badge-ok','Получен':'badge-ok',
+    'Просрочен':'badge-alert','Просрочено':'badge-alert',
+    'В работе':'badge-blue','Ожидание':'badge-warn','Ожидание ':'badge-warn',
+    'Не начато':'badge-draft','—':'badge-draft',
+  };
+  const cls = map[s] || 'badge-draft';
+  return `<span class="badge ${cls}">${s}</span>`;
+}
+
+// ============================================================
+// PAGE: PAYMENTS
+// ============================================================
+function renderPayments() {
+  const u = USERS[currentUser];
+  const role = u.role;
+  const isManager = role === 'manager';
+  const isBuyer  = role === 'manager' && u.dept === 'Баинг';
+  const isHead   = role === 'manager' && u.dept === 'Клиентский отдел';
+  const canAdd = ROLE_CONFIG[role].canAdd;
+
+  // Filter by manager's clients
+  const filterRows = (rows, table) => {
+    let r = rows;
+    if (isManager) {
+      // Фильтр по клиентам
+      r = r.filter(row => u.clients && u.clients.includes(row.client || row.vendor));
+      // Баинг менеджер в исходящих видит только СВОИ строки
+      if (isBuyer && (table === 'payments_out')) {
+        r = r.filter(row => row.manager === u.name);
+      }
+      // Клиентский менеджер — только входящие по своим клиентам (уже выше)
+    }
+    const fs = filterStatus[table];
+    if (fs && fs !== 'all') r = r.filter(row => row.status === fs);
+    return r;
+  };
+
+  const inRows  = sortRows(filterRows(DB.payments_in,  'payments_in'),  sortState.payments_in.col,  sortState.payments_in.dir);
+  const outRows = sortRows(filterRows(DB.payments_out, 'payments_out'), sortState.payments_out.col, sortState.payments_out.dir);
+
+  // Build filter bars
+  const makeStatusTh = (table) => {
+    const allRows = isManager ? (table==='payments_in'?DB.payments_in:DB.payments_out).filter(r => u.clients && u.clients.includes(r.client)) : (table==='payments_in'?DB.payments_in:DB.payments_out);
+    const statuses = [...new Set(allRows.map(r=>r.status))];
+    const cur = filterStatus[table];
+    const isFilt = cur !== 'all';
+    let opts = '<option value="all">Все (' + allRows.length + ')</option>';
+    statuses.forEach(s => {
+      const cnt = allRows.filter(r=>r.status===s).length;
+      opts += '<option value="' + s + '"' + (cur===s?' selected':'') + '>' + s + ' (' + cnt + ')</option>';
+    });
+    return '<th class="th-filter"><span style="display:block;margin-bottom:2px">Status</span>' +
+      '<select class="th-filter-select' + (isFilt?' filtered':'') + '" onchange="setFilterStatus(\'' + table + '\',this.value)">' +
+      opts + '</select></th>';
+  };
+
+  const thIn = (col, label) => {
+    const s = sortState.payments_in;
+    const cls = s.col === col ? (s.dir === 1 ? 'sort-asc' : 'sort-desc') : '';
+    const collapseBtn = col === 'period' ? ' <button id="collapse-btn-payments_in" class="collapse-btn" style="font-size:9px;padding:2px 8px;margin-left:6px;vertical-align:middle" onclick="event.stopPropagation();toggleCollapse(\'payments_in\')">' + (collapseState.payments_in ? '▶' : '▼') + '</button>' : '';
+    return `<th class="sortable ${cls}" onclick="setSortPayments('payments_in','${col}')">${label}<span class="sort-arrow"></span>${collapseBtn}</th>`;
+  };
+  const thOut = (col, label) => {
+    const s = sortState.payments_out;
+    const cls = s.col === col ? (s.dir === 1 ? 'sort-asc' : 'sort-desc') : '';
+    const collapseBtn = col === 'period' ? ' <button id="collapse-btn-payments_out" class="collapse-btn" style="font-size:9px;padding:2px 8px;margin-left:6px;vertical-align:middle" onclick="event.stopPropagation();toggleCollapse(\'payments_out\')">' + (collapseState.payments_out ? '▶' : '▼') + '</button>' : '';
+    return `<th class="sortable ${cls}" onclick="setSortPayments('payments_out','${col}')">${label}<span class="sort-arrow"></span>${collapseBtn}</th>`;
+  };
+
+  // Metrics (only for non-managers)
+  let metricsHtml = '';
+  if (isHead) {
+    // Упрощённые метрики для клиентского менеджера — только его клиенты
+    const myIn = DB.payments_in.filter(r => u.clients && u.clients.includes(r.client));
+    const myPaid = myIn.filter(r=>r.status==='Оплачен').reduce((a,r)=>a+parseFloat(r.sum_fact.replace(/\s/g,'')||0),0);
+    const myPlan = myIn.reduce((a,r)=>a+parseFloat(r.sum_plan.replace(/\s/g,'')||0),0);
+    const myOverdue = myIn.filter(r=>r.status==='Просрочен').length;
+    metricsHtml = `<div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+      <div class="metric"><div class="metric-label">Выставлено (план)</div><div class="metric-value">₽${myPlan.toLocaleString('ru-RU')}</div></div>
+      <div class="metric"><div class="metric-label">Оплачено</div><div class="metric-value" style="color:var(--green)">₽${myPaid.toLocaleString('ru-RU')}</div></div>
+      <div class="metric"><div class="metric-label">Просрочено</div><div class="metric-value" style="color:${myOverdue>0?'var(--red)':'var(--green)'}">${myOverdue}</div></div>
+    </div>`;
+  } else if (!isManager && u.role !== 'lawyer') {
+    const totalIn = DB.payments_in.filter(r=>r.status==='Оплачен').reduce((a,r)=>a+parseFloat(r.sum_fact.replace(/\s/g,'')||0),0);
+    const totalOut = DB.payments_out.filter(r=>r.status==='Оплачено').reduce((a,r)=>a+parseFloat(r.sum.replace(/\s/g,'')||0),0);
+    const overdue = DB.payments_in.filter(r=>r.status==='Просрочен').length;
+    metricsHtml = `<div class="metrics">
+      <div class="metric"><div class="metric-label">Поступления (факт)</div><div class="metric-value" style="color:var(--green)">₽${fmt(totalIn)}</div><div class="metric-sub">оплаченные счета</div></div>
+      <div class="metric"><div class="metric-label">Выплачено подрядчикам</div><div class="metric-value">₽${fmt(totalOut)}</div><div class="metric-sub">фактические оплаты</div></div>
+      <div class="metric"><div class="metric-label">Просроченных счетов</div><div class="metric-value" style="color:${overdue>0?'var(--red)':'var(--green)'}">${overdue}</div><div class="metric-sub">требуют внимания</div></div>
+      <div class="metric"><div class="metric-label">Кассовая позиция</div><div class="metric-value" style="color:var(--gold)">₽${fmt(totalIn-totalOut)}</div><div class="metric-sub">входящие − исходящие</div></div>
+    </div>`;
+  }
+
+  // Incoming
+  const buildRowsWithTotals = (rows, sumKey, isByPeriod, colCount) => {
+    if (!rows.length) return '<tr><td colspan="' + colCount + '" class="empty">Нет данных для вашего профиля</td></tr>';
+    if (!isByPeriod) {
+      return rows.map(r => {
+        const eb = !isBuyer ? '<td data-paykey="actions"><button class="edit-btn-edit" data-paytable="in" data-payrowid="' + r.id + '" onclick="editPaymentRow(this.dataset.paytable, +this.dataset.payrowid)">✏</button></td>' : '';
+        const cObj2 = DB.clients.find(c => c.name === r.client);
+        const cLegal2 = cObj2 && cObj2.legal !== '—' ? cObj2.legal : '—';
+        return '<tr class="detail-row-payments_in" data-pay-id="in-' + r.id + '">' +
+          '<td data-paykey="period" class="mono">' + r.period + '</td>' +
+          '<td data-paykey="client" class="main">' + r.client + '</td>' +
+          '<td class="mono" style="font-size:10px;color:var(--muted)">' + cLegal2 + '</td>' +
+          '<td data-paykey="sum_plan" class="amount">₽' + r.sum_plan + '</td>' +
+          '<td data-paykey="sum_fact" class="amount">' + (factValue(r.sum_fact, r.period) !== '—' ? '₽'+factValue(r.sum_fact, r.period) : '—') + '</td>' +
+          '<td data-paykey="date_issue" class="mono">' + r.date_issue + '</td>' +
+          '<td data-paykey="date_pay" class="mono">' + (isFuturePeriod(r.period) ? '—' : r.date_pay) + '</td>' +
+          '<td data-paykey="status">' + statusBadge(isFuturePeriod(r.period) && r.status==='Оплачен' ? 'В работе' : r.status) + '</td>' +
+          (!isManager ? '<td><span class="mtag">' + r.manager + '</span></td>' : '') +
+          eb + '</tr>';
+      }).join('');
+    }
+    // Group by period and add subtotals
+    const groups = {};
+    const order = [];
+    rows.forEach(r => {
+      if (!groups[r.period]) { groups[r.period] = []; order.push(r.period); }
+      groups[r.period].push(r);
+    });
+    let html = '';
+    let grandPlan = 0, grandFact = 0, grandSk = 0;
+    order.forEach(period => {
+      const gr = groups[period];
+      let periodPlan = 0, periodFact = 0;
+      gr.forEach(r => {
+        const plan = parseFloat((r.sum_plan||'0').replace(/\s/g,'')) || 0;
+        // Факт только для закрытых периодов
+        const factRaw = isFuturePeriod(r.period) ? '0' : (r.sum_fact === '—' ? '0' : r.sum_fact||'0');
+        const fact = parseFloat(factRaw.replace(/\s/g,'')) || 0;
+        periodPlan += plan; periodFact += fact;
+        grandPlan += plan; grandFact += fact;
+        const inEditBtn = !isBuyer ? '<td data-paykey="actions"><button class="edit-btn-edit" data-paytable="in" data-payrowid="' + r.id + '" onclick="editPaymentRow(this.dataset.paytable, +this.dataset.payrowid)">✏</button></td>' : '';
+        const cObj = DB.clients.find(c => c.name === r.client);
+        const cLegal = cObj && cObj.legal !== '—' ? cObj.legal : '—';
+        html += '<tr class="detail-row-payments_in" data-pay-id="in-' + r.id + '">' +
+          '<td data-paykey="period" class="mono">' + r.period + '</td>' +
+          '<td data-paykey="client" class="main">' + r.client + '</td>' +
+          '<td class="mono" style="font-size:10px;color:var(--muted)">' + cLegal + '</td>' +
+          '<td data-paykey="sum_plan" class="amount">₽' + r.sum_plan + '</td>' +
+          '<td data-paykey="sum_fact" class="amount">' + (factValue(r.sum_fact, r.period) !== '—' ? '₽'+factValue(r.sum_fact, r.period) : '—') + '</td>' +
+          '<td data-paykey="date_issue" class="mono">' + r.date_issue + '</td>' +
+          '<td data-paykey="date_pay" class="mono">' + (isFuturePeriod(r.period) ? '—' : r.date_pay) + '</td>' +
+          '<td data-paykey="status">' + statusBadge(isFuturePeriod(r.period) && r.status==='Оплачен' ? 'В работе' : r.status) + '</td>' +
+          (!isManager ? '<td><span class="mtag">' + r.manager + '</span></td>' : '') +
+          inEditBtn + '</tr>';
+      });
+      const mgrCols = !isManager ? '<td></td>' : '';
+      html += '<tr class="subtotal">' +
+        '<td class="sub-label">↳ ' + period + ' итого</td>' +
+        '<td></td><td></td>' +
+        '<td class="sub-amount">₽' + periodPlan.toLocaleString('ru-RU') + '</td>' +
+        '<td class="sub-amount">' + (periodFact > 0 ? '₽'+periodFact.toLocaleString('ru-RU') : '—') + '</td>' +
+        '<td></td><td></td><td></td>' + mgrCols +
+        '</tr>';
+    });
+    const mgrCols = !isManager ? '<td></td>' : '';
+    html += '<tr class="total-row">' +
+      '<td>ИТОГО</td>' +
+      '<td></td><td></td>' +
+      '<td class="sub-amount">₽' + grandPlan.toLocaleString('ru-RU') + '</td>' +
+      '<td class="sub-amount">' + (grandFact > 0 ? '₽'+grandFact.toLocaleString('ru-RU') : '—') + '</td>' +
+      '<td></td><td></td><td></td>' + mgrCols +
+      '</tr>';
+    return html;
+  };
+
+  const isSortedByPeriodIn  = sortState.payments_in.col  === 'period';
+  const isSortedByPeriodOut = sortState.payments_out.col === 'period';
+  const colCount = !isManager ? 8 : 7;
+
+  const inHtml = buildRowsWithTotals(inRows, 'sum_plan', isSortedByPeriodIn, colCount);
+
+  // Outgoing
+  const buildOutRowsWithTotals = (rows, isByPeriod, colCount) => {
+    if (!rows.length) return '<tr><td colspan="' + colCount + '" class="empty">Нет данных для вашего профиля</td></tr>';
+    if (!isByPeriod) {
+      return rows.map(r => {
+        const vObj2 = DB.vendors.find(v => v.name === r.vendor);
+        const vLegal2 = vObj2 ? (vObj2.legal !== vObj2.name ? vObj2.legal : vObj2.inn !== '—' ? 'ИНН '+vObj2.inn : '—') : '—';
+        const fTaxType = (DB.vendors.find(v => v.name === r.vendor)||{tax_type:'НДС'}).tax_type;
+        const fSum = parseFloat((r.sum||'0').replace(/\s/g,'')) || 0;
+        const fTax = calcTax(fSum, fTaxType);
+        const fTotal = fSum + fTax;
+        const outEB = '<td data-paykey="actions"><button class="edit-btn-edit" onclick="editPaymentRow(this.dataset.paytable,+this.dataset.payrowid)" data-paytable="out" data-payrowid="' + r.id + '">✏</button></td>';
+        return '<tr class="detail-row-payments_out" data-pay-id="out-' + r.id + '">' +
+        '<td data-paykey="period" class="mono">' + r.period + '</td>' +
+        '<td data-paykey="client">' + r.client + '</td>' +
+        '<td data-paykey="vendor" class="main">' + r.vendor + '</td>' +
+        '<td class="mono" style="font-size:10px;color:var(--muted)">' + vLegal2 + '</td>' +
+        '<td data-paykey="sum" class="amount">₽' + r.sum + '</td>' +
+        '<td class="mono" style="color:var(--muted)">' + (fTax > 0 ? '+₽'+fTax.toLocaleString('ru-RU')+' ('+fTaxType+')' : fTaxType === 'НАЛ' ? 'НАЛ' : '—') + '</td>' +
+        '<td class="amount">' + (fTotal > 0 ? '₽'+fTotal.toLocaleString('ru-RU') : '—') + '</td>' +
+        '<td data-paykey="date_plan" class="mono">' + r.date_plan + '</td>' +
+        '<td data-paykey="date_fact" class="mono">' + (isFuturePeriod(r.period) ? '—' : r.date_fact) + '</td>' +
+        '<td data-paykey="status">' + statusBadge(isFuturePeriod(r.period) && r.status==='Оплачено' ? 'В работе' : r.status) + '</td>' +
+        (!isManager ? '<td><span class="mtag">' + r.manager + '</span></td>' : '') +
+        outEB + '</tr>';
+      }).join('');
+    }
+    const groups = {};
+    const order = [];
+    rows.forEach(r => {
+      if (!groups[r.period]) { groups[r.period] = []; order.push(r.period); }
+      groups[r.period].push(r);
+    });
+    let html = '';
+    let grandTotal = 0;
+    order.forEach(period => {
+      const gr = groups[period];
+      let periodTotal = 0;
+      gr.forEach(r => {
+        const sum = parseFloat((r.sum||'0').replace(/\s/g,'')) || 0;
+        periodTotal += sum; grandTotal += sum;
+        const vObj = DB.vendors.find(v => v.name === r.vendor);
+        const vLegal = vObj ? (vObj.legal !== vObj.name ? vObj.legal : vObj.inn !== '—' ? 'ИНН '+vObj.inn : '—') : '—';
+        const rTaxType = vObj ? vObj.tax_type : 'НДС';
+        const rSum = parseFloat((r.sum||'0').replace(/\s/g,'')) || 0;
+        const rTax = calcTax(rSum, rTaxType);
+        const rTotal = rSum + rTax;
+        const outEditBtn = '<td data-paykey="actions"><button class="edit-btn-edit" onclick="editPaymentRow(this.dataset.paytable,+this.dataset.payrowid)" data-paytable="out" data-payrowid="' + r.id + '">✏</button></td>';
+        html += '<tr class="detail-row-payments_out" data-pay-id="out-' + r.id + '">' +
+          '<td data-paykey="period" class="mono">' + r.period + '</td>' +
+          '<td data-paykey="client">' + r.client + '</td>' +
+          '<td data-paykey="vendor" class="main">' + r.vendor + '</td>' +
+          '<td class="mono" style="font-size:10px;color:var(--muted)">' + vLegal + '</td>' +
+          '<td data-paykey="sum" class="amount">₽' + r.sum + '</td>' +
+          '<td class="mono" style="color:var(--muted)">' + (rTax > 0 ? '+₽'+rTax.toLocaleString('ru-RU')+' ('+rTaxType+')' : rTaxType === 'НАЛ' ? 'НАЛ' : '—') + '</td>' +
+          '<td class="amount" style="color:var(--text)">' + (rTotal > 0 ? '₽'+rTotal.toLocaleString('ru-RU') : '—') + '</td>' +
+          '<td data-paykey="date_plan" class="mono">' + r.date_plan + '</td>' +
+          '<td data-paykey="date_fact" class="mono">' + (isFuturePeriod(r.period) ? '—' : r.date_fact) + '</td>' +
+          '<td data-paykey="status">' + statusBadge(isFuturePeriod(r.period) && r.status==='Оплачено' ? 'В работе' : r.status) + '</td>' +
+          (!isManager ? '<td><span class="mtag">' + r.manager + '</span></td>' : '') +
+          outEditBtn + '</tr>';
+      });
+      const mgrCols = !isManager ? '<td></td>' : '';
+      const periodTax = gr.reduce((a,r) => {
+        const tt = (DB.vendors.find(v=>v.name===r.vendor)||{tax_type:'НДС'}).tax_type;
+        return a + calcTax(parseFloat((r.sum||'0').replace(/\s/g,''))||0, tt);
+      }, 0);
+      html += '<tr class="subtotal">' +
+        '<td class="sub-label">↳ ' + period + ' итого</td>' +
+        '<td></td><td></td><td></td>' +
+        '<td class="sub-amount">₽' + periodTotal.toLocaleString('ru-RU') + '</td>' +
+        '<td class="sub-amount" style="color:var(--muted)">+₽' + periodTax.toLocaleString('ru-RU') + '</td>' +
+        '<td class="sub-amount">₽' + (periodTotal+periodTax).toLocaleString('ru-RU') + '</td>' +
+        '<td></td><td></td><td></td>' + mgrCols +
+        '</tr>';
+    });
+    const mgrCols = !isManager ? '<td></td>' : '';
+    const grandTax = DB.payments_out.filter(r => filterRows([r],'payments_out').length > 0 || true).reduce((a,r) => {
+      const tt = (DB.vendors.find(v=>v.name===r.vendor)||{tax_type:'НДС'}).tax_type;
+      return a + calcTax(parseFloat((r.sum||'0').replace(/\s/g,''))||0, tt);
+    }, 0);
+    // Simpler: sum taxes from already-filtered rows
+    const filteredTax = rows.reduce((a,r) => {
+      const tt = (DB.vendors.find(v=>v.name===r.vendor)||{tax_type:'НДС'}).tax_type;
+      return a + calcTax(parseFloat((r.sum||'0').replace(/\s/g,''))||0, tt);
+    }, 0);
+    html += '<tr class="total-row">' +
+      '<td>ИТОГО</td><td></td><td></td><td></td>' +
+      '<td class="sub-amount">₽' + grandTotal.toLocaleString('ru-RU') + '</td>' +
+      '<td class="sub-amount">+₽' + filteredTax.toLocaleString('ru-RU') + '</td>' +
+      '<td class="sub-amount">₽' + (grandTotal+filteredTax).toLocaleString('ru-RU') + '</td>' +
+      '<td></td><td></td><td></td>' + mgrCols +
+      '</tr>';
+    return html;
+  };
+
+  const outHtml = buildOutRowsWithTotals(outRows, isSortedByPeriodOut, colCount);
+
+  const addBtn = canAdd ? `<button class="add-btn" onclick="openModal('payment_in')">+ Добавить</button>` : '';
+  const addBtnOut = canAdd ? `<button class="add-btn" onclick="openModal('payment_out')">+ Добавить</button>` : '';
+  const mgrCol = !isManager ? '<th>Manager</th>' : '';
+
+  return `
+    ${roleBanner()}
+    ${metricsHtml}
+    <div class="tabs">
+      ${(!isBuyer) ? `<div class="tab ${!isBuyer ? 'active' : ''}" onclick="switchPayTab(this,'pt-in')">Входящие — от клиентов</div>` : ''}
+      ${(!isHead) ? `<div class="tab ${isBuyer ? 'active' : ''}" onclick="switchPayTab(this,'pt-out')">Исходящие — подрядчикам</div>` : ''}
+    </div>
+    <div id="pt-in" ${isBuyer ? 'style="display:none"' : ''}>
+      <div class="section">
+        <div class="section-header">
+          <div><div class="section-title">Payments Incoming</div><div class="section-sub">Поступления от клиентов</div></div>
+          ${addBtn}
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr>${thIn('period','Period')}${thIn('client','Client')}<th>Юр. лицо</th>${thIn('sum_plan','Sum Plan')}${thIn('sum_fact','Sum Fact')}${thIn('date_issue','Invoice Date')}${thIn('date_pay','Pay Date')}${makeStatusTh('payments_in')}${mgrCol}</tr></thead>
+          <tbody>${inHtml}</tbody>
+        </table></div>
+      </div>
+    </div>
+    <div id="pt-out" style="${isBuyer ? 'display:block' : 'display:none'}">
+      <div class="section">
+        <div class="section-header">
+          <div><div class="section-title">Payments Outgoing</div><div class="section-sub">Выплаты подрядчикам и площадкам</div></div>
+          ${addBtnOut}
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr>${thOut('period','Period')}${thOut('client','Client')}${thOut('vendor','Vendor')}<th>Юр. лицо</th>${thOut('sum','Сумма (до нал.)')}<th>Налог</th><th>Итого с нал.</th>${thOut('date_plan','Pay Date Plan')}${thOut('date_fact','Pay Date Fact')}${makeStatusTh('payments_out')}${mgrCol}</tr></thead>
+          <tbody>${outHtml}</tbody>
+        </table></div>
+      </div>
+    </div>
+  `;
+}
+
+function switchPayTab(el, id) {
+  document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['pt-in','pt-out'].forEach(i=>{ const el=document.getElementById(i); if(el) el.style.display='none'; });
+  const target = document.getElementById(id);
+  if (target) target.style.display='block';
+}
+
+// ============================================================
+// PAGE: DEALS
+// ============================================================
+function renderDeals() {
+  const u = USERS[currentUser];
+  const role = u.role;
+  const isManager = role === 'manager';
+  const isBuyer = role === 'manager' && u.dept === 'Баинг';
+  const isHead = role === 'manager' && u.dept === 'Клиентский отдел';
+  const canAdd = ROLE_CONFIG[role].canAdd && role !== 'lawyer';
+
+  const rows = (isManager && !isHead)
+    // Баинг менеджер: видит только свои строки (manager === u.name) среди своих клиентов
+    // Клиентский менеджер (isHead): видит все строки своих клиентов (от всех менеджеров)
+    ? DB.deals.filter(r => u.clients && u.clients.includes(r.client) && (isBuyer ? r.manager === u.name : true))
+    : DB.deals;
+
+  // Column visibility based on buying/non-buying
+  const visibleCols = DEAL_COLS.cols.filter(c => {
+    if (c.visible === 'all') return true;
+    if (c.visible === 'no_buying') return !isBuyer; // клиентский видит эти колонки, баинг нет
+    if (c.visible === 'buying_only') return isBuyer || role === 'admin' || role === 'owner' || role === 'buh'; // isHead (клиентский) не видит SK
+    return c.visible.includes(role);
+  });
+
+  // Sort + filter deals
+  const dealActFilter = filterStatus.deals;
+  let dealRows = rows.filter(r => {
+    if (dealActFilter !== 'all') {
+      const act = r.act || '—';
+      if (dealActFilter === 'Получен' && !(act !== '—' && act.startsWith('АКТ'))) return false;
+      if (dealActFilter === 'Ожидание' && !(act === 'Ожидание' || act === 'Частично')) return false;
+      if (dealActFilter === '—' && act !== '—') return false;
+    }
+    if (filterManager.deals !== 'all' && r.manager !== filterManager.deals) return false;
+    return true;
+  });
+  dealRows = sortRows(dealRows, sortState.deals.col, sortState.deals.dir);
+  const isByPeriodDeals = sortState.deals.col === 'period';
+
+  // Sortable th helper for deals
+  const thD = (col, label) => {
+    const s = sortState.deals;
+    const cls = s.col === col ? (s.dir === 1 ? 'sort-asc' : 'sort-desc') : '';
+    const collapseBtn = col === 'period' ? ' <button id="collapse-btn-deals" class="collapse-btn" style="font-size:9px;padding:2px 8px;margin-left:6px;vertical-align:middle" onclick="event.stopPropagation();toggleCollapse(\'deals\')">' + (collapseState.deals ? '▶' : '▼') + '</button>' : '';
+    return '<th class="sortable ' + cls + '" onclick="setSortDeals(\'' + col + '\')">' + label + '<span class="sort-arrow"></span>' + collapseBtn + '</th>';
+  };
+
+  // Status th with filter for deals (filter by act)
+  const makeActTh = () => {
+    const cur = filterStatus.deals;
+    const opts = [
+      ['all', 'Все (' + rows.length + ')'],
+      ['Получен', 'Акт получен'],
+      ['Ожидание', 'Частично / Ожидание'],
+      ['—', 'Нет акта'],
+    ];
+    let optsHtml = opts.map(o => '<option value="' + o[0] + '"' + (cur===o[0]?' selected':'') + '>' + o[1] + '</option>').join('');
+    return '<th class="th-filter"><span style="display:block;margin-bottom:2px">Act</span>' +
+      '<select class="th-filter-select' + (cur!=='all'?' filtered':'') + '" onchange="setFilterDeals(this.value)">' + optsHtml + '</select></th>';
+  };
+
+  const renderCell = (c, r, role) => {
+    const canEdit = c.edit.includes(role);
+    let val = r[c.key] || '—';
+    if (c.key === 'act') {
+      if (val === '—') return '<td data-key="act"><span class="badge badge-draft">—</span></td>';
+      if (val === 'Частично') return '<td data-key="act"><span class="badge badge-warn">Частично</span></td>';
+      return '<td data-key="act" class="mono" style="font-size:11px;color:var(--text)">' + val + '</td>';
+    }
+    if (c.key === 'tax_type') {
+      const canEdit = c.edit.includes(role);
+      if (canEdit) {  // wrapper start
+        const opts = ['НДС','УСН','НАЛ'].map(o =>
+          '<option value="' + o + '"' + (val === o ? ' selected' : '') + '>' + o + '</option>'
+        ).join('');
+        const taxBg = {'НДС':'var(--blue-bg)','УСН':'var(--gold-bg)','НАЛ':'var(--red-bg)'}[val] || 'var(--surface)';
+        const taxCol = {'НДС':'var(--blue)','УСН':'var(--gold)','НАЛ':'var(--red)'}[val] || 'var(--muted)';
+        return '<td><select onchange="updateDeal(' + r.id + ',\'tax_type\',this.value)" style="border:1px solid;border-color:' + taxCol + ';background:' + taxBg + ';color:' + taxCol + ';font-family:\'DM Mono\';font-size:10px;padding:2px 6px;cursor:pointer;outline:none;width:auto">' + opts + '</select></td>';
+      }
+      const taxColors = {'НДС':'badge-blue','УСН':'badge-warn','НАЛ':'badge-alert'};
+      const cls = taxColors[val] || 'badge-draft';
+      return '<td><span class="badge ' + cls + '">' + val + '</span></td>';
+    }
+    if (c.key === 'sk') {
+      if (val === '—' || !val) return '<td data-key="sk" class="locked-cell mono">—</td>';
+      return '<td data-key="sk" class="amount" style="color:var(--green)">₽' + val + '</td>';
+    }
+    if (c.key === 'sk_date') {
+      if (val === '—' || !val) return '<td data-key="sk_date" class="mono" style="color:var(--dim)">—</td>';
+      return '<td data-key="sk_date" class="mono" style="color:var(--green)">' + val + '</td>';
+    }
+    if (c.key === 'av_sum' || c.key === 'budget_p') {
+      return '<td data-key="' + c.key + '" class="' + (canEdit?'amount':'locked-cell mono') + '">' + (val !== '—' ? '₽'+val : '—') + '</td>';
+    }
+    if (c.key === 'budget_f') {
+      // No fact for future periods
+      if (isFuturePeriod(r.period)) return '<td data-key="budget_f" class="locked-cell mono" title="Период ещё не закрыт">—</td>';
+      if (val === '—' || !val) return '<td data-key="budget_f" class="' + (canEdit?'amount':'locked-cell mono') + '">—</td>';
+      const baseSum = parseFloat(val.replace(/\s/g,'')) || 0;
+      const taxType = r.tax_type || 'НДС';
+      const tax = calcTax(baseSum, taxType);
+      const total = baseSum + tax;
+      const taxLabel = tax > 0 ? ' <span style="font-size:9px;color:var(--muted);font-family:DM Sans">(+' + taxType + ')</span>' : '';
+      return '<td data-key="budget_f" class="amount">₽' + total.toLocaleString('ru-RU') + taxLabel + '</td>';
+    }
+    if (c.key === 'manager') return '<td data-key="manager"><span class="mtag">' + val + '</span></td>';
+    if (c.key === '__never__') return '';
+    const extraCls = (c.key==='client'?'main':'') + ' ' + (c.key==='contract'||c.key==='appendix'||c.key==='vendor'?'mono':'');
+    return '<td data-key="' + c.key + '" class="' + (canEdit?'':' locked-cell') + ' ' + extraCls + '">' + val + '</td>';
+  };
+
+  // Build thead
+  const thead = visibleCols.map(c => {
+    if (c.key === 'act') return makeActTh();
+    if (['client','period','media','vendor','budget_p','budget_f','pay_plan'].includes(c.key)) {
+      const wrapCls = ['budget_p','budget_f'].includes(c.key) ? ' wrap' : '';
+      const s = sortState.deals;
+      const cls = s.col === c.key ? (s.dir === 1 ? 'sort-asc' : 'sort-desc') : '';
+      const collapseBtn = c.key === 'period' ? ' <button id="collapse-btn-deals" class="collapse-btn" style="font-size:9px;padding:2px 8px;margin-left:6px;vertical-align:middle" onclick="event.stopPropagation();toggleCollapse(\'deals\')">' + (collapseState.deals ? '▶' : '▼') + '</button>' : '';
+      return '<th class="sortable' + wrapCls + ' ' + cls + '" onclick="setSortDeals(\'' + c.key + '\')">' + c.label + '<span class="sort-arrow"></span>' + collapseBtn + '</th>';
+    }
+    if (c.key === 'manager' && (!isManager || isHead)) {
+      const managers = [...new Set(DB.deals.map(d => d.manager))];
+      const cur = filterManager.deals;
+      let opts = '<option value="all">Все</option>' + managers.map(m => '<option value="' + m + '"' + (cur===m?' selected':'') + '>' + m + '</option>').join('');
+      return '<th class="th-filter"><span style="display:block;margin-bottom:2px">Manager</span><select class="th-filter-select' + (cur!=='all'?' filtered':'') + '" onchange="setManagerFilter(this.value)">' + opts + '</select></th>';
+    }
+    const canEdit = c.edit.includes(role);
+    return '<th class="' + (canEdit?'':'locked') + '">' + (!canEdit?'<span class="lock-icon">🔒</span>':'') + c.label + '</th>';
+  }).join('');
+
+  // Build tbody with optional subtotals
+  let tbody = '';
+  if (!dealRows.length) {
+    tbody = '<tr><td colspan="' + visibleCols.length + '" class="empty">Нет данных для вашего профиля</td></tr>';
+  } else {
+    // Group by ANY sorted column — dynamic subtotals
+    const sortCol = sortState.deals.col;
+    const groupableCols = ['period','client','vendor','media','tax_type','manager'];
+    const doGroup = groupableCols.includes(sortCol);
+    
+    const bpIdx  = visibleCols.findIndex(c => c.key === 'budget_p');
+    const bfIdx  = visibleCols.findIndex(c => c.key === 'budget_f');
+    const skIdx  = visibleCols.findIndex(c => c.key === 'sk');
+
+    if (doGroup) {
+      const groups = {}, order = [];
+      dealRows.forEach(r => {
+        const key = r[sortCol] || '—';
+        if (!groups[key]) { groups[key] = []; order.push(key); }
+        groups[key].push(r);
+      });
+      let grandPlan = 0, grandFact = 0, grandSk = 0;
+      order.forEach(key => {
+        let pPlan = 0, pFact = 0, pSk = 0;
+        groups[key].forEach(r => {
+          const canEditRole = ['admin','manager'].includes(role);
+        const editBtn = canEditRole ? '<td data-key="actions"><button class="edit-btn-edit" onclick="editDealRow(' + r.id + ')">✏</button></td>' : '<td></td>';
+        tbody += '<tr class="detail-row-deals" data-deal-id="' + r.id + '">' + visibleCols.map(c => renderCell(c, r, role)).join('') + editBtn + '</tr>';
+          pPlan += parseFloat((r.budget_p||'0').replace(/\s/g,'')) || 0;
+          pFact += parseFloat((r.budget_f === '—' ? '0' : r.budget_f||'0').replace(/\s/g,'')) || 0;
+          pSk   += parseFloat((r.sk === '—' ? '0' : r.sk||'0').replace(/\s/g,'')) || 0;
+        });
+        grandPlan += pPlan; grandFact += pFact; grandSk += pSk;
+        const subLabel = sortCol === 'period' ? key : (sortCol === 'client' ? key : sortCol === 'vendor' ? key : sortCol === 'media' ? key : key);
+        let subCells = visibleCols.map((c, i) => {
+          if (i === 0) return '<td class="sub-label">↳ ' + subLabel + ' итого</td>';
+          if (i === bpIdx && bpIdx !== -1) return '<td class="sub-amount">₽' + pPlan.toLocaleString('ru-RU') + '</td>';
+          if (i === bfIdx && bfIdx !== -1) {
+          // Calculate tax for fact sum in this period group
+          const pFactTax = groups[key].reduce((a, row) => {
+            const bf = parseFloat((row.budget_f === '—' ? '0' : row.budget_f||'0').replace(/\s/g,'')) || 0;
+            return a + calcTax(bf, row.tax_type || 'НДС');
+          }, 0);
+          const pFactTotal = pFact + pFactTax;
+          return '<td class="sub-amount">' + (pFactTotal > 0 ? '₽'+pFactTotal.toLocaleString('ru-RU') : '—') + '</td>';
+        }
+          if (i === skIdx && skIdx !== -1) return '<td class="sub-amount" style="color:var(--green)">' + (pSk > 0 ? '₽'+pSk.toLocaleString('ru-RU') : '—') + '</td>';
+          return '<td></td>';
+        }).join('');
+        tbody += '<tr class="subtotal">' + subCells + '</tr>';
+      });
+      let totalCells = visibleCols.map((c, i) => {
+        if (i === 0) return '<td>ИТОГО</td>';
+        if (i === bpIdx && bpIdx !== -1) return '<td class="sub-amount">₽' + grandPlan.toLocaleString('ru-RU') + '</td>';
+        if (i === bfIdx && bfIdx !== -1) {
+        const grandFactTax = dealRows.reduce((a, row) => {
+          const bf = parseFloat((row.budget_f === '—' ? '0' : row.budget_f||'0').replace(/\s/g,'')) || 0;
+          return a + calcTax(bf, row.tax_type || 'НДС');
+        }, 0);
+        return '<td class="sub-amount">' + (grandFact + grandFactTax > 0 ? '₽'+(grandFact+grandFactTax).toLocaleString('ru-RU') : '—') + '</td>';
+      }
+        if (i === skIdx && skIdx !== -1) return '<td class="sub-amount" style="color:var(--green)">' + (grandSk > 0 ? '₽'+grandSk.toLocaleString('ru-RU') : '—') + '</td>';
+        return '<td></td>';
+      }).join('');
+      tbody += '<tr class="total-row">' + totalCells + '</tr>';
+    } else {
+      // No grouping — just show rows with grand total at bottom
+      let grandPlan = 0, grandFact = 0, grandSk = 0;
+      dealRows.forEach(r => {
+        const canEditRole = ['admin','manager'].includes(role);
+        const editBtn = canEditRole ? '<td data-key="actions"><button class="edit-btn-edit" onclick="editDealRow(' + r.id + ')">✏</button></td>' : '<td></td>';
+        tbody += '<tr class="detail-row-deals" data-deal-id="' + r.id + '">' + visibleCols.map(c => renderCell(c, r, role)).join('') + editBtn + '</tr>';
+        grandPlan += parseFloat((r.budget_p||'0').replace(/\s/g,'')) || 0;
+        grandFact += parseFloat((r.budget_f === '—' ? '0' : r.budget_f||'0').replace(/\s/g,'')) || 0;
+        grandSk   += parseFloat((r.sk === '—' ? '0' : r.sk||'0').replace(/\s/g,'')) || 0;
+      });
+      let totalCells = visibleCols.map((c, i) => {
+        if (i === 0) return '<td>ИТОГО</td>';
+        if (i === bpIdx && bpIdx !== -1) return '<td class="sub-amount">₽' + grandPlan.toLocaleString('ru-RU') + '</td>';
+        if (i === bfIdx && bfIdx !== -1) {
+        const grandFactTax = dealRows.reduce((a, row) => {
+          const bf = parseFloat((row.budget_f === '—' ? '0' : row.budget_f||'0').replace(/\s/g,'')) || 0;
+          return a + calcTax(bf, row.tax_type || 'НДС');
+        }, 0);
+        return '<td class="sub-amount">' + (grandFact + grandFactTax > 0 ? '₽'+(grandFact+grandFactTax).toLocaleString('ru-RU') : '—') + '</td>';
+      }
+        if (i === skIdx && skIdx !== -1) return '<td class="sub-amount" style="color:var(--green)">' + (grandSk > 0 ? '₽'+grandSk.toLocaleString('ru-RU') : '—') + '</td>';
+        return '<td></td>';
+      }).join('');
+      tbody += '<tr class="total-row">' + totalCells + '</tr>';
+    }
+  }
+
+  const lockedNote = role === 'lawyer'
+    ? `<div class="notice notice-info">Вы видите только поля договоров. Финансовые данные скрыты.</div>`
+    : isHead
+    ? `<div class="notice notice-info">Клиентский раздел · Ваши клиенты: ${u.clients && u.clients.length ? u.clients.join(', ') : '—'}. Баинговые данные (СК, закупки) скрыты.</div>`
+    : isBuyer
+    ? `<div class="notice notice-info">Баинговый раздел · Ваши клиенты: ${u.clients && u.clients.length ? u.clients.join(', ') : '—'}. Клиентские финансы скрыты.</div>`
+    : '';
+
+  return `
+    ${roleBanner()}
+    ${lockedNote}
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-title">Deals</div><div class="section-sub">Таблица сделок — плановые и фактические показатели</div></div>
+        ${canAdd ? `<button class="add-btn" onclick="openModal('deal')">+ Добавить сделку</button>` : ''}
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr>${thead}${(['admin','manager'].includes(role) ? '<th style="width:32px"></th>' : '')}</tr></thead>
+        <tbody>${tbody}</tbody>
+      </table></div>
+    </div>
+  `;
+}
+
+// ============================================================
+// PAGE: OPEX
+// ============================================================
+function renderOpex() {
+  const u = USERS[currentUser];
+  const canAdd = u.role === 'buh' || u.role === 'admin';
+
+  const total = DB.opex.reduce((a,r)=>a+parseFloat(r.sum.replace(/\s/g,'')),0);
+  const paid = DB.opex.filter(r=>r.status==='Оплачено').reduce((a,r)=>a+parseFloat(r.sum.replace(/\s/g,'')),0);
+
+  const rows = DB.opex.map(r=>`<tr>
+    <td class="main">${r.category}</td>
+    <td>${r.item}</td>
+    <td class="amount">₽${r.sum}</td>
+    <td class="mono">${r.period}</td>
+    <td class="mono">${r.date_pay}</td>
+    <td>${r.vendor}</td>
+    <td>${statusBadge(r.status)}</td>
+    <td style="color:var(--muted);font-size:11px">${r.note||'—'}</td>
+  </tr>`).join('');
+
+  return `
+    ${roleBanner()}
+    <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+      <div class="metric"><div class="metric-label">Всего расходов</div><div class="metric-value">₽${fmt(total)}</div><div class="metric-sub">за период</div></div>
+      <div class="metric"><div class="metric-label">Оплачено</div><div class="metric-value" style="color:var(--green)">₽${fmt(paid)}</div></div>
+      <div class="metric"><div class="metric-label">Ожидает оплаты</div><div class="metric-value" style="color:var(--gold)">₽${fmt(total-paid)}</div></div>
+    </div>
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-title">Operating Expenses</div><div class="section-sub">Операционные расходы агентства</div></div>
+        ${canAdd ? `<button class="add-btn" onclick="openModal('opex')">+ Добавить расход</button>` : ''}
+      </div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Category</th><th>Item</th><th>Sum</th><th>Period</th><th>Pay Date</th><th>Vendor</th><th>Status</th><th>Note</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </div>
+    <div class="section" style="margin-top:28px">
+      <div class="section-header"><div><div class="section-title">Cash Flow — помесячно</div><div class="section-sub">Входящие vs Исходящие vs Opex (план)</div></div></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Period</th><th>Incoming Plan</th><th>Outgoing Vendors</th><th>Opex</th><th>Net</th><th>Cumulative</th></tr></thead>
+        <tbody id="cf-tbody"></tbody>
+      </table></div>
+    </div>
+  `;
+  // fill cash flow
+  const months = ['Май 2026','Июн 2026','Июл 2026','Авг 2026','Сен 2026','Окт 2026','Ноя 2026','Дек 2026'];
+  let cum = 0;
+  let cfHtml = '';
+  months.forEach(m => {
+    const inc = DB.payments_in.filter(r=>r.period===m).reduce((a,r)=>a+parseFloat(r.sum_plan.replace(/\s/g,'')||0),0);
+    const out = DB.payments_out.filter(r=>r.period===m).reduce((a,r)=>a+parseFloat(r.sum.replace(/\s/g,'')||0),0);
+    const opx = DB.opex.filter(r=>r.period===m).reduce((a,r)=>a+parseFloat(r.sum.replace(/\s/g,'')||0),0);
+    const net = inc - out - opx;
+    cum += net;
+    const nc = net >= 0 ? 'var(--green)' : 'var(--red)';
+    const cc = cum >= 0 ? 'var(--green)' : 'var(--red)';
+    cfHtml += `<tr>
+      <td class="mono">${m}</td>
+      <td class="amount">${inc ? '₽'+inc.toLocaleString('ru-RU') : '—'}</td>
+      <td class="mono" style="color:var(--red)">${out ? '−₽'+out.toLocaleString('ru-RU') : '—'}</td>
+      <td class="mono" style="color:var(--muted)">${opx ? '−₽'+opx.toLocaleString('ru-RU') : '—'}</td>
+      <td class="mono" style="color:${nc};font-weight:500">${net >= 0 ? '+' : ''}₽${net.toLocaleString('ru-RU')}</td>
+      <td class="mono" style="color:${cc}">${cum >= 0 ? '+' : ''}₽${cum.toLocaleString('ru-RU')}</td>
+    </tr>`;
+  });
+  setTimeout(()=>{ const el=document.getElementById('cf-tbody'); if(el) el.innerHTML=cfHtml; },50);
+}
+
+// ============================================================
+// PAGE: ACCESS
+// ============================================================
+function renderAccess() {
+  const managers = ['evgeny','andrey_s','nikita','elina','maxim','danila','andrey'];
+  const allUsers = ['rodion','anastasia','alexander','lawyer',...managers];
+
+  const cols = ['Т1 Платежи','Т2 Сделки (Client)','Т2 Сделки (Buying)','Т3 Расходы','Договора','Доступы'];
+
+  const accessMap = {
+    rodion:    ['👁 Всё','👁 Всё','👁 Всё','👁 Всё','👁','—'],
+    anastasia: ['✏️ Полный','✏️ Частичный','✏️ Частичный','✏️ Полный','👁','—'],
+    alexander: ['👁 Всё','👁 Всё','👁 Всё','👁 Всё','👁','✏️ Управляет'],
+    lawyer:    ['—','—','—','—','👁 Только договора','—'],
+    evgeny:    ['—','—','—','—','—','—'],
+    andrey_s:  ['👁 Входящие','✏️ Client (3 клиента)','—','—','👁 Свои клиенты','—'],
+    nikita:    ['👁 Входящие','✏️ Client (TechWave)','—','—','👁 TechWave','—'],
+    elina:     ['—','—','—','—','—','—'],
+    maxim:     ['—','—','—','—','—','—'],
+    danila:    ['👁 Свои','—','✏️ Buying (3 клиента)','—','👁 Свои','—'],
+    andrey:    ['👁 Свои','—','✏️ Buying (3 клиента)','—','👁 Свои','—'],
+  };
+
+  const headerCells = ['<div class="ag-header">Пользователь</div>', ...cols.map(c=>`<div class="ag-header">${c}</div>`)].join('');
+
+  const rows = allUsers.map(uid => {
+    const u = USERS[uid];
+    const acc = accessMap[uid] || [];
+    const cells = cols.map((_,i) => {
+      const v = acc[i] || '—';
+      const cls = v.includes('✏️') ? 'ag-yes' : v.includes('👁') ? 'ag-partial' : 'ag-no';
+      return `<div class="ag-cell ${cls}" style="font-size:11px;font-family:'DM Mono'">${v}</div>`;
+    });
+    return `<div class="ag-cell ag-name">${u.name}<br><span style="font-size:10px;color:var(--muted);font-weight:400">${u.roleLabel}</span></div>${cells.join('')}`;
+  }).join('');
+
+  return `
+    ${roleBanner()}
+    <div class="notice notice-warn" style="margin-bottom:20px">* Баинговая часть открывается администратором отдельно по каждому клиенту и менеджеру</div>
+    <div class="section">
+      <div class="section-header">
+        <div><div class="section-title">Access Control</div><div class="section-sub">Матрица доступов — кто что видит</div></div>
+        <button class="add-btn" onclick="openModal('user')">+ Добавить пользователя</button>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);overflow-x:auto">
+        <div class="access-grid" style="grid-template-columns:180px repeat(${cols.length},1fr);min-width:700px">
+          ${headerCells}${rows}
+        </div>
+      </div>
+    </div>
+    <div class="section" style="margin-top:24px">
+      <div class="section-header"><div><div class="section-title">Менеджеры и клиенты</div><div class="section-sub">Назначение клиентов менеджерам</div></div></div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Менеджер</th><th>Назначенные клиенты</th><th>Доступ к баингу</th></tr></thead>
+        <tbody>
+          ${managers.map(uid => {
+            const u = USERS[uid];
+            const clients = u.clients && u.clients.length ? u.clients.map(c=>`<span class="mtag">${c}</span>`).join(' ') : '<span style="color:var(--dim)">Не назначены</span>';
+            return `<tr><td class="main">${u.name}</td><td>${clients}</td><td>${u.clients&&u.clients.length?statusBadge('Оплачен').replace('Оплачен','По назначенным'):statusBadge('—')}</td></tr>`;
+          }).join('')}
+        </tbody>
+      </table></div>
+    </div>
+  `;
+}
+
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(type) {
+  currentModalType = type;
+  const titles = { deal:'Новая сделка', payment_in:'Входящий платёж', payment_out:'Исходящий платёж', opex:'Операционный расход', user:'Новый пользователь' };
+  document.getElementById('modal-title').textContent = titles[type] || 'Новая запись';
+
+  let body = '';
+  if (type === 'deal') {
+    // Ensure clients/vendors are synced before showing suggestions
+    DB.deals.forEach(d => {
+      if (d.client && !DB.clients.find(c => c.name === d.client)) {
+        DB.clients.push({ id: Date.now()+Math.random(), name:d.client, legal:'—', inn:'—', kpp:'—', address:'—', contact_name:'—', contact_email:'—', contact_phone:'—', contract:'—', contract_date:'—', av_pct:'—', payment_terms:'—', credit_limit:'—', status:'Активный', manager:d.manager||'—', note:'Из Сделок' });
+      }
+      if (d.vendor && !DB.vendors.find(v => v.name === d.vendor)) {
+        DB.vendors.push({ id: Date.now()+Math.random(), name:d.vendor, legal:d.vendor, inn:'—', tax_type:d.tax_type||'НДС', payment_terms:'—', contact_name:'—', contact_email:'—', contact_phone:'—', contract:'—', status:'Активный', note:'Из Сделок', sk_pct:'—', manager:d.manager||'—' });
+      }
+    });
+    body = `
+      <div class="form-grid">
+        <div class="form-row">
+          <label class="form-label">Client</label>
+          <div class="ac-wrap">
+            <input class="ac-input" id="f-client" placeholder="Начните вводить клиента..." autocomplete="off" oninput="acSuggest('f-client','clients',this.value)">
+            <div class="ac-dropdown" id="ac-f-client" style="display:none"></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Period</label>
+          <select class="form-select" id="f-period">
+            <option value="">— выберите месяц —</option>
+            <optgroup label="2026">
+              <option>Янв 2026</option><option>Фев 2026</option><option>Мар 2026</option>
+              <option>Апр 2026</option><option selected>Май 2026</option><option>Июн 2026</option>
+              <option>Июл 2026</option><option>Авг 2026</option><option>Сен 2026</option>
+              <option>Окт 2026</option><option>Ноя 2026</option><option>Дек 2026</option>
+            </optgroup>
+            <optgroup label="2027">
+              <option>Янв 2027</option><option>Фев 2027</option><option>Мар 2027</option>
+              <option>Апр 2027</option><option>Май 2027</option><option>Июн 2027</option>
+              <option>Июл 2027</option><option>Авг 2027</option><option>Сен 2027</option>
+              <option>Окт 2027</option><option>Ноя 2027</option><option>Дек 2027</option>
+            </optgroup>
+            <optgroup label="2025">
+              <option>Янв 2025</option><option>Фев 2025</option><option>Мар 2025</option>
+              <option>Апр 2025</option><option>Май 2025</option><option>Июн 2025</option>
+              <option>Июл 2025</option><option>Авг 2025</option><option>Сен 2025</option>
+              <option>Окт 2025</option><option>Ноя 2025</option><option>Дек 2025</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Media</label>
+          <div class="ac-wrap">
+            <input class="ac-input" id="f-media" placeholder="Digital / Social / OOH..." autocomplete="off" oninput="acStatic('f-media',getMediaSuggestions(),this.value)">
+            <div class="ac-dropdown" id="ac-f-media" style="display:none"></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Vendor (контрагент)</label>
+          <div class="ac-wrap">
+            <input class="ac-input" id="f-vendor" placeholder="Начните вводить контрагента..." autocomplete="off" oninput="acSuggest('f-vendor','vendors',this.value)">
+            <div class="ac-dropdown" id="ac-f-vendor" style="display:none"></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Service</label>
+          <div class="ac-wrap">
+            <input class="ac-input" id="f-service" placeholder="Тип услуги" autocomplete="off" oninput="acStatic('f-service',getServiceSuggestions(),this.value)">
+            <div class="ac-dropdown" id="ac-f-service" style="display:none"></div>
+          </div>
+        </div>
+        <div class="form-row"><label class="form-label">Budget Plan (до налогов)</label><input class="form-input" id="f-budget_p" placeholder="0"></div>
+        <div class="form-row"><label class="form-label">Налогообложение</label>
+          <select class="form-select" id="f-tax_type"><option>НДС</option><option>УСН</option><option>НАЛ</option></select>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Contract № <span style="font-size:9px;color:var(--accent-dark)">(авто из клиента)</span></label>
+          <div class="ac-wrap">
+            <input class="ac-input" id="f-contract" placeholder="Выберите клиента выше..." autocomplete="off" oninput="acContractSuggest(this.value)">
+            <div class="ac-dropdown" id="ac-f-contract" style="display:none"></div>
+          </div>
+        </div>
+        <div class="form-row"><label class="form-label">Appendix №</label><input class="form-input" id="f-appendix" placeholder=""></div>
+        <div class="form-row"><label class="form-label">Pay Date Plan</label><input type="date" class="form-input" id="f-pay_plan"></div>
+      </div>`;
+  } else if (type === 'payment_in') {
+    body = `
+      <div class="form-grid">
+        <div class="form-row">
+          <label class="form-label">Client</label>
+          <div class="ac-wrap">
+            <input class="ac-input" id="f-client" placeholder="Начните вводить..." autocomplete="off" oninput="acSuggest('f-client','clients',this.value)">
+            <div class="ac-dropdown" id="ac-f-client" style="display:none"></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Period</label>
+          <select class="form-select" id="f-period">
+            <option value="">— выберите —</option>
+            <optgroup label="2026">
+              <option>Янв 2026</option><option>Фев 2026</option><option>Мар 2026</option>
+              <option>Апр 2026</option><option>Май 2026</option><option>Июн 2026</option>
+              <option>Июл 2026</option><option>Авг 2026</option><option>Сен 2026</option>
+              <option>Окт 2026</option><option>Ноя 2026</option><option>Дек 2026</option>
+            </optgroup>
+            <optgroup label="2027">
+              <option>Янв 2027</option><option>Фев 2027</option><option>Мар 2027</option>
+              <option>Апр 2027</option><option>Май 2027</option><option>Июн 2027</option>
+              <option>Июл 2027</option><option>Авг 2027</option><option>Сен 2027</option>
+              <option>Окт 2027</option><option>Ноя 2027</option><option>Дек 2027</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-row"><label class="form-label">Sum Plan</label><input class="form-input" id="f-sum_plan" placeholder="0"></div>
+        <div class="form-row"><label class="form-label">Invoice Date</label><input type="date" class="form-input" id="f-date_issue"></div>
+      </div>`;
+  } else if (type === 'payment_out') {
+    body = `
+      <div class="form-grid">
+        <div class="form-row">
+          <label class="form-label">Vendor (контрагент)</label>
+          <div class="ac-wrap">
+            <input class="ac-input" id="f-vendor" placeholder="Начните вводить..." autocomplete="off" oninput="acSuggest('f-vendor','vendors',this.value)">
+            <div class="ac-dropdown" id="ac-f-vendor" style="display:none"></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Client</label>
+          <div class="ac-wrap">
+            <input class="ac-input" id="f-client" placeholder="Начните вводить..." autocomplete="off" oninput="acSuggest('f-client','clients',this.value)">
+            <div class="ac-dropdown" id="ac-f-client" style="display:none"></div>
+          </div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Period</label>
+          <select class="form-select" id="f-period">
+            <option value="">— выберите —</option>
+            <optgroup label="2026">
+              <option>Янв 2026</option><option>Фев 2026</option><option>Мар 2026</option>
+              <option>Апр 2026</option><option>Май 2026</option><option>Июн 2026</option>
+              <option>Июл 2026</option><option>Авг 2026</option><option>Сен 2026</option>
+              <option>Окт 2026</option><option>Ноя 2026</option><option>Дек 2026</option>
+            </optgroup>
+            <optgroup label="2027">
+              <option>Янв 2027</option><option>Фев 2027</option><option>Мар 2027</option>
+              <option>Апр 2027</option><option>Май 2027</option><option>Июн 2027</option>
+              <option>Июл 2027</option><option>Авг 2027</option><option>Сен 2027</option>
+              <option>Окт 2027</option><option>Ноя 2027</option><option>Дек 2027</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-row"><label class="form-label">Sum (до налогов)</label><input class="form-input" id="f-sum" placeholder="0"></div>
+        <div class="form-row"><label class="form-label">Pay Date Plan</label><input type="date" class="form-input" id="f-date_plan"></div>
+      </div>`;
+  } else if (type === 'opex') {
+    body = `
+      <div class="form-grid">
+        <div class="form-row"><label class="form-label">Category</label>
+          <select class="form-select" id="f-category">
+            <option>ФОТ</option><option>Аренда</option><option>Софт</option><option>Административные</option><option>Прочее</option>
+          </select>
+        </div>
+        <div class="form-row"><label class="form-label">Item</label><input class="form-input" id="f-item" placeholder="Название статьи"></div>
+        <div class="form-row"><label class="form-label">Sum</label><input class="form-input" id="f-sum" placeholder="0"></div>
+        <div class="form-row"><label class="form-label">Period</label><input class="form-input" id="f-period" placeholder="Янв 2025"></div>
+        <div class="form-row"><label class="form-label">Vendor</label><input class="form-input" id="f-vendor" placeholder="Поставщик"></div>
+        <div class="form-row"><label class="form-label">Pay Date</label><input type="date" class="form-input" id="f-date_pay"></div>
+      </div>`;
+  } else if (type === 'client') {
+    body = `
+      <div class="form-grid">
+        <div class="form-row"><label class="form-label">Название клиента</label><input class="form-input" id="f-name" placeholder="Gorilla Energy"></div>
+        <div class="form-row"><label class="form-label">Юр. лицо</label><input class="form-input" id="f-legal" placeholder="ООО «...»"></div>
+        <div class="form-row"><label class="form-label">ИНН</label><input class="form-input" id="f-inn" placeholder="7701234567"></div>
+        <div class="form-row"><label class="form-label">Контактное лицо</label><input class="form-input" id="f-contact_name" placeholder="Фамилия Имя"></div>
+        <div class="form-row"><label class="form-label">Email</label><input class="form-input" id="f-contact_email" placeholder="name@company.ru"></div>
+        <div class="form-row"><label class="form-label">Телефон</label><input class="form-input" id="f-contact_phone" placeholder="+7 ..."></div>
+        <div class="form-row"><label class="form-label">AV %</label><input class="form-input" id="f-av_pct" placeholder="15"></div>
+        <div class="form-row"><label class="form-label">Условия оплаты</label><input class="form-input" id="f-payment_terms" placeholder="Постоплата 30 дней"></div>
+      </div>`;
+  } else if (type === 'vendor') {
+    body = `
+      <div class="form-grid">
+        <div class="form-row"><label class="form-label">Название</label><input class="form-input" id="f-name" placeholder="ООО «...»"></div>
+        <div class="form-row"><label class="form-label">Юр. лицо (полное)</label><input class="form-input" id="f-legal" placeholder="ООО «...»"></div>
+        <div class="form-row"><label class="form-label">ИНН</label><input class="form-input" id="f-inn" placeholder="7701234567"></div>
+        <div class="form-row"><label class="form-label">Налогообложение</label>
+          <select class="form-select" id="f-tax_type"><option>НДС</option><option>УСН</option><option>НАЛ</option></select>
+        </div>
+        <div class="form-row"><label class="form-label">Условия оплаты</label><input class="form-input" id="f-payment_terms" placeholder="Предоплата 100%"></div>
+        <div class="form-row"><label class="form-label">Контактное лицо</label><input class="form-input" id="f-contact_name" placeholder="Фамилия Имя"></div>
+        <div class="form-row"><label class="form-label">Email</label><input class="form-input" id="f-contact_email" placeholder="name@company.ru"></div>
+        <div class="form-row"><label class="form-label">СК %</label><input class="form-input" id="f-sk_pct" placeholder="5%"></div>
+      </div>`;
+  } else if (type === 'user') {
+    body = `
+      <div class="form-grid">
+        <div class="form-row"><label class="form-label">Имя</label><input class="form-input" id="f-name" placeholder="Имя сотрудника"></div>
+        <div class="form-row"><label class="form-label">Роль</label>
+          <select class="form-select" id="f-role">
+            <option value="manager">Менеджер</option>
+            <option value="buh">Бухгалтер</option>
+            <option value="lawyer">Юрист</option>
+          </select>
+        </div>
+      </div>
+      <div class="notice notice-info" style="margin-top:8px">После создания пользователя назначьте ему клиентов в матрице доступов</div>`;
+  }
+  document.getElementById('modal-body').innerHTML = body;
+  document.getElementById('modal').style.display = 'flex';
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal')) {
+    document.getElementById('modal').style.display = 'none';
+  }
+}
+
+// ============================================================
+// AUTOCOMPLETE
+// ============================================================
+// Fuzzy/contains search — ищет по любой части названия и юрлица
+function fuzzyMatch(text, query) {
+  if (!text || !query) return false;
+  const t = text.toLowerCase();
+  const q = query.toLowerCase();
+  // Direct contains
+  if (t.includes(q)) return true;
+  // Each word in query must appear somewhere
+  const words = q.split(/\s+/).filter(Boolean);
+  return words.every(w => t.includes(w));
+}
+
+function acSuggest(inputId, source, query) {
+  const dd = document.getElementById('ac-' + inputId);
+  if (!dd) return;
+  if (!query || query.length < 1) { dd.style.display = 'none'; return; }
+  const items = source === 'clients' ? DB.clients : DB.vendors;
+  // Search across name, legal, inn
+  const matches = items.filter(i =>
+    fuzzyMatch(i.name, query) ||
+    fuzzyMatch(i.legal, query) ||
+    fuzzyMatch(i.inn, query)
+  );
+  if (!matches.length) { dd.style.display = 'none'; return; }
+  dd.innerHTML = matches.map(i => {
+    const safeName = i.name.replace(/"/g,'&quot;');
+    const sub = [(i.legal && i.legal !== '—' && i.legal !== i.name ? i.legal : ''), (i.inn && i.inn !== '—' ? 'ИНН ' + i.inn : '')].filter(Boolean).join(' · ');
+    return '<div class="ac-item" data-id="' + i.id + '" data-name="' + safeName + '" data-source="' + source + '" data-inputid="' + inputId + '" onclick="acSelectEl(this)">' + i.name + (sub ? '<small>' + sub + '</small>' : '') + '</div>';
+  }).join('');
+  dd.style.display = 'block';
+}
+
+// Static suggestions (period, media, service) from existing DB data
+function getPeriodSuggestions() {
+  const months = ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'];
+  const from_db = [...new Set(DB.deals.map(d => d.period))];
+  // Current and next year first
+  const currentYear = new Date().getFullYear();
+  const primary = months.map(m => m + ' ' + currentYear);
+  const secondary = months.map(m => m + ' ' + (currentYear+1));
+  return [...new Set([...from_db, ...primary, ...secondary])];
+}
+
+function getMediaSuggestions() {
+  const from_db = [...new Set(DB.deals.map(d => d.media).filter(Boolean))];
+  const defaults = ['Digital','Social','OOH','TV','Radio','In-Game','Influencers','Production','Prize Fund','Social / Promo','Social / Seeding','Digital / Influencers','Production / Tech'];
+  return [...new Set([...from_db, ...defaults])];
+}
+
+function getServiceSuggestions() {
+  return [...new Set(DB.deals.map(d => d.service).filter(s => s && s !== '—'))];
+}
+
+function acStatic(inputId, items, query) {
+  const dd = document.getElementById('ac-' + inputId);
+  if (!dd) return;
+  if (!query || query.length < 1) { dd.style.display = 'none'; return; }
+  const matches = items.filter(i => fuzzyMatch(i, query));
+  if (!matches.length) { dd.style.display = 'none'; return; }
+  dd.innerHTML = matches.slice(0, 8).map(i => {
+    const safe = i.replace(/"/g,'&quot;');
+    return '<div class="ac-item" data-value="' + safe + '" data-inputid="' + inputId + '" onclick="acStaticEl(this)">' + i + '</div>';
+  }).join('');
+  dd.style.display = 'block';
+}
+
+function acStaticSelect(inputId, value) {
+  const inp = document.getElementById(inputId);
+  if (inp) inp.value = value;
+  const dd = document.getElementById('ac-' + inputId);
+  if (dd) dd.style.display = 'none';
+}
+
+function fillContractFromClient(clientName) {
+  // Find all deals for this client and collect unique contracts
+  const dealContracts = [...new Set(
+    DB.deals.filter(d => d.client === clientName && d.contract && d.contract !== '—').map(d => d.contract)
+  )];
+  // Also from DB.clients
+  const clientRec = DB.clients.find(c => c.name === clientName);
+  const allContracts = [...new Set([
+    ...(clientRec && clientRec.contract !== '—' ? [clientRec.contract] : []),
+    ...dealContracts
+  ])];
+  const ct = document.getElementById('f-contract');
+  const dd = document.getElementById('ac-f-contract');
+  if (!ct) return;
+  if (allContracts.length === 0) {
+    ct.value = '';
+    ct.placeholder = 'Введите номер договора...';
+    if (dd) dd.style.display = 'none';
+  } else if (allContracts.length === 1) {
+    ct.value = allContracts[0];
+    if (dd) dd.style.display = 'none';
+  } else {
+    // Multiple — show dropdown
+    ct.value = allContracts[0];
+    if (dd) {
+      dd.innerHTML = allContracts.map(c =>
+        '<div class="ac-item" data-value="' + c + '" data-inputid="f-contract" onclick="acStaticEl(this)">' + c + '</div>'
+      ).join('');
+      dd.style.display = 'block';
+    }
+  }
+}
+
+function acContractSuggest(query) {
+  // Suggest contracts matching current client
+  const clientName = document.getElementById('f-client')?.value;
+  if (!clientName) return;
+  const contracts = [...new Set(
+    DB.deals.filter(d => d.client === clientName && d.contract !== '—').map(d => d.contract)
+  )];
+  const dd = document.getElementById('ac-f-contract');
+  if (!dd || !contracts.length) { if(dd) dd.style.display='none'; return; }
+  const q = query.toLowerCase();
+  const matches = contracts.filter(c => c.toLowerCase().includes(q));
+  if (!matches.length) { dd.style.display = 'none'; return; }
+  dd.innerHTML = matches.map(c =>
+    '<div class="ac-item" data-value="' + c + '" data-inputid="f-contract" onclick="acStaticEl(this)">' + c + '</div>'
+  ).join('');
+  dd.style.display = 'block';
+}
+
+function acSelectEl(el) {
+  const inputId = el.dataset.inputid;
+  const name = el.dataset.name;
+  const source = el.dataset.source;
+  const id = el.dataset.id;
+  const inp = document.getElementById(inputId);
+  if (inp) inp.value = name;
+  const dd = document.getElementById('ac-' + inputId);
+  if (dd) dd.style.display = 'none';
+  if (source === 'vendors' && inputId === 'f-vendor') {
+    const v = DB.vendors.find(x => String(x.id) === String(id));
+    if (v) {
+      const tx = document.getElementById('f-tax_type');
+      if (tx) tx.value = v.tax_type;
+      const ct = document.getElementById('f-contract');
+      if (ct && ct.value === '') ct.value = v.contract;
+    }
+  }
+  if (source === 'clients' && inputId === 'f-client') {
+    fillContractFromClient(name);
+  }
+}
+
+function acStaticEl(el) {
+  const inputId = el.dataset.inputid;
+  const value = el.dataset.value;
+  const inp = document.getElementById(inputId);
+  if (inp) inp.value = value;
+  const dd = document.getElementById('ac-' + inputId);
+  if (dd) dd.style.display = 'none';
+}
+
+function acStaticSelect(inputId, value) {
+  const inp = document.getElementById(inputId);
+  if (inp) inp.value = value;
+  const dd = document.getElementById('ac-' + inputId);
+  if (dd) dd.style.display = 'none';
+}
+
+function fillContractFromClient(clientName) {
+  // Find all deals for this client and collect unique contracts
+  const dealContracts = [...new Set(
+    DB.deals.filter(d => d.client === clientName && d.contract && d.contract !== '—').map(d => d.contract)
+  )];
+  // Also from DB.clients
+  const clientRec = DB.clients.find(c => c.name === clientName);
+  const allContracts = [...new Set([
+    ...(clientRec && clientRec.contract !== '—' ? [clientRec.contract] : []),
+    ...dealContracts
+  ])];
+  const ct = document.getElementById('f-contract');
+  const dd = document.getElementById('ac-f-contract');
+  if (!ct) return;
+  if (allContracts.length === 0) {
+    ct.value = '';
+    ct.placeholder = 'Введите номер договора...';
+    if (dd) dd.style.display = 'none';
+  } else if (allContracts.length === 1) {
+    ct.value = allContracts[0];
+    if (dd) dd.style.display = 'none';
+  } else {
+    // Multiple — show dropdown
+    ct.value = allContracts[0];
+    if (dd) {
+      dd.innerHTML = allContracts.map(c =>
+        '<div class="ac-item" data-value="' + c + '" data-inputid="f-contract" onclick="acStaticEl(this)">' + c + '</div>'
+      ).join('');
+      dd.style.display = 'block';
+    }
+  }
+}
+
+function acContractSuggest(query) {
+  // Suggest contracts matching current client
+  const clientName = document.getElementById('f-client')?.value;
+  if (!clientName) return;
+  const contracts = [...new Set(
+    DB.deals.filter(d => d.client === clientName && d.contract !== '—').map(d => d.contract)
+  )];
+  const dd = document.getElementById('ac-f-contract');
+  if (!dd || !contracts.length) { if(dd) dd.style.display='none'; return; }
+  const q = query.toLowerCase();
+  const matches = contracts.filter(c => c.toLowerCase().includes(q));
+  if (!matches.length) { dd.style.display = 'none'; return; }
+  dd.innerHTML = matches.map(c =>
+    '<div class="ac-item" data-value="' + c + '" data-inputid="f-contract" onclick="acStaticEl(this)">' + c + '</div>'
+  ).join('');
+  dd.style.display = 'block';
+}
+
+// Close dropdowns on outside click
+document.addEventListener('click', e => {
+  if (!e.target.closest('.ac-wrap')) {
+    document.querySelectorAll('.ac-dropdown').forEach(d => d.style.display = 'none');
+  }
+});
+
+function saveModal() {
+  const u = USERS[currentUser];
+  if (currentModalType === 'deal') {
+    const clientName = document.getElementById('f-client')?.value || '—';
+    const vendorName = document.getElementById('f-vendor')?.value || '—';
+    // Auto-add to clients if new
+    if (clientName !== '—' && !DB.clients.find(c => c.name === clientName)) {
+      DB.clients.push({ id: Date.now(), name: clientName, legal:'—', inn:'—', kpp:'—', address:'—', contact_name:'—', contact_email:'—', contact_phone:'—', contract:'—', contract_date:'—', av_pct:'—', payment_terms:'—', credit_limit:'—', status:'Активный', manager: u.name, note:'Добавлен из Сделок' });
+    }
+    // Auto-add to vendors if new
+    if (vendorName !== '—' && !DB.vendors.find(v => v.name === vendorName)) {
+      const taxType = document.getElementById('f-tax_type')?.value || 'НДС';
+      DB.vendors.push({ id: Date.now()+1, name: vendorName, legal: vendorName, inn:'—', tax_type: taxType, payment_terms:'—', contact_name:'—', contact_email:'—', contact_phone:'—', contract:'—', status:'Активный', note:'Добавлен из Сделок', sk_pct:'—', manager: u.name });
+    }
+    const newRow = {
+      id: DB.deals.length + 1,
+      client:   clientName,
+      period:   document.getElementById('f-period')?.value || '—',
+      media:    document.getElementById('f-media')?.value || '—',
+      vendor:   vendorName,
+      service:  document.getElementById('f-service')?.value || '—',
+      budget_p: document.getElementById('f-budget_p')?.value || '—',
+      budget_f: '—',
+      tax_type: document.getElementById('f-tax_type')?.value || 'НДС',
+      av_pct:'—', av_sum:'—',
+      pay_plan: (() => { const v = document.getElementById('f-pay_plan')?.value; if (!v) return '—'; const [y,m,d] = v.split('-'); return d+'.'+m+'.'+y; })(),
+      pay_fact:'—',
+      contract: document.getElementById('f-contract')?.value || '—',
+      appendix: document.getElementById('f-appendix')?.value || '—',
+      act:'—', sk:'—', sk_date:'—', manager: u.name,
+    };
+    DB.deals.push(newRow);
+  } else if (currentModalType === 'payment_in') {
+    DB.payments_in.push({
+      id: DB.payments_in.length+1,
+      client:     document.getElementById('f-client')?.value || '—',
+      period:     document.getElementById('f-period')?.value || '—',
+      sum_plan:   document.getElementById('f-sum_plan')?.value || '0',
+      sum_fact:   '—', date_issue: document.getElementById('f-date_issue')?.value || '—',
+      date_pay:'—', status:'В работе', manager: u.name,
+    });
+  } else if (currentModalType === 'opex') {
+    DB.opex.push({
+      id: DB.opex.length+1,
+      category: document.getElementById('f-category')?.value || '—',
+      item:     document.getElementById('f-item')?.value || '—',
+      sum:      document.getElementById('f-sum')?.value || '0',
+      period:   document.getElementById('f-period')?.value || '—',
+      date_pay: (() => { const v = document.getElementById('f-date_pay')?.value; if (!v) return '—'; const [y,m,d] = v.split('-'); return d+'.'+m+'.'+y; })(),
+      vendor:   document.getElementById('f-vendor')?.value || '—',
+      status:'Ожидание', note:'',
+    });
+  } else if (currentModalType === 'client') {
+    DB.clients.push({
+      id: Date.now(), name: document.getElementById('f-name')?.value || '—',
+      legal: document.getElementById('f-legal')?.value || '—',
+      inn: document.getElementById('f-inn')?.value || '—', kpp:'—', address:'—',
+      contact_name: document.getElementById('f-contact_name')?.value || '—',
+      contact_email: document.getElementById('f-contact_email')?.value || '—',
+      contact_phone: document.getElementById('f-contact_phone')?.value || '—',
+      contract:'—', contract_date:'—',
+      av_pct: document.getElementById('f-av_pct')?.value || '—',
+      payment_terms: document.getElementById('f-payment_terms')?.value || '—',
+      credit_limit:'—', status:'Активный', manager: USERS[currentUser].name, note:''
+    });
+  } else if (currentModalType === 'vendor') {
+    DB.vendors.push({
+      id: Date.now(), name: document.getElementById('f-name')?.value || '—',
+      legal: document.getElementById('f-legal')?.value || '—',
+      inn: document.getElementById('f-inn')?.value || '—',
+      tax_type: document.getElementById('f-tax_type')?.value || 'НДС',
+      payment_terms: document.getElementById('f-payment_terms')?.value || '—',
+      contact_name: document.getElementById('f-contact_name')?.value || '—',
+      contact_email: document.getElementById('f-contact_email')?.value || '—',
+      contact_phone:'—', contract:'—', status:'Активный', note:'',
+      sk_pct: document.getElementById('f-sk_pct')?.value || '—',
+      manager: USERS[currentUser].name
+    });
+  }
+  document.getElementById('modal').style.display = 'none';
+  showTab(currentTab);
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function fmt(n) {
+  return Math.round(n).toLocaleString('ru-RU');
+}
+</script>
+
+
+</body></html>
